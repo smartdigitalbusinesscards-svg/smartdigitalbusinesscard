@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Smart Digital Business Cards by Greg | Tap-to-Save Contact + QR</title>
-  <meta name="description" content="Custom smart digital business cards with tap-to-call, tap-to-text, email, website, QR code, and Save Contact (vCard). No apps. Built fast. Works on iPhone & Android." />
+  <meta name="description" content="Tap-to-save digital business cards with QR + vCard. Call, text, email, website, and Save Contact in one tap. No apps, no monthly fees." />
 
   <style>
     :root{
@@ -30,24 +30,61 @@
         radial-gradient(860px 520px at 88% 35%, rgba(99,255,178,.12), transparent 58%),
         linear-gradient(160deg, var(--bgA), var(--bgB));
       min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    .water{
+      position:fixed; inset:-70px;
+      background:
+        radial-gradient(1200px 600px at 18% 18%, rgba(79,227,255,.10), transparent 60%),
+        radial-gradient(900px 520px at 82% 62%, rgba(99,255,178,.08), transparent 60%),
+        radial-gradient(700px 420px at 50% 90%, rgba(255,255,255,.055), transparent 60%);
+      filter: blur(18px);
+      animation: drift 12s ease-in-out infinite alternate;
+      pointer-events:none;
+      opacity:.92;
+    }
+    @keyframes drift{
+      from{ transform: translate3d(-12px,-10px,0) scale(1.02); }
+      to  { transform: translate3d(14px,12px,0) scale(1.06); }
     }
 
     .wrap{
       max-width:1100px;
       margin:0 auto;
       padding:26px 18px 46px;
+      position:relative;
+      z-index:1;
     }
 
-    header{ margin-bottom:16px; }
+    header{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-bottom:14px;
+    }
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-width:0;
+    }
+
     .kicker{
       letter-spacing:.14em;
       text-transform:uppercase;
       font-size:12px;
       color:var(--muted);
+      white-space:nowrap;
     }
+
     .title{
-      margin:6px 0 10px;
+      margin:0;
       font-size:30px;
+      line-height:1.1;
       letter-spacing:-0.02em;
     }
 
@@ -56,6 +93,7 @@
       gap:8px;
       flex-wrap:wrap;
     }
+
     .pill{
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.14);
@@ -63,104 +101,496 @@
       border-radius:999px;
       font-size:12px;
       color:var(--muted);
+      white-space:nowrap;
+    }
+
+    .pillGlow{
+      background: linear-gradient(90deg, rgba(79,227,255,.22), rgba(99,255,178,.16));
+      border:1px solid rgba(255,255,255,.18);
+      color: rgba(236,246,255,.90);
     }
 
     .grid{
       display:grid;
       grid-template-columns: 1.2fr .8fr;
       gap:18px;
+      margin-top:12px;
     }
-    @media (max-width:900px){
-      .grid{ grid-template-columns:1fr; }
+    @media (max-width: 920px){
+      .grid{ grid-template-columns: 1fr; }
     }
 
     .card{
       background: linear-gradient(180deg, var(--card), var(--card2));
       border:1px solid var(--border);
-      border-radius:22px;
+      border-radius: 22px;
       box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      overflow:hidden;
+    }
+
+    .hero{
       padding:22px;
     }
 
-    .hero h2{ margin-top:0; }
-    .hero p{ color:var(--muted); line-height:1.55; }
+    .hero h2{
+      margin:0 0 10px 0;
+      font-size:22px;
+      letter-spacing:-0.01em;
+    }
+
+    .hero p{
+      margin:0 0 10px 0;
+      color:var(--muted);
+      line-height:1.5;
+      font-size:14px;
+      max-width: 62ch;
+    }
+
+    .orderNote{
+      margin:10px 0 0 0;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.12);
+      color: rgba(236,246,255,.72);
+      font-size:13px;
+      line-height:1.45;
+    }
 
     .ctaGrid{
       display:grid;
+      grid-template-columns: repeat(2, 1fr);
       gap:12px;
-      margin-top:16px;
+      margin-top:14px;
+    }
+    @media (max-width: 420px){
+      .ctaGrid{ grid-template-columns: 1fr; }
     }
 
     .btn{
-      padding:14px;
-      border-radius:14px;
-      text-align:center;
-      font-weight:800;
-      text-decoration:none;
+      position:relative;
+      overflow:hidden;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.14);
       color:var(--text);
+      padding:12px 14px;
+      border-radius:14px;
+      text-decoration:none;
+      font-weight:850;
+      font-size:14px;
+      text-align:center;
+      -webkit-tap-highlight-color: transparent;
+      user-select:none;
+      transition:transform .12s ease, border-color .12s ease;
     }
+    .btn:hover{ transform:translateY(-1px); border-color: rgba(255,255,255,.22); }
 
     .btn.primary{
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      background: linear-gradient(90deg, rgba(79,227,255,.95), rgba(99,255,178,.85));
       color:#021018;
       border:none;
     }
 
+    .ripple{
+      position:absolute;
+      border-radius:999px;
+      transform: scale(0);
+      animation: ripple 600ms ease-out forwards;
+      background: rgba(255,255,255,.35);
+      pointer-events:none;
+      mix-blend-mode: screen;
+    }
+    @keyframes ripple{
+      to{ transform: scale(1); opacity:0; }
+    }
+
+    .side{
+      padding:16px;
+      display:grid;
+      gap:12px;
+    }
+
+    .mini{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
+    }
+
+    .mini h3{
+      margin:0 0 8px 0;
+      font-size:14px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color: rgba(236,246,255,.82);
+    }
+
+    .list{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    .li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+
+    .check{
+      width:22px;
+      height:22px;
+      border-radius:8px;
+      background: radial-gradient(circle at 30% 30%, #fff, rgba(79,227,255,.35));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 0 18px rgba(79,227,255,.18);
+      display:grid;
+      place-items:center;
+      flex:0 0 auto;
+      color:#06131b;
+      font-weight:900;
+    }
+
+    .sections{
+      margin-top:18px;
+      display:grid;
+      gap:18px;
+    }
+
+    .section{
+      padding:18px 18px;
+    }
+
+    .section h3{
+      margin:0 0 10px 0;
+      font-size:16px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color: rgba(236,246,255,.88);
+    }
+
+    .steps{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 920px){
+      .steps{ grid-template-columns: 1fr; }
+    }
+
+    .step{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
+    }
+
+    .step .num{
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color: rgba(236,246,255,.65);
+    }
+
+    .step strong{
+      display:block;
+      margin-top:6px;
+      margin-bottom:6px;
+      font-size:14px;
+      color: rgba(236,246,255,.92);
+    }
+
+    .step p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    .pricing{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 920px){
+      .pricing{ grid-template-columns: 1fr; }
+    }
+
+    .plan{
+      padding:16px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
+    }
+
+    .plan .name{
+      font-size:14px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color: rgba(236,246,255,.88);
+      margin:0 0 8px 0;
+    }
+
+    .price{
+      font-size:28px;
+      font-weight:950;
+      margin:0 0 8px 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .plan p{
+      margin:0 0 10px 0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    .plan ul{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.55;
+    }
+
+    .faq{
+      display:grid;
+      gap:10px;
+    }
+
+    details{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
+      border-radius:16px;
+      padding:12px 14px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:900;
+      color: rgba(236,246,255,.90);
+      list-style:none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    details p{
+      margin:10px 0 0 0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.5;
+    }
+
     footer{
-      margin-top:24px;
+      margin-top:18px;
+      color: rgba(236,246,255,.55);
       font-size:11px;
-      color:rgba(236,246,255,.55);
+      text-transform:uppercase;
+      letter-spacing:.10em;
       display:flex;
       justify-content:space-between;
       flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
     }
   </style>
 </head>
 
 <body>
-<div class="wrap">
-  <header>
-    <div class="kicker">Smart-Digital Business Cards by Greg</div>
-    <h1 class="title">Tap-to-Save Digital Business Cards (QR + vCard)</h1>
-    <div class="badgeRow">
-      <span class="pill">Works on iPhone + Android</span>
-      <span class="pill">No Apps</span>
-      <span class="pill">No Monthly Fees</span>
-      <span class="pill">Fast Turnaround</span>
-    </div>
-  </header>
+  <div class="water"></div>
 
-  <div class="grid">
-    <section class="card hero">
-      <h2>Stop Handing Out Paper That Gets Tossed — and Start Getting Saved!</h2>
-      <p>
-        I Build Clean, Mobile-First Digital Business Cards That Open From A Link Or QR Code —
-        Letting People Call, Text, Email, Or Save Your Contact Instantly With One Tap.
-      </p>
-
-      <div class="ctaGrid">
-        <a class="btn primary"
-           href="https://docs.google.com/forms/d/e/1FAIpQLScjGgKEpcVx545jTtZViM5bQJn6F1eIq7vpUp5I00Gdbmgrfg/viewform"
-           target="_blank">Request a Card</a>
-
-        <a class="btn" href="./demo.html">View Live Demo</a>
-        <a class="btn" href="sms:12097694750">Text Greg</a>
-        <a class="btn" href="tel:12097694750">Call Greg</a>
-        <a class="btn" href="mailto:Bucknergreg86@gmail.com">Email Greg</a>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="kicker">Smart-Digital Business Cards by Greg</div>
+        <h1 class="title">Tap-to-Save Digital Business Cards (QR + vCard)</h1>
       </div>
-    </section>
+
+      <div class="badgeRow">
+        <span class="pill pillGlow">Works on iPhone + Android</span>
+        <span class="pill">No Apps</span>
+        <span class="pill">No Monthly Fees</span>
+        <span class="pill">Fast Turnaround</span>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section class="card hero">
+        <h2>Stop Handing Out Paper That Gets Tossed — and Start Getting Saved!</h2>
+        <p>
+          I Build Clean, Mobile-First Digital Business Cards That Open From A Link Or QR Code —
+          Letting People Call, Text, Email, Or Save Your Contact Instantly With One Tap.
+        </p>
+
+        <div class="ctaGrid">
+          <a class="btn primary"
+             href="https://docs.google.com/forms/d/e/1FAIpQLScjGgKEpcVx545jTtZViM5bQJn6F1eIq7vpUp5I00Gdbmgrfg/viewform"
+             target="_blank" rel="noopener">
+             Request a Card
+          </a>
+
+          <a class="btn" href="./demo.html">View Live Demo</a>
+          <a class="btn" href="sms:12097694750">Text Greg</a>
+          <a class="btn" href="tel:12097694750">Call Greg</a>
+          <a class="btn" href="mailto:Bucknergreg86@gmail.com">Email Greg</a>
+        </div>
+
+        <div class="orderNote">
+          <strong>How to order:</strong> Tap <em>Request a Card</em>, Fill Out The Quick Form, And I’ll Follow Up To Confirm Details.
+        </div>
+      </section>
+
+      <aside class="card side">
+        <div class="mini">
+          <h3>What you get</h3>
+          <ul class="list">
+            <li class="li"><span class="check">✓</span>Tap-to-call, Tap-to-text, Email + Website Buttons</li>
+            <li class="li"><span class="check">✓</span><strong>Save Contact</strong> Button (vCard Download)</li>
+            <li class="li"><span class="check">✓</span>QR Code-Ready Link You Can Share Anywhere</li>
+            <li class="li"><span class="check">✓</span>Clean Design That Looks Premium On Mobile</li>
+            <li class="li"><span class="check">✓</span>Built And Owned By You (No Subscription Lock-In)</li>
+          </ul>
+        </div>
+
+        <div class="mini">
+          <h3>Perfect for</h3>
+          <ul class="list">
+            <li class="li"><span class="check">✓</span>Realtors & Mortgage Pros</li>
+            <li class="li"><span class="check">✓</span>Contractors (HVAC, Plumbing, Roofing, Etc.)</li>
+            <li class="li"><span class="check">✓</span>Sales Reps & Small Business Owners</li>
+            <li class="li"><span class="check">✓</span>Barbers, Trainers, Creatives & Freelancers</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="sections">
+      <section class="card section">
+        <h3>How it works</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="num">Step 1</div>
+            <strong>Send your info</strong>
+            <p>Use The Request Form To Submit Your Details And Preferences.</p>
+          </div>
+          <div class="step">
+            <div class="num">Step 2</div>
+            <strong>I build your card</strong>
+            <p>Mobile-First Layout With Buttons, Branding, And A Save-Contact (vCard) Feature.</p>
+          </div>
+          <div class="step">
+            <div class="num">Step 3</div>
+            <strong>You share one link</strong>
+            <p>Text It, QR It, Add It To Your Email Signature, Socials, Or Signage — Done.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card section">
+        <h3>Pricing</h3>
+        <div class="pricing">
+          <div class="plan">
+            <div class="name">Starter</div>
+            <div class="price">$9.99</div>
+            <p>Clean Digital Card With Action Buttons.</p>
+            <ul>
+              <li>Call / Text / Email / Website</li>
+              <li>Mobile-First Layout</li>
+              <li>Shareable Link</li>
+            </ul>
+          </div>
+
+          <div class="plan">
+            <div class="name">Pro</div>
+            <div class="price">$14.99</div>
+            <p>Best Value — Adds Save Contact + Polish.</p>
+            <ul>
+              <li>Everything In Starter</li>
+              <li><strong>Save Contact (vCard)</strong></li>
+              <li>Brand Color Matching</li>
+            </ul>
+          </div>
+
+          <div class="plan">
+            <div class="name">Team</div>
+            <div class="price">Custom</div>
+            <p>Multiple Reps, Consistent Branding.</p>
+            <ul>
+              <li>Multi-Rep Cards</li>
+              <li>Consistent Layout & Styles</li>
+              <li>Fast Rollout For Teams</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="card section">
+        <h3>FAQ</h3>
+        <div class="faq">
+          <details>
+            <summary>Do clients need an app?</summary>
+            <p>No. The Card Opens In Any Browser. The Save Contact Button Downloads A Standard vCard (.vcf).</p>
+          </details>
+
+          <details>
+            <summary>Can I use a QR code?</summary>
+            <p>Yep. Your Card Is A Normal Link — You Can Generate A QR Code For It And Use It Anywhere.</p>
+          </details>
+
+          <details>
+            <summary>Do I own it?</summary>
+            <p>Yes. It’s Your Page. No Subscriptions. No Platform Lock-In.</p>
+          </details>
+
+          <details>
+            <summary>How do I order?</summary>
+            <p>Tap <strong>Request a Card</strong>, Fill Out The Form, And I’ll Follow Up To Confirm Details.</p>
+          </details>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <div>© <span id="yr"></span> Smart-Digital Business Cards by Greg</div>
+      <div>Call/Text: (209) 769-4750 • Email: Bucknergreg86@gmail.com</div>
+    </footer>
   </div>
 
-  <footer>
-    <div>© <span id="yr"></span> Smart-Digital Business Cards by Greg</div>
-    <div>Call/Text: (209) 769-4750</div>
-  </footer>
-</div>
+  <script>
+    document.getElementById("yr").textContent = new Date().getFullYear();
 
-<script>
-  document.getElementById("yr").textContent = new Date().getFullYear();
-</script>
+    function addRipple(e){
+      const btn = e.currentTarget;
+      const rect = btn.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height) * 2;
+
+      const clientX = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+      const clientY = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
+
+      const x = (clientX - rect.left) - (size / 2);
+      const y = (clientY - rect.top) - (size / 2);
+
+      const ripple = document.createElement("span");
+      ripple.className = "ripple";
+      ripple.style.width = ripple.style.height = size + "px";
+      ripple.style.left = x + "px";
+      ripple.style.top = y + "px";
+
+      btn.appendChild(ripple);
+      ripple.addEventListener("animationend", () => ripple.remove(), { once:true });
+    }
+
+    document.querySelectorAll(".btn").forEach(btn=>{
+      btn.addEventListener("click", addRipple);
+      btn.addEventListener("touchstart", addRipple, { passive:true });
+    });
+  </script>
 </body>
 </html>
