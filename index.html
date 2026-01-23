@@ -18,7 +18,6 @@
       --accent:#4fe3ff;
       --accent2:#63ffb2;
       --shadow: 0 18px 55px rgba(0,0,0,.48);
-      --radius: 18px;
     }
 
     *{ box-sizing:border-box; }
@@ -31,23 +30,20 @@
         radial-gradient(860px 520px at 88% 35%, rgba(99,255,178,.12), transparent 58%),
         linear-gradient(160deg, var(--bgA), var(--bgB));
       min-height:100vh;
-      overflow-x:hidden;
     }
 
     .water{
       position:fixed; inset:-70px;
       background:
         radial-gradient(1200px 600px at 18% 18%, rgba(79,227,255,.10), transparent 60%),
-        radial-gradient(900px 520px at 82% 62%, rgba(99,255,178,.08), transparent 60%),
-        radial-gradient(700px 420px at 50% 90%, rgba(255,255,255,.055), transparent 60%);
+        radial-gradient(900px 520px at 82% 62%, rgba(99,255,178,.08), transparent 60%);
       filter: blur(18px);
       animation: drift 12s ease-in-out infinite alternate;
       pointer-events:none;
-      opacity:.92;
     }
     @keyframes drift{
-      from{ transform: translate3d(-12px,-10px,0) scale(1.02); }
-      to  { transform: translate3d(14px,12px,0) scale(1.06); }
+      from{ transform: translate3d(-12px,-10px,0); }
+      to{ transform: translate3d(14px,12px,0); }
     }
 
     .wrap{
@@ -58,34 +54,16 @@
       z-index:1;
     }
 
-    header{
-      display:flex;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-bottom:14px;
-    }
-
-    .brand{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      min-width:0;
-    }
-
+    header{ margin-bottom:16px; }
     .kicker{
       letter-spacing:.14em;
       text-transform:uppercase;
       font-size:12px;
       color:var(--muted);
-      white-space:nowrap;
     }
-
     .title{
-      margin:0;
+      margin:6px 0 10px;
       font-size:30px;
-      line-height:1.1;
       letter-spacing:-0.02em;
     }
 
@@ -94,7 +72,6 @@
       gap:8px;
       flex-wrap:wrap;
     }
-
     .pill{
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.14);
@@ -102,503 +79,125 @@
       border-radius:999px;
       font-size:12px;
       color:var(--muted);
-      white-space:nowrap;
-    }
-
-    .pillGlow{
-      background: linear-gradient(90deg, rgba(79,227,255,.22), rgba(99,255,178,.16));
-      border:1px solid rgba(255,255,255,.18);
-      color: rgba(236,246,255,.90);
     }
 
     .grid{
       display:grid;
       grid-template-columns: 1.2fr .8fr;
       gap:18px;
-      margin-top:12px;
     }
-    @media (max-width: 920px){
-      .grid{ grid-template-columns: 1fr; }
+    @media (max-width:900px){
+      .grid{ grid-template-columns:1fr; }
     }
 
     .card{
       background: linear-gradient(180deg, var(--card), var(--card2));
       border:1px solid var(--border);
-      border-radius: 22px;
+      border-radius:22px;
       box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
-      overflow:hidden;
-    }
-
-    .hero{
       padding:22px;
     }
 
-    .hero h2{
-      margin:0 0 10px 0;
-      font-size:22px;
-      letter-spacing:-0.01em;
-    }
-
-    .hero p{
-      margin:0 0 10px 0;
-      color:var(--muted);
-      line-height:1.5;
-      font-size:14px;
-      max-width: 62ch;
-    }
-
-    .orderNote{
-      margin:10px 0 0 0;
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.12);
-      color: rgba(236,246,255,.72);
-      font-size:13px;
-      line-height:1.45;
-    }
+    .hero h2{ margin-top:0; }
+    .hero p{ color:var(--muted); }
 
     .ctaGrid{
       display:grid;
-      grid-template-columns: repeat(2, 1fr);
       gap:12px;
-      margin-top:14px;
-    }
-    @media (max-width: 420px){
-      .ctaGrid{ grid-template-columns: 1fr; }
+      margin-top:16px;
     }
 
     .btn{
-      position:relative;
-      overflow:hidden;
+      padding:14px;
+      border-radius:14px;
+      text-align:center;
+      font-weight:800;
+      text-decoration:none;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.14);
       color:var(--text);
-      padding:12px 14px;
-      border-radius:14px;
-      text-decoration:none;
-      font-weight:850;
-      font-size:14px;
-      text-align:center;
-      -webkit-tap-highlight-color: transparent;
-      user-select:none;
-      transition:transform .12s ease, border-color .12s ease;
     }
-    .btn:hover{ transform:translateY(-1px); border-color: rgba(255,255,255,.22); }
 
     .btn.primary{
-      background: linear-gradient(90deg, rgba(79,227,255,.95), rgba(99,255,178,.85));
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
       color:#021018;
       border:none;
     }
 
-    .ripple{
-      position:absolute;
-      border-radius:999px;
-      transform: scale(0);
-      animation: ripple 600ms ease-out forwards;
-      background: rgba(255,255,255,.35);
-      pointer-events:none;
-      mix-blend-mode: screen;
-    }
-    @keyframes ripple{
-      to{ transform: scale(1); opacity:0; }
-    }
-
-    .side{
-      padding:16px;
-      display:grid;
-      gap:12px;
-    }
-
-    .mini{
-      padding:14px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.12);
-    }
-
-    .mini h3{
-      margin:0 0 8px 0;
-      font-size:14px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color: rgba(236,246,255,.82);
-    }
-
-    .list{
-      margin:0;
+    .side ul{
+      list-style:none;
       padding:0;
-      list-style:none;
-      display:grid;
-      gap:10px;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.45;
-    }
-
-    .li{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-    }
-
-    .check{
-      width:22px;
-      height:22px;
-      border-radius:8px;
-      background: radial-gradient(circle at 30% 30%, #fff, rgba(79,227,255,.35));
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow:0 0 18px rgba(79,227,255,.18);
-      display:grid;
-      place-items:center;
-      flex:0 0 auto;
-      color:#06131b;
-      font-weight:900;
-    }
-
-    .sections{
-      margin-top:18px;
-      display:grid;
-      gap:18px;
-    }
-
-    .section{
-      padding:18px 18px;
-    }
-
-    .section h3{
-      margin:0 0 10px 0;
-      font-size:16px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color: rgba(236,246,255,.88);
-    }
-
-    .steps{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-    }
-    @media (max-width: 920px){
-      .steps{ grid-template-columns: 1fr; }
-    }
-
-    .step{
-      padding:14px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.12);
-    }
-
-    .step .num{
-      font-size:12px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      color: rgba(236,246,255,.65);
-    }
-
-    .step strong{
-      display:block;
-      margin-top:6px;
-      margin-bottom:6px;
-      font-size:14px;
-      color: rgba(236,246,255,.92);
-    }
-
-    .step p{
       margin:0;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.45;
-    }
-
-    .pricing{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-    }
-    @media (max-width: 920px){
-      .pricing{ grid-template-columns: 1fr; }
-    }
-
-    .plan{
-      padding:16px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.12);
-    }
-
-    .plan .name{
-      font-size:14px;
-      font-weight:900;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color: rgba(236,246,255,.88);
-      margin:0 0 8px 0;
-    }
-
-    .price{
-      font-size:28px;
-      font-weight:950;
-      margin:0 0 8px 0;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-    }
-
-    .plan p{
-      margin:0 0 10px 0;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.45;
-    }
-
-    .plan ul{
-      margin:0;
-      padding-left:18px;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.55;
-    }
-
-    .faq{
       display:grid;
       gap:10px;
-    }
-
-    details{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.12);
-      border-radius:16px;
-      padding:12px 14px;
-    }
-    summary{
-      cursor:pointer;
-      font-weight:900;
-      color: rgba(236,246,255,.90);
-      list-style:none;
-    }
-    summary::-webkit-details-marker{ display:none; }
-    details p{
-      margin:10px 0 0 0;
       color:var(--muted);
-      font-size:14px;
-      line-height:1.5;
     }
 
     footer{
-      margin-top:18px;
-      color: rgba(236,246,255,.55);
+      margin-top:24px;
       font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.10em;
+      color:rgba(236,246,255,.55);
       display:flex;
       justify-content:space-between;
       flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
     }
   </style>
 </head>
 
 <body>
-  <div class="water"></div>
+<div class="water"></div>
 
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="kicker">Smart-Digital Business Cards by Greg</div>
-        <h1 class="title">Tap-to-Save Digital Business Cards (QR + vCard)</h1>
-      </div>
-
-      <div class="badgeRow">
-        <span class="pill pillGlow">Works on iPhone + Android</span>
-        <span class="pill">No Apps</span>
-        <span class="pill">No Monthly Fees</span>
-        <span class="pill">Fast Turnaround</span>
-      </div>
-    </header>
-
-    <div class="grid">
-      <section class="card hero">
-        <h2>Stop handing out paper. Start getting saved.</h2>
-        <p>
-          I build clean, mobile-first digital business cards that clients can open from a link or QR code —
-          then call, text, email, visit your website, or <strong>save your contact instantly</strong> with one tap.
-        </p>
-
-        <div class="ctaGrid">
-          <!-- PRIMARY CONVERSION -->
-          <a class="btn primary"
-             href="https://docs.google.com/forms/d/e/1FAIpQLScjGgKEpcVx545jTtZViM5bQJn6F1eIq7vpUp5I00Gdbmgrfg/viewform"
-             target="_blank" rel="noopener">
-             Request a Card
-          </a>
-
-          <!-- TRUST / PROOF -->
-          <a class="btn" href="./demo.html">View Live Demo</a>
-
-          <!-- CONTACT -->
-          <a class="btn" href="sms:12097694750">Text Greg</a>
-          <a class="btn" href="tel:12097694750">Call Greg</a>
-          <a class="btn" href="mailto:Bucknergreg86@gmail.com">Email Greg</a>
-          <a class="btn" href="https://selectsourcewater.com" target="_blank" rel="noopener">SelectSourceWater.com</a>
-        </div>
-
-        <div class="orderNote">
-          <strong>How to order:</strong> tap <em>Request a Card</em>, fill out the quick form, and I’ll follow up to confirm details and timing.
-        </div>
-      </section>
-
-      <aside class="card side">
-        <div class="mini">
-          <h3>What you get</h3>
-          <ul class="list">
-            <li class="li"><span class="check">✓</span>Tap-to-call, tap-to-text, email + website buttons</li>
-            <li class="li"><span class="check">✓</span><strong>Save Contact</strong> button (vCard download)</li>
-            <li class="li"><span class="check">✓</span>QR code-ready link you can share anywhere</li>
-            <li class="li"><span class="check">✓</span>Clean design that looks premium on mobile</li>
-            <li class="li"><span class="check">✓</span>Built and owned by you (no subscription lock-in)</li>
-          </ul>
-        </div>
-
-        <div class="mini">
-          <h3>Perfect for</h3>
-          <ul class="list">
-            <li class="li"><span class="check">✓</span>Realtors & mortgage pros</li>
-            <li class="li"><span class="check">✓</span>Contractors (HVAC, plumbing, roofing, etc.)</li>
-            <li class="li"><span class="check">✓</span>Sales reps & small business owners</li>
-            <li class="li"><span class="check">✓</span>Barbers, trainers, creatives & freelancers</li>
-          </ul>
-        </div>
-      </aside>
+<div class="wrap">
+  <header>
+    <div class="kicker">Smart-Digital Business Cards by Greg</div>
+    <h1 class="title">Tap-to-Save Digital Business Cards (QR + vCard)</h1>
+    <div class="badgeRow">
+      <span class="pill">Works on iPhone + Android</span>
+      <span class="pill">No Apps</span>
+      <span class="pill">No Monthly Fees</span>
+      <span class="pill">Fast Turnaround</span>
     </div>
+  </header>
 
-    <div class="sections">
-      <section class="card section">
-        <h3>How it works</h3>
-        <div class="steps">
-          <div class="step">
-            <div class="num">Step 1</div>
-            <strong>Send your info</strong>
-            <p>Use the request form to submit your details and preferences.</p>
-          </div>
-          <div class="step">
-            <div class="num">Step 2</div>
-            <strong>I build your card</strong>
-            <p>Mobile-first layout with buttons, branding, and a Save-Contact (vCard) feature.</p>
-          </div>
-          <div class="step">
-            <div class="num">Step 3</div>
-            <strong>You share one link</strong>
-            <p>Text it, QR it, add it to your email signature, socials, or signage — done.</p>
-          </div>
-        </div>
-      </section>
+  <div class="grid">
+    <section class="card hero">
+      <h2>Stop handing out paper. Start getting saved.</h2>
+      <p>
+        I build clean, mobile-first digital business cards clients can open from a link or QR code —
+        then call, text, email, or save your contact instantly with one tap.
+      </p>
 
-      <section class="card section">
-        <h3>Pricing</h3>
-        <div class="pricing">
-          <div class="plan">
-            <div class="name">Starter</div>
-            <div class="price">$49</div>
-            <p>Clean digital card with action buttons.</p>
-            <ul>
-              <li>Call / Text / Email / Website</li>
-              <li>Mobile-first layout</li>
-              <li>Shareable link</li>
-            </ul>
-          </div>
+      <div class="ctaGrid">
+        <a class="btn primary"
+           href="https://docs.google.com/forms/d/e/1FAIpQLScjGgKEpcVx545jTtZViM5bQJn6F1eIq7vpUp5I00Gdbmgrfg/viewform"
+           target="_blank">Request a Card</a>
 
-          <div class="plan">
-            <div class="name">Pro</div>
-            <div class="price">$79</div>
-            <p>Best value — adds Save Contact + polish.</p>
-            <ul>
-              <li>Everything in Starter</li>
-              <li><strong>Save Contact (vCard)</strong></li>
-              <li>Brand color matching</li>
-            </ul>
-          </div>
+        <a class="btn" href="./demo.html">View Live Demo</a>
+        <a class="btn" href="sms:12097694750">Text Greg</a>
+        <a class="btn" href="tel:12097694750">Call Greg</a>
+        <a class="btn" href="mailto:Bucknergreg86@gmail.com">Email Greg</a>
+      </div>
+    </section>
 
-          <div class="plan">
-            <div class="name">Team</div>
-            <div class="price">Custom</div>
-            <p>Multiple reps, consistent branding.</p>
-            <ul>
-              <li>Multi-rep cards</li>
-              <li>Consistent layout & styles</li>
-              <li>Fast rollout for teams</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section class="card section">
-        <h3>FAQ</h3>
-        <div class="faq">
-          <details>
-            <summary>Do clients need an app?</summary>
-            <p>No. The card opens in any browser. The Save Contact button downloads a standard vCard (.vcf) that iPhone and Android understand.</p>
-          </details>
-
-          <details>
-            <summary>Can I use a QR code?</summary>
-            <p>Yep. Your card is a normal link — you can generate a QR code for it and place it on signs, shirts, cards, vehicles, etc.</p>
-          </details>
-
-          <details>
-            <summary>Do I own it?</summary>
-            <p>Yes. It’s your page. No subscriptions. No platform lock-in. I build it, you keep it.</p>
-          </details>
-
-          <details>
-            <summary>How do I order?</summary>
-            <p>Tap <strong>Request a Card</strong> at the top, fill out the form, and I’ll follow up to confirm details and timing.</p>
-          </details>
-        </div>
-      </section>
-    </div>
-
-    <footer>
-      <div>© <span id="yr"></span> Smart-Digital Business Cards by Greg</div>
-      <div>Call/Text: (209) 769-4750 • Email: Bucknergreg86@gmail.com</div>
-    </footer>
+    <aside class="card side">
+      <ul>
+        <li>✓ Tap-to-call, text, email & website</li>
+        <li>✓ Save Contact (vCard)</li>
+        <li>✓ QR code ready</li>
+        <li>✓ Clean premium mobile design</li>
+        <li>✓ No subscriptions</li>
+      </ul>
+    </aside>
   </div>
 
-  <script>
-    // year
-    document.getElementById("yr").textContent = new Date().getFullYear();
+  <footer>
+    <div>© <span id="yr"></span> Smart-Digital Business Cards by Greg</div>
+    <div>Call/Text: (209) 769-4750</div>
+  </footer>
+</div>
 
-    // ripple effect
-    function addRipple(e){
-      const btn = e.currentTarget;
-      const rect = btn.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height) * 2;
-
-      const clientX = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
-      const clientY = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
-
-      const x = (clientX - rect.left) - (size / 2);
-      const y = (clientY - rect.top) - (size / 2);
-
-      const ripple = document.createElement("span");
-      ripple.className = "ripple";
-      ripple.style.width = ripple.style.height = size + "px";
-      ripple.style.left = x + "px";
-      ripple.style.top = y + "px";
-
-      btn.appendChild(ripple);
-      ripple.addEventListener("animationend", () => ripple.remove(), { once:true });
-    }
-
-    document.querySelectorAll(".btn").forEach(btn=>{
-      btn.addEventListener("click", addRipple);
-      btn.addEventListener("touchstart", addRipple, { passive:true });
-    });
-  </script>
+<script>
+  document.getElementById("yr").textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
