@@ -137,6 +137,17 @@ body{
   font-size:14px;
 }
 
+/* make detail rows clickable */
+.detail a{
+  color:var(--text);
+  text-decoration:none;
+  font-weight:750;
+}
+.detail a span{
+  color:var(--muted);
+  font-weight:650;
+}
+
 /* CTA GRID */
 .ctaRow{
   padding:0 20px 20px;
@@ -155,6 +166,8 @@ body{
   font-weight:800;
   font-size:14px;
   text-align:center;
+  cursor:pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn.primary{
@@ -195,17 +208,28 @@ footer{
     <div class="divider"></div>
 
     <section class="mid">
-      <div class="detail">📞 (555) 123-4567</div>
-      <div class="detail">✉️ jordan@samplebusiness.com</div>
-      <div class="detail">🌐 www.samplebusiness.com</div>
+      <div class="detail">
+        📞 <a href="tel:+15551234567">Call <span>(555) 123-4567</span></a>
+      </div>
+      <div class="detail">
+        ✉️ <a href="mailto:jordan@samplebusiness.com">Email <span>jordan@samplebusiness.com</span></a>
+      </div>
+      <div class="detail">
+        🌐 <a href="https://www.samplebusiness.com" target="_blank" rel="noopener">Visit <span>samplebusiness.com</span></a>
+      </div>
     </section>
 
     <section class="ctaRow">
-      <a class="btn primary" href="#">Call</a>
-      <a class="btn" href="#">Text</a>
-      <a class="btn" href="#">Email</a>
-      <a class="btn" href="#">Website</a>
-      <button class="btn save" id="saveBtn">Save Contact</button>
+      <a class="btn primary" href="tel:+15551234567">Call</a>
+
+      <!-- SMS: works on phones; on desktop it may open nothing (normal) -->
+      <a class="btn" href="sms:+15551234567">Text</a>
+
+      <a class="btn" href="mailto:jordan@samplebusiness.com">Email</a>
+
+      <a class="btn" href="https://www.samplebusiness.com" target="_blank" rel="noopener">Website</a>
+
+      <button class="btn save" id="saveBtn" type="button">Save Contact</button>
     </section>
 
     <footer>
