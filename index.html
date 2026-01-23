@@ -32,26 +32,10 @@
       min-height:100vh;
     }
 
-    .water{
-      position:fixed; inset:-70px;
-      background:
-        radial-gradient(1200px 600px at 18% 18%, rgba(79,227,255,.10), transparent 60%),
-        radial-gradient(900px 520px at 82% 62%, rgba(99,255,178,.08), transparent 60%);
-      filter: blur(18px);
-      animation: drift 12s ease-in-out infinite alternate;
-      pointer-events:none;
-    }
-    @keyframes drift{
-      from{ transform: translate3d(-12px,-10px,0); }
-      to{ transform: translate3d(14px,12px,0); }
-    }
-
     .wrap{
       max-width:1100px;
       margin:0 auto;
       padding:26px 18px 46px;
-      position:relative;
-      z-index:1;
     }
 
     header{ margin-bottom:16px; }
@@ -99,7 +83,7 @@
     }
 
     .hero h2{ margin-top:0; }
-    .hero p{ color:var(--muted); }
+    .hero p{ color:var(--muted); line-height:1.55; }
 
     .ctaGrid{
       display:grid;
@@ -124,49 +108,6 @@
       border:none;
     }
 
-    .side ul{
-      list-style:none;
-      padding:0;
-      margin:0;
-      display:grid;
-      gap:10px;
-      color:var(--muted);
-    }
-
-    .pricing{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-      margin-top:18px;
-    }
-    @media (max-width:900px){
-      .pricing{ grid-template-columns:1fr; }
-    }
-
-    .plan{
-      padding:16px;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.12);
-    }
-
-    .plan .name{
-      font-size:14px;
-      font-weight:900;
-      text-transform:uppercase;
-      margin-bottom:6px;
-    }
-
-    .price{
-      font-size:26px;
-      font-weight:950;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      margin-bottom:6px;
-    }
-
     footer{
       margin-top:24px;
       font-size:11px;
@@ -179,8 +120,6 @@
 </head>
 
 <body>
-<div class="water"></div>
-
 <div class="wrap">
   <header>
     <div class="kicker">Smart-Digital Business Cards by Greg</div>
@@ -195,10 +134,10 @@
 
   <div class="grid">
     <section class="card hero">
-      <h2>Stop handing out paper. Start getting saved.</h2>
+      <h2>Stop Handing Out Paper That Gets Tossed — and Start Getting Saved!</h2>
       <p>
-        I build clean, mobile-first digital business cards clients can open from a link or QR code —
-        then call, text, email, or save your contact instantly with one tap.
+        I Build Clean, Mobile-First Digital Business Cards That Open From A Link Or QR Code —
+        Letting People Call, Text, Email, Or Save Your Contact Instantly With One Tap.
       </p>
 
       <div class="ctaGrid">
@@ -212,37 +151,7 @@
         <a class="btn" href="mailto:Bucknergreg86@gmail.com">Email Greg</a>
       </div>
     </section>
-
-    <aside class="card side">
-      <ul>
-        <li>✓ Tap-to-call, text, email & website</li>
-        <li>✓ Save Contact (vCard)</li>
-        <li>✓ QR code ready</li>
-        <li>✓ Clean premium mobile design</li>
-        <li>✓ No subscriptions</li>
-      </ul>
-    </aside>
   </div>
-
-  <section class="card pricing">
-    <div class="plan">
-      <div class="name">Starter</div>
-      <div class="price">$9.99</div>
-      <p>Clean digital card with action buttons.</p>
-    </div>
-
-    <div class="plan">
-      <div class="name">Pro</div>
-      <div class="price">$14.99</div>
-      <p>Includes Save Contact (vCard) + polish.</p>
-    </div>
-
-    <div class="plan">
-      <div class="name">Team</div>
-      <div class="price">Custom</div>
-      <p>Multi-rep cards with consistent branding.</p>
-    </div>
-  </section>
 
   <footer>
     <div>© <span id="yr"></span> Smart-Digital Business Cards by Greg</div>
