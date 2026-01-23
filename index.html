@@ -133,6 +133,40 @@
       color:var(--muted);
     }
 
+    .pricing{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:18px;
+    }
+    @media (max-width:900px){
+      .pricing{ grid-template-columns:1fr; }
+    }
+
+    .plan{
+      padding:16px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
+    }
+
+    .plan .name{
+      font-size:14px;
+      font-weight:900;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+
+    .price{
+      font-size:26px;
+      font-weight:950;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      margin-bottom:6px;
+    }
+
     footer{
       margin-top:24px;
       font-size:11px;
@@ -189,6 +223,26 @@
       </ul>
     </aside>
   </div>
+
+  <section class="card pricing">
+    <div class="plan">
+      <div class="name">Starter</div>
+      <div class="price">$9.99</div>
+      <p>Clean digital card with action buttons.</p>
+    </div>
+
+    <div class="plan">
+      <div class="name">Pro</div>
+      <div class="price">$14.99</div>
+      <p>Includes Save Contact (vCard) + polish.</p>
+    </div>
+
+    <div class="plan">
+      <div class="name">Team</div>
+      <div class="price">Custom</div>
+      <p>Multi-rep cards with consistent branding.</p>
+    </div>
+  </section>
 
   <footer>
     <div>© <span id="yr"></span> Smart-Digital Business Cards by Greg</div>
