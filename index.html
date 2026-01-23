@@ -64,7 +64,7 @@
       gap:14px;
       flex-wrap:wrap;
       align-items:center;
-      margin-bottom:18px;
+      margin-bottom:14px;
     }
 
     .brand{
@@ -115,7 +115,7 @@
       display:grid;
       grid-template-columns: 1.2fr .8fr;
       gap:18px;
-      margin-top:14px;
+      margin-top:12px;
     }
     @media (max-width: 920px){
       .grid{ grid-template-columns: 1fr; }
@@ -141,18 +141,29 @@
     }
 
     .hero p{
-      margin:0 0 14px 0;
+      margin:0 0 10px 0;
       color:var(--muted);
       line-height:1.5;
       font-size:14px;
       max-width: 62ch;
     }
 
+    .orderNote{
+      margin:10px 0 0 0;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.12);
+      color: rgba(236,246,255,.72);
+      font-size:13px;
+      line-height:1.45;
+    }
+
     .ctaGrid{
       display:grid;
       grid-template-columns: repeat(2, 1fr);
       gap:12px;
-      margin-top:16px;
+      margin-top:14px;
     }
     @media (max-width: 420px){
       .ctaGrid{ grid-template-columns: 1fr; }
@@ -390,12 +401,6 @@
       gap:10px;
       align-items:center;
     }
-
-    .note{
-      margin-top:10px;
-      color: rgba(236,246,255,.60);
-      font-size:12px;
-    }
   </style>
 </head>
 
@@ -426,18 +431,25 @@
         </p>
 
         <div class="ctaGrid">
-          <!-- LIVE DEMO: you’ll create demo.html next -->
-          <a class="btn primary" href="./demo.html">View Live Demo</a>
+          <!-- PRIMARY CONVERSION -->
+          <a class="btn primary"
+             href="https://docs.google.com/forms/d/e/1FAIpQLScjGgKEpcVx545jTtZViM5bQJn6F1eIq7vpUp5I00Gdbmgrfg/viewform"
+             target="_blank" rel="noopener">
+             Request a Card
+          </a>
+
+          <!-- TRUST / PROOF -->
+          <a class="btn" href="./demo.html">View Live Demo</a>
+
+          <!-- CONTACT -->
           <a class="btn" href="sms:12097694750">Text Greg</a>
           <a class="btn" href="tel:12097694750">Call Greg</a>
           <a class="btn" href="mailto:Bucknergreg86@gmail.com">Email Greg</a>
           <a class="btn" href="https://selectsourcewater.com" target="_blank" rel="noopener">SelectSourceWater.com</a>
-          <!-- Optional: if you later host your own personal card page -->
-          <a class="btn" href="./card.html">My Card</a>
         </div>
 
-        <div class="note">
-          Want one for your team? I can build matching cards for multiple reps with consistent branding.
+        <div class="orderNote">
+          <strong>How to order:</strong> tap <em>Request a Card</em>, fill out the quick form, and I’ll follow up to confirm details and timing.
         </div>
       </section>
 
@@ -472,7 +484,7 @@
           <div class="step">
             <div class="num">Step 1</div>
             <strong>Send your info</strong>
-            <p>Name, phone, email, website, logo/colors, and a photo (optional).</p>
+            <p>Use the request form to submit your details and preferences.</p>
           </div>
           <div class="step">
             <div class="num">Step 2</div>
@@ -523,7 +535,6 @@
             </ul>
           </div>
         </div>
-        <div class="note">Pricing can be edited anytime — this is just a strong starting structure.</div>
       </section>
 
       <section class="card section">
@@ -546,7 +557,7 @@
 
           <details>
             <summary>How do I order?</summary>
-            <p>Text me what you want included (name, phone, email, website, photo/logo). I’ll confirm details and build it.</p>
+            <p>Tap <strong>Request a Card</strong> at the top, fill out the form, and I’ll follow up to confirm details and timing.</p>
           </details>
         </div>
       </section>
