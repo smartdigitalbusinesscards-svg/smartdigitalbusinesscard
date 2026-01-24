@@ -307,7 +307,32 @@
       gap: 10px;
       padding: 12px;
     }
+/* Mobile: NOT a slider — reflows into clean rows */
+@media (max-width: 520px){
+  .compareGrid{
+    grid-template-columns: 1fr;
+  }
 
+  .compareGrid .spacer{ display:none; }
+
+  .compareGrid .planRow{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .compareGrid .featRow{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .compareGrid .statusRow{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+}
     .planPill{
       font-size: 12px;
       padding: 8px 10px;
@@ -497,9 +522,13 @@
           <div class="compareGrid">
             <!-- Desktop header row -->
             <div class="spacer"></div>
-            <div class="planPill">Starter</div>
-            <div class="planPill pro">Pro</div>
+<div class="planPill">Starter</div>
+<div class="planPill pro">Pro</div>
 
+<div class="planRow">
+  <div class="planPill">Starter</div>
+  <div class="planPill pro">Pro</div>
+</div>
             <!-- Feature 1 -->
             <div class="featCell">
               <div class="icon check" aria-hidden="true">
