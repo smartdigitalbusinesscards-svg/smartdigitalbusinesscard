@@ -7,272 +7,225 @@
 
   <style>
     :root{
-      /* Deeper + more premium teal base */
-      --bgA:#031218;
-      --bgB:#072c3a;
+      --bgA:#04151f;
+      --bgB:#0a2f3f;
 
-      /* Brighter, cleaner accents */
-      --accent:#41f3ff;     /* neon cyan */
-      --accent2:#46ffb2;    /* neon mint */
-      --accent3:#7cf7ff;    /* lighter cyan highlight */
-
-      /* Status colors */
-      --good:#42ffb3;
-      --bad:#ff5b6e;
-
-      /* Glass surfaces */
-      --card: rgba(255,255,255,.10);
-      --card2: rgba(255,255,255,.06);
-      --border: rgba(255,255,255,.18);
+      --cardA: rgba(255,255,255,0.10);
+      --cardB: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.16);
 
       --text:#ecf6ff;
-      --muted: rgba(236,246,255,.78);
-      --soft: rgba(236,246,255,.62);
+      --muted: rgba(236,246,255,0.74);
 
-      --shadow: 0 18px 55px rgba(0,0,0,.58);
-      --shadow2: 0 14px 34px rgba(0,0,0,.40);
+      --accent:#4fe3ff;
+      --accent2:#63ffb2;
+      --danger:#ff5c7a;
 
-      --deep:#021018;
+      --shadow: 0 18px 55px rgba(0,0,0,.48);
+      --softShadow: 0 10px 28px rgba(0,0,0,.28);
+
+      --radius:22px;
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
-
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
+      color:var(--text);
       background:
-        radial-gradient(1050px 620px at 10% 10%, rgba(65,243,255,.24), transparent 60%),
-        radial-gradient(980px 620px at 92% 38%, rgba(70,255,178,.18), transparent 60%),
-        radial-gradient(780px 560px at 50% 95%, rgba(255,255,255,.08), transparent 62%),
+        radial-gradient(900px 520px at 12% 10%, rgba(79,227,255,.24), transparent 58%),
+        radial-gradient(860px 520px at 88% 35%, rgba(99,255,178,.18), transparent 58%),
         linear-gradient(160deg, var(--bgA), var(--bgB));
+      min-height:100vh;
       overflow-x:hidden;
     }
 
-    /* premium moving glow */
+    /* animated glow */
     .water{
-      position:fixed; inset:-90px;
+      position:fixed; inset:-80px;
       background:
-        radial-gradient(1200px 640px at 18% 18%, rgba(65,243,255,.16), transparent 60%),
-        radial-gradient(980px 620px at 84% 64%, rgba(70,255,178,.14), transparent 60%),
-        radial-gradient(760px 520px at 52% 92%, rgba(255,255,255,.07), transparent 60%);
-      filter: blur(16px);
-      animation: drift 12s ease-in-out infinite alternate;
+        radial-gradient(1200px 600px at 16% 18%, rgba(79,227,255,.15), transparent 60%),
+        radial-gradient(980px 560px at 84% 62%, rgba(99,255,178,.12), transparent 60%),
+        radial-gradient(700px 420px at 50% 90%, rgba(255,255,255,.06), transparent 60%);
+      filter: blur(18px);
+      animation: drift 11s ease-in-out infinite alternate;
       pointer-events:none;
       opacity:.95;
-      z-index:0;
     }
     @keyframes drift{
-      from{ transform: translate3d(-12px,-10px,0) scale(1.02); }
-      to{ transform: translate3d(14px,12px,0) scale(1.06); }
+      from{ transform: translate3d(-10px,-10px,0) scale(1.02); }
+      to{ transform: translate3d(12px,12px,0) scale(1.06); }
     }
 
     .wrap{
+      max-width:860px;
+      margin:0 auto;
+      padding:28px 16px 44px;
       position:relative;
       z-index:1;
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 26px 18px 64px;
       display:flex;
       justify-content:center;
     }
 
     .card{
       width:100%;
-      background: linear-gradient(180deg, var(--card), var(--card2));
+      background: linear-gradient(180deg, var(--cardA), var(--cardB));
       border:1px solid var(--border);
-      border-radius: 26px;
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
       backdrop-filter: blur(12px);
       overflow:hidden;
     }
 
-    .divider{
-      height:1px;
-      background: rgba(255,255,255,.10);
-      margin: 0 22px;
+    .inner{
+      padding:22px 18px 20px;
     }
 
-    /* ---------- HEADER ---------- */
-    header.top{
-      padding: 22px 22px 14px;
-    }
-
-    .kicker{
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      font-size: 11px;
-      color: rgba(236,246,255,.62);
-      margin: 0 0 10px;
+    /* top mini label */
+    .brandTop{
       text-align:center;
+      font-size:11px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color: rgba(236,246,255,.62);
+      margin:2px 0 12px;
+      padding: 2px 0;
     }
 
-    /* INTENTIONAL two-line headline: use <span class="line"> */
-    .headlineWrap{
-      max-width: 560px;
-      margin: 0 auto;
-      padding: 0 2px;
-    }
-
-    .headline{
-      margin: 0 0 12px;
-      font-weight: 950;
-      font-size: clamp(26px, 5.1vw, 40px);
-      line-height: 1.06;
-      letter-spacing: -0.015em;
-      text-align: left;
-      text-wrap: balance;
-    }
-    .headline .line{
-      display:block;
-    }
-
-    .pills{
-      margin: 10px auto 0;
+    /* headline area */
+    .hero{
+      padding: 0 4px 10px;
       display:flex;
+      justify-content:center;
+    }
+
+    /* This makes the headline feel less “poster centered”
+       while still looking clean on mobile */
+    .heroBox{
+      width: min(560px, 100%);
+      text-align:left;
+      margin:0 auto;
+    }
+
+    h1{
+      margin:0 0 14px;
+      line-height:1.06;
+      font-weight: 950;
+      font-size: 30px;
+      letter-spacing: -0.02em;
+    }
+    h1 .line{ display:block; }
+
+    /* pills */
+    .pills{
+      display:flex;
+      flex-wrap:wrap;
       gap:10px;
       justify-content:center;
-      flex-wrap:wrap;
+      margin: 0 0 14px;
     }
-
     .pill{
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.16);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.14);
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:12px;
       color: rgba(236,246,255,.78);
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      line-height: 1;
-      box-shadow: 0 8px 20px rgba(0,0,0,.22) inset;
+      box-shadow: 0 8px 20px rgba(0,0,0,.20);
+      backdrop-filter: blur(10px);
     }
 
-    /* ---------- SELL BOX + CTAs ---------- */
-    .sell{
-      padding: 16px 22px 18px;
-      display:grid;
-      gap: 12px;
-    }
-
-    .sellBox{
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.16);
+    /* feature blurb card */
+    .blurb{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.12);
       border-radius: 18px;
-      padding: 16px 16px 14px;
-      box-shadow: var(--shadow2);
-      position:relative;
+      padding: 16px 14px;
+      box-shadow: var(--softShadow);
+      margin: 10px 0 14px;
     }
-
-    .sellBox::before{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      border-radius: 18px;
-      pointer-events:none;
-      background:
-        radial-gradient(520px 260px at 20% 20%, rgba(65,243,255,.14), transparent 60%),
-        radial-gradient(520px 260px at 85% 70%, rgba(70,255,178,.10), transparent 62%);
-      opacity:.9;
-      filter: blur(10px);
-    }
-
-    .sellTitle, .sellDesc { position:relative; z-index:1; }
-
-    .sellTitle{
-      margin: 0 0 8px;
-      font-weight: 950;
+    .blurb h2{
+      margin:0 0 10px;
       font-size: 18px;
-      line-height: 1.15;
-      text-wrap: balance;
+      line-height:1.16;
+      font-weight: 950;
+      letter-spacing: -0.01em;
     }
-
-    .sellDesc{
-      margin: 0;
-      color: rgba(236,246,255,.76);
+    .blurb p{
+      margin:0;
+      color: rgba(236,246,255,.72);
+      line-height:1.45;
       font-size: 13.5px;
-      line-height: 1.45;
     }
 
-    .ctaStack{
+    /* CTA */
+    .cta{
       display:grid;
-      gap: 12px;
-      margin-top: 4px;
+      gap: 10px;
+      margin: 14px 0 8px;
     }
 
     .btn{
-      appearance:none;
-      border:1px solid rgba(255,255,255,.20);
-      background: rgba(0,0,0,.16);
-      color: var(--text);
-      padding: 14px 14px;
-      border-radius: 16px;
+      display:block;
+      width:100%;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.14);
+      color:var(--text);
+      padding: 13px 14px;
+      border-radius: 14px;
       text-decoration:none;
-      font-weight: 950;
+      font-weight: 900;
       font-size: 14px;
       text-align:center;
-      cursor:pointer;
-      transition: transform .12s ease, filter .12s ease, box-shadow .12s ease, border-color .12s ease;
-      user-select:none;
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+      transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
+      will-change: transform;
     }
+    .btn:active{ transform: translateY(1px) scale(.995); }
 
-    .btn:active{ transform: translateY(1px); }
-
-    .btn:hover{
-      border-color: rgba(255,255,255,.30);
-      box-shadow: 0 14px 34px rgba(0,0,0,.36);
-      filter: brightness(1.05);
-    }
-
-    /* HERO Starter button */
+    /* HERO Starter */
     .btn.hero{
-      border:none;
-      color: var(--deep);
-      background: linear-gradient(90deg, rgba(65,243,255,1), rgba(70,255,178,.92));
+      background: linear-gradient(90deg, rgba(79,227,255,.98), rgba(99,255,178,.90));
+      color:#021018;
+      border: none;
+      padding: 15px 14px;
+      font-size: 15px;
       box-shadow:
-        0 20px 44px rgba(0,0,0,.42),
-        0 0 0 1px rgba(70,255,178,.30),
-        0 0 52px rgba(65,243,255,.28);
-      position:relative;
-      overflow:hidden;
+        0 18px 40px rgba(0,0,0,.28),
+        0 0 0 1px rgba(255,255,255,.12) inset;
+    }
+    .btn.hero:hover{ filter: brightness(1.03); }
+
+    /* Pro as upgrade */
+    .btn.upgrade{
+      background: rgba(0,0,0,.16);
+      border: 1px solid rgba(79,227,255,.18);
     }
 
-    .btn.hero::after{
-      content:"";
-      position:absolute;
-      inset:-70px;
-      background:
-        radial-gradient(440px 280px at 22% 35%, rgba(255,255,255,.52), transparent 62%),
-        radial-gradient(340px 260px at 80% 62%, rgba(255,255,255,.22), transparent 64%);
-      opacity:.52;
-      filter: blur(10px);
-      transform: translateX(-10px);
-      pointer-events:none;
-    }
-    .btn.hero span{ position:relative; z-index:1; }
-
-    .btn.pro{
-      background: rgba(0,0,0,.14);
+    .btn.secondary{
+      background: rgba(0,0,0,.12);
     }
 
-    .subnote{
-      margin: 0;
-      font-size: 11.5px;
+    .smallNote{
+      margin: 10px 2px 10px;
+      font-size: 12px;
       color: rgba(236,246,255,.62);
       text-align:center;
       line-height: 1.35;
     }
 
-    /* ---------- Starter vs Pro (clean + calming) ---------- */
-    .compareTop{
-      margin-top: 8px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.14);
+    /* Comparison accordion (moved right under CTA + note) */
+    .compareWrap{
+      margin: 10px 0 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.12);
       border-radius: 18px;
-      overflow:hidden;
-      box-shadow: 0 14px 34px rgba(0,0,0,.28);
+      box-shadow: var(--softShadow);
+      overflow:hidden; /* prevents any cut-off */
     }
 
-    details{ border-radius: 18px; }
+    details{ width:100%; }
     summary{
       list-style:none;
       cursor:pointer;
@@ -280,7 +233,7 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap: 12px;
+      gap: 10px;
       user-select:none;
     }
     summary::-webkit-details-marker{ display:none; }
@@ -289,40 +242,63 @@
       display:flex;
       align-items:center;
       gap: 10px;
-      min-width: 0;
+      min-width:0;
     }
-
     .caret{
-      width: 30px;
-      height: 30px;
-      border-radius: 999px;
+      width:26px;
+      height:26px;
+      border-radius:10px;
       display:grid;
       place-items:center;
-      border:1px solid rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.16);
-      color: rgba(236,246,255,.86);
-      box-shadow: 0 0 22px rgba(65,243,255,.14);
+      color: rgba(236,246,255,.75);
+      font-weight:900;
+      transform: rotate(0deg);
       transition: transform .18s ease;
-      flex: 0 0 30px;
+      flex: 0 0 auto;
     }
     details[open] .caret{ transform: rotate(90deg); }
 
     .sumText{ min-width:0; }
     .sumTitle{
+      margin:0;
       font-weight: 950;
-      margin: 0;
-      font-size: 14px;
-      line-height: 1.2;
+      font-size: 13.5px;
+      letter-spacing: -0.01em;
     }
     .sumHint{
       margin: 2px 0 0;
-      color: rgba(236,246,255,.64);
       font-size: 12px;
-      line-height: 1.25;
+      color: rgba(236,246,255,.62);
     }
 
     .cmpBody{
       padding: 0 14px 14px;
+    }
+
+    .colHead{
+      display:grid;
+      grid-template-columns: 1fr auto auto;
+      gap:10px;
+      align-items:center;
+      padding: 0 0 10px;
+    }
+    .colPill{
+      justify-self:center;
+      padding: 7px 12px;
+      border-radius:999px;
+      font-size: 11px;
+      font-weight: 950;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.12);
+      color: rgba(236,246,255,.78);
+      min-width: 92px;
+      text-align:center;
+      box-shadow: 0 10px 24px rgba(0,0,0,.20);
+    }
+
+    .cmpGrid{
       display:grid;
       gap: 10px;
     }
@@ -332,162 +308,165 @@
       grid-template-columns: 1fr auto auto;
       gap: 10px;
       align-items:center;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.12);
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.10);
     }
 
     .feat{
-      color: rgba(236,246,255,.80);
       font-size: 12.5px;
+      color: rgba(236,246,255,.78);
       line-height: 1.25;
-      font-weight: 750;
+      padding-right: 2px;
     }
 
     .status{
-      display:flex;
+      display:inline-flex;
       align-items:center;
-      gap: 8px;
-      padding: 7px 10px;
+      justify-content:center;
+      gap: 7px;
+      padding: 8px 10px;
       border-radius: 999px;
       font-size: 11px;
       font-weight: 950;
-      white-space:nowrap;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.12);
-      color: rgba(236,246,255,.78);
-      min-width: 132px;
-      justify-content:center;
-    }
-
-    .status.good{
-      border: 1px solid rgba(70,255,178,.30);
-      background: linear-gradient(180deg, rgba(70,255,178,.22), rgba(0,0,0,.12));
-      box-shadow: 0 0 22px rgba(70,255,178,.16);
-      color: rgba(236,246,255,.90);
-    }
-
-    .status.bad{
-      border: 1px solid rgba(255,91,110,.26);
-      background: linear-gradient(180deg, rgba(255,91,110,.14), rgba(0,0,0,.12));
-      box-shadow: 0 0 18px rgba(255,91,110,.10);
-      color: rgba(236,246,255,.82);
+      min-width: 92px;
+      text-align:center;
+      white-space: normal;
+      line-height:1.05;
+      box-shadow: 0 12px 26px rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.10);
     }
 
     .miniIcon{
-      width: 18px; height: 18px;
-      border-radius: 999px;
+      width:18px;
+      height:18px;
+      border-radius:999px;
       display:grid;
       place-items:center;
+      box-shadow: 0 10px 18px rgba(0,0,0,.22);
       flex: 0 0 18px;
     }
-    .miniIcon.good{
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.50), rgba(70,255,178,.30));
-      border: 1px solid rgba(70,255,178,.35);
-      box-shadow: 0 0 14px rgba(70,255,178,.16);
-    }
-    .miniIcon.bad{
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.44), rgba(255,91,110,.22));
-      border: 1px solid rgba(255,91,110,.28);
-      box-shadow: 0 0 14px rgba(255,91,110,.12);
+    .miniIcon svg{
+      width:12px;
+      height:12px;
+      stroke: #021018;
     }
 
-    .miniIcon svg{ width: 12px; height: 12px; }
-    .miniIcon.good path{ stroke: #021018; }
-    .miniIcon.bad path{ stroke: #021018; }
-
-    /* ---------- LISTS + PREMIUM CHECK BADGES ---------- */
-    .section{
-      padding: 10px 22px 18px;
-      display:grid;
-      gap: 14px;
+    .good{
+      background: linear-gradient(90deg, rgba(79,227,255,.85), rgba(99,255,178,.82));
+      color:#021018;
+      border: none;
+    }
+    .good .miniIcon{
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.45);
     }
 
+    .bad{
+      background: rgba(255,92,122,.14);
+      border: 1px solid rgba(255,92,122,.35);
+      color: rgba(236,246,255,.84);
+    }
+    .bad .miniIcon{
+      background: rgba(255,92,122,.65);
+      border: 1px solid rgba(255,92,122,.55);
+    }
+    .bad .miniIcon svg{
+      stroke: #021018;
+    }
+
+    /* What you get */
     .sectionTitle{
-      margin: 0;
+      margin: 14px 2px 8px;
       font-size: 11px;
-      letter-spacing: .22em;
+      letter-spacing: .18em;
       text-transform: uppercase;
-      color: rgba(236,246,255,.64);
+      color: rgba(236,246,255,.55);
+      text-align:left;
     }
 
-    .list{ display:grid; gap: 10px; }
-    .grid2{ display:grid; gap: 10px; }
+    .bullets{
+      display:grid;
+      gap: 10px;
+      margin: 0 0 10px;
+    }
 
-    .li{
+    .bullet{
       display:flex;
       gap: 12px;
       align-items:flex-start;
-      padding: 12px 12px;
+      padding: 12px;
       border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.14);
-      box-shadow: 0 12px 28px rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.10);
+      box-shadow: var(--softShadow);
     }
 
-    /* Brighter, more “premium” badge */
     .check{
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border-radius: 999px;
-      flex: 0 0 28px;
+      background: linear-gradient(90deg, rgba(79,227,255,.95), rgba(99,255,178,.90));
+      box-shadow:
+        0 16px 30px rgba(0,0,0,.28),
+        0 0 0 1px rgba(255,255,255,.16) inset;
       display:grid;
       place-items:center;
-      background:
-        radial-gradient(circle at 28% 28%, rgba(255,255,255,.62), rgba(65,243,255,.30) 45%, rgba(70,255,178,.28));
-      border: 1px solid rgba(70,255,178,.36);
-      box-shadow:
-        0 0 0 1px rgba(65,243,255,.18),
-        0 0 34px rgba(65,243,255,.22);
-      position:relative;
+      flex: 0 0 26px;
+    }
+    .check svg{
+      width: 16px;
+      height: 16px;
+      stroke: #021018;
     }
 
-    /* subtle gloss */
-    .check::after{
-      content:"";
-      position:absolute;
-      inset: 3px 4px auto 4px;
-      height: 10px;
-      border-radius: 999px;
-      background: linear-gradient(180deg, rgba(255,255,255,.42), transparent);
-      opacity: .55;
-      pointer-events:none;
-      filter: blur(0.2px);
+    .bText{
+      min-width:0;
     }
-
-    .check svg{ width: 16px; height: 16px; position:relative; z-index:1; }
-    .check path{ stroke: #021018; }
-
-    .li b{
-      display:block;
-      margin-bottom: 2px;
+    .bText .bHead{
+      margin:0;
       font-size: 13px;
-      letter-spacing: .01em;
+      font-weight: 950;
+      letter-spacing: -0.01em;
+      color: rgba(236,246,255,.92);
     }
-    .li span{
-      display:block;
-      color: rgba(236,246,255,.74);
-      font-size: 12.5px;
+    .bText .bSub{
+      margin: 3px 0 0;
+      font-size: 12px;
+      color: rgba(236,246,255,.70);
       line-height: 1.35;
     }
 
+    /* Perfect for */
+    .perfect{
+      display:grid;
+      gap: 10px;
+      margin: 0 0 10px;
+    }
+
     footer{
-      padding: 0 22px 20px;
+      padding: 12px 18px 18px;
       font-size: 11px;
       color: rgba(236,246,255,.55);
       text-transform: uppercase;
-      letter-spacing: .08em;
+      letter-spacing: .10em;
       text-align:center;
+      border-top: 1px solid rgba(255,255,255,.08);
     }
 
-    @media (max-width: 420px){
-      header.top{ padding: 20px 18px 12px; }
-      .divider{ margin: 0 18px; }
-      .sell{ padding: 14px 18px 16px; }
-      .section{ padding: 10px 18px 18px; }
-      footer{ padding: 0 18px 18px; }
-      .status{ min-width: 126px; }
+    /* Responsive headline tweaks */
+    @media (min-width: 520px){
+      h1{ font-size: 34px; }
+    }
+
+    /* Extra-small phones: prevent any comparison squeeze */
+    @media (max-width: 360px){
+      h1{ font-size: 28px; }
+      .colPill, .status{ min-width: 84px; }
+      .status{ padding: 8px 8px; font-size: 10.5px; }
+      .feat{ font-size: 12px; }
     }
   </style>
 </head>
@@ -497,83 +476,90 @@
 
   <div class="wrap">
     <main class="card">
+      <div class="inner">
 
-      <header class="top">
-        <p class="kicker">SMART-DIGITAL BUSINESS CARDS BY GREG</p>
+        <div class="brandTop">SMART-DIGITAL BUSINESS CARDS BY GREG</div>
 
-        <div class="headlineWrap">
-          <h1 class="headline">
-            <span class="line">Smart-Digital Business Cards That Get More Done</span>
-            <span class="line">— and Actually Get Saved</span>
-          </h1>
+        <div class="hero">
+          <div class="heroBox">
+            <h1>
+              <span class="line">Smart-Digital Business</span>
+              <span class="line">Cards That Get More Done and Actually Get Saved</span>
+            </h1>
+          </div>
         </div>
 
-        <div class="pills" aria-label="Key benefits">
+        <div class="pills">
           <span class="pill">iPhone + Android</span>
           <span class="pill">No Apps</span>
           <span class="pill">No Monthly Fees</span>
           <span class="pill">Fast Turnaround</span>
         </div>
-      </header>
 
-      <div class="divider"></div>
-
-      <section class="sell" aria-label="Primary offer">
-        <div class="sellBox">
-          <h2 class="sellTitle">Stop Handing Out Paper That Gets Tossed — and Start Getting Saved!</h2>
-          <p class="sellDesc">
+        <section class="blurb">
+          <h2>Stop Handing Out Paper That Gets Tossed — and Start Getting Saved!</h2>
+          <p>
             I build clean, mobile-friendly digital business cards that open from a link or QR code —
-            so people can call, text, email, visit your website, or save your contact instantly with one tap.
+            letting people call, text, email, visit your website, or save your contact instantly with one tap.
           </p>
-        </div>
+        </section>
 
-        <div class="ctaStack" aria-label="Purchase and actions">
+        <section class="cta" aria-label="Checkout buttons">
+          <!-- Stripe payment links -->
           <a class="btn hero" href="https://buy.stripe.com/8x2eVe08q2QD4DWa4l8so00" target="_blank" rel="noopener">
-            <span>Starter — $9.99</span>
+            Starter — $9.99
           </a>
-
-          <a class="btn pro" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01" target="_blank" rel="noopener">
+          <a class="btn upgrade" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01" target="_blank" rel="noopener">
             Pro — $14.99
           </a>
 
-          <a class="btn" href="demo.html">View Live Demo</a>
-
-          <a class="btn" href="mailto:Bucknergreg86@gmail.com?subject=Smart-Digital%20Business%20Card%20Question">
-            Questions? Email Greg
+          <!-- Your demo page (if demo.html exists in the same folder) -->
+          <a class="btn secondary" href="./demo.html">
+            View Live Demo
           </a>
 
-          <p class="subnote">
-            After checkout, you’ll be redirected to a quick form to upload your photo/logo and choose colors.
-          </p>
+          <!-- Update these later if you want; safe defaults -->
+          <a class="btn secondary" href="sms:+12097694750">
+            Questions? Text Greg
+          </a>
+        </section>
 
-          <div class="compareTop" aria-label="Starter vs Pro comparison">
-            <details>
-              <summary>
-                <div class="sumLeft">
-                  <div class="caret" aria-hidden="true">›</div>
-                  <div class="sumText">
-                    <p class="sumTitle">Starter vs Pro</p>
-                    <p class="sumHint">Tap to see exactly what Pro adds.</p>
-                  </div>
+        <div class="smallNote">
+          After checkout, you’ll be redirected to a quick form to upload your photo/logo and choose colors.
+        </div>
+
+        <!-- Starter vs Pro moved RIGHT HERE (as requested) -->
+        <section class="compareWrap" aria-label="Starter vs Pro comparison">
+          <details>
+            <summary>
+              <div class="sumLeft">
+                <div class="caret" aria-hidden="true">›</div>
+                <div class="sumText">
+                  <p class="sumTitle">Starter vs Pro</p>
+                  <p class="sumHint">Tap to see exactly what Pro includes.</p>
                 </div>
-              </summary>
+              </div>
+            </summary>
 
-              <div class="cmpBody">
+            <div class="cmpBody">
+              <div class="colHead" aria-hidden="true">
+                <div></div>
+                <div class="colPill">Starter</div>
+                <div class="colPill">Pro</div>
+              </div>
+
+              <div class="cmpGrid">
                 <div class="row">
                   <div class="feat">Tap-to-call, text, email, website buttons</div>
                   <div class="status good">
-                    <span class="miniIcon good" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                    <span class="miniIcon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </span>
                     Included
                   </div>
                   <div class="status good">
-                    <span class="miniIcon good" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                    <span class="miniIcon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </span>
                     Included
                   </div>
@@ -582,18 +568,14 @@
                 <div class="row">
                   <div class="feat">Save Contact button (vCard download)</div>
                   <div class="status bad">
-                    <span class="miniIcon bad" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M7 7l10 10M17 7L7 17" stroke-width="3" stroke-linecap="round"/>
-                      </svg>
+                    <span class="miniIcon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke-width="3" stroke-linecap="round"/></svg>
                     </span>
                     Not included
                   </div>
                   <div class="status good">
-                    <span class="miniIcon good" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                    <span class="miniIcon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </span>
                     Included
                   </div>
@@ -602,18 +584,14 @@
                 <div class="row">
                   <div class="feat">QR-ready shareable link</div>
                   <div class="status good">
-                    <span class="miniIcon good" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                    <span class="miniIcon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </span>
                     Included
                   </div>
                   <div class="status good">
-                    <span class="miniIcon good" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                    <span class="miniIcon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </span>
                     Included
                   </div>
@@ -622,18 +600,14 @@
                 <div class="row">
                   <div class="feat">Polished premium layout + spacing</div>
                   <div class="status bad">
-                    <span class="miniIcon bad" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M7 7l10 10M17 7L7 17" stroke-width="3" stroke-linecap="round"/>
-                      </svg>
+                    <span class="miniIcon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke-width="3" stroke-linecap="round"/></svg>
                     </span>
                     Not included
                   </div>
                   <div class="status good">
-                    <span class="miniIcon good" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                    <span class="miniIcon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </span>
                     Included
                   </div>
@@ -642,18 +616,14 @@
                 <div class="row">
                   <div class="feat">Custom color matching (brand-style)</div>
                   <div class="status bad">
-                    <span class="miniIcon bad" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M7 7l10 10M17 7L7 17" stroke-width="3" stroke-linecap="round"/>
-                      </svg>
+                    <span class="miniIcon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke-width="3" stroke-linecap="round"/></svg>
                     </span>
                     Not included
                   </div>
                   <div class="status good">
-                    <span class="miniIcon good" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                    <span class="miniIcon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </span>
                     Included
                   </div>
@@ -662,125 +632,114 @@
                 <div class="row">
                   <div class="feat">Extra refinement pass (final polish)</div>
                   <div class="status bad">
-                    <span class="miniIcon bad" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M7 7l10 10M17 7L7 17" stroke-width="3" stroke-linecap="round"/>
-                      </svg>
+                    <span class="miniIcon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke-width="3" stroke-linecap="round"/></svg>
                     </span>
                     Not included
                   </div>
                   <div class="status good">
-                    <span class="miniIcon good" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                    <span class="miniIcon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </span>
                     Included
                   </div>
                 </div>
               </div>
-            </details>
-          </div>
-        </div>
-      </section>
+            </div>
+          </details>
+        </section>
 
-      <section class="section" aria-label="What you get">
-        <h3 class="sectionTitle">What You Get</h3>
-
-        <div class="list">
-          <div class="li">
+        <div class="sectionTitle">What You Get</div>
+        <section class="bullets" aria-label="What you get list">
+          <div class="bullet">
             <div class="check" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none"><path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <div>
-              <b>Tap-to-call, tap-to-text, email + website buttons</b>
-              <span>One-tap actions so people actually use your info.</span>
+            <div class="bText">
+              <p class="bHead">Tap-to-call, tap-to-text, email + website buttons</p>
+              <p class="bSub">One-tap actions so people actually use your info.</p>
             </div>
           </div>
 
-          <div class="li">
+          <div class="bullet">
             <div class="check" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none"><path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <div>
-              <b>Shareable link + QR-ready</b>
-              <span>Text it, DM it, add to your email signature, print a QR — done.</span>
+            <div class="bText">
+              <p class="bHead">QR-ready link you can share anywhere</p>
+              <p class="bSub">Text it, DM it, add it to your email signature, print a QR — done.</p>
             </div>
           </div>
 
-          <div class="li">
+          <div class="bullet">
             <div class="check" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none"><path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <div>
-              <b>Premium mobile layout (clean + fast)</b>
-              <span>Looks sharp on phones — where 99% of people will view it.</span>
+            <div class="bText">
+              <p class="bHead">Clean design that looks premium on mobile</p>
+              <p class="bSub">Most people view it on their phone — this is built for that.</p>
             </div>
           </div>
 
-          <div class="li">
+          <div class="bullet">
             <div class="check" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none"><path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <div>
-              <b>Built & owned by you (no subscription lock-in)</b>
-              <span>You get your page link — simple, stable, and easy to share.</span>
+            <div class="bText">
+              <p class="bHead">Built and owned by you (no subscription lock-in)</p>
+              <p class="bSub">You get your page link — simple, stable, and easy to share.</p>
             </div>
           </div>
-        </div>
+        </section>
 
-        <h3 class="sectionTitle" style="margin-top: 14px;">Perfect For</h3>
-        <div class="grid2">
-          <div class="li">
+        <div class="sectionTitle">Perfect For</div>
+        <section class="perfect" aria-label="Perfect for list">
+          <div class="bullet">
             <div class="check" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none"><path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <div><b>Realtors & mortgage pros</b><span>Quick share at open houses, showings, and referrals.</span></div>
-          </div>
-
-          <div class="li">
-            <div class="check" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+            <div class="bText">
+              <p class="bHead">Realtors & mortgage pros</p>
+              <p class="bSub">Quick share at open houses, showings, and referrals.</p>
             </div>
-            <div><b>Contractors</b><span>HVAC, plumbing, roofing, electrical, solar, landscaping, and more.</span></div>
           </div>
 
-          <div class="li">
+          <div class="bullet">
             <div class="check" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none"><path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <div><b>Sales reps & small business owners</b><span>Stop losing leads to “I’ll save it later.”</span></div>
+            <div class="bText">
+              <p class="bHead">Contractors</p>
+              <p class="bSub">HVAC, plumbing, roofing, electrical, solar, landscaping, and more.</p>
+            </div>
           </div>
 
-          <div class="li">
+          <div class="bullet">
             <div class="check" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <svg viewBox="0 0 24 24" fill="none"><path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <div><b>Barbers, trainers, creatives & freelancers</b><span>One link that looks premium and converts.</span></div>
+            <div class="bText">
+              <p class="bHead">Sales reps & small business owners</p>
+              <p class="bSub">Stop losing leads to “I’ll save it later.”</p>
+            </div>
           </div>
-        </div>
-      </section>
+
+          <div class="bullet">
+            <div class="check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="bText">
+              <p class="bHead">Barbers, trainers, creatives & freelancers</p>
+              <p class="bSub">One link that looks premium and converts.</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
 
       <footer>
-        DIGITAL BUSINESS CARDS • BUILT BY SMART-DIGITAL BUSINESS CARDS BY GREG
+        Digital Business Cards • Built by Smart-Digital Business Cards by Greg
       </footer>
-
     </main>
   </div>
 </body>
