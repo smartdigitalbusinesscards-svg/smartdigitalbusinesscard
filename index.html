@@ -7,26 +7,27 @@
 
   <style>
     :root{
+      /* Brighter, more premium ocean-neon */
       --bgA:#031722;
-      --bgB:#083243;
+      --bgB:#073b55;
 
-      /* brighter + cleaner glass */
-      --card: rgba(255,255,255,0.085);
-      --card2: rgba(255,255,255,0.055);
-      --border: rgba(255,255,255,0.16);
+      /* Glass */
+      --card: rgba(255,255,255,0.10);
+      --card2: rgba(255,255,255,0.065);
+      --border: rgba(255,255,255,0.18);
 
       --text:#ecf6ff;
-      --muted: rgba(236,246,255,0.74);
+      --muted: rgba(236,246,255,0.78);
 
-      /* premium, punchy accents */
-      --accent:#43e7ff;
-      --accent2:#58ffb6;
+      /* Punchy accents */
+      --accent:#58f0ff;
+      --accent2:#6bffbf;
 
-      --proA:#45f2ff;
-      --proB:#55ffb6;
+      --proA:#59f6ff;
+      --proB:#67ffbf;
 
-      --shadow: 0 18px 55px rgba(0,0,0,.48);
-      --shadowSoft: 0 14px 36px rgba(0,0,0,.34);
+      --shadow: 0 18px 55px rgba(0,0,0,.52);
+      --shadowSoft: 0 14px 34px rgba(0,0,0,.38);
 
       --radius: 22px;
     }
@@ -39,23 +40,24 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
       background:
-        radial-gradient(1000px 560px at 14% 10%, rgba(67,231,255,.20), transparent 60%),
-        radial-gradient(900px 540px at 86% 40%, rgba(88,255,182,.16), transparent 62%),
+        radial-gradient(1100px 620px at 16% 10%, rgba(88,240,255,.26), transparent 60%),
+        radial-gradient(1000px 620px at 86% 38%, rgba(107,255,191,.20), transparent 62%),
+        radial-gradient(900px 520px at 50% 92%, rgba(255,255,255,.08), transparent 65%),
         linear-gradient(160deg, var(--bgA), var(--bgB));
       min-height:100vh;
       overflow-x:hidden;
     }
 
     .water{
-      position:fixed; inset:-80px;
+      position:fixed; inset:-90px;
       background:
-        radial-gradient(1200px 600px at 20% 18%, rgba(67,231,255,.14), transparent 62%),
-        radial-gradient(900px 520px at 82% 62%, rgba(88,255,182,.10), transparent 62%),
-        radial-gradient(700px 420px at 50% 90%, rgba(255,255,255,.06), transparent 64%);
+        radial-gradient(1200px 640px at 20% 18%, rgba(88,240,255,.18), transparent 62%),
+        radial-gradient(1000px 560px at 82% 62%, rgba(107,255,191,.14), transparent 62%),
+        radial-gradient(820px 480px at 50% 90%, rgba(255,255,255,.08), transparent 66%);
       filter: blur(18px);
       animation: drift 12s ease-in-out infinite alternate;
       pointer-events:none;
-      opacity:.95;
+      opacity:.98;
     }
     @keyframes drift{
       from{ transform: translate3d(-12px,-10px,0) scale(1.03); }
@@ -63,7 +65,7 @@
     }
 
     .wrap{
-      max-width: 820px;
+      max-width: 860px;
       margin: 0 auto;
       padding: 22px 16px 44px;
       position:relative;
@@ -91,20 +93,21 @@
     .brandRow{
       display:flex;
       align-items:center;
-      justify-content:center;
-      gap: 10px;
+      gap: 12px;
+      justify-content:flex-start;
       margin-bottom: 10px;
     }
 
     .logo{
-      width: 52px;
-      height: 52px;
+      width: 78px;
+      height: 78px;
       border-radius: 50%;
-      display:none; /* will show if image loads */
-      box-shadow: 0 10px 26px rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.20);
+      display:none; /* show only if it loads */
+      box-shadow: 0 14px 36px rgba(0,0,0,.46);
+      border: 1px solid rgba(255,255,255,.28);
       background: rgba(0,0,0,.18);
       object-fit: cover;
+      flex: 0 0 auto;
     }
     .logo.show{ display:block; }
 
@@ -112,44 +115,43 @@
       text-transform: uppercase;
       letter-spacing: .22em;
       font-size: 11px;
-      color: rgba(236,246,255,.62);
-      text-align:center;
+      color: rgba(236,246,255,.66);
       line-height: 1.2;
     }
 
     .headline{
-      margin: 8px 0 10px;
-      font-weight: 920;
+      margin: 12px 0 10px;
+      font-weight: 930;
       line-height: 1.06;
       letter-spacing: -0.02em;
-      font-size: clamp(28px, 4.6vw, 44px);
-      text-align: left; /* less “centered too much” */
+      font-size: clamp(30px, 4.9vw, 46px);
+      text-align: left;
+      text-wrap: balance;
+      max-width: 22ch;
     }
-    .headline span{
-      display:block;
-      margin-top: 6px;
-    }
+    .headline .line{ display:block; }
+    .headline .line:last-child{ margin-top: 2px; }
 
     .chips{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
       justify-content:flex-start;
-      margin: 10px 0 6px;
+      margin: 12px 0 6px;
     }
     .chip{
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.14);
-      padding: 8px 12px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.16);
+      padding: 9px 12px;
       border-radius: 999px;
       font-size: 12px;
-      color: rgba(236,246,255,.78);
+      color: rgba(236,246,255,.82);
       white-space: nowrap;
     }
 
     .divider{
       height:1px;
-      background: rgba(255,255,255,.12);
+      background: rgba(255,255,255,.14);
       margin: 12px 18px 0;
     }
 
@@ -158,7 +160,7 @@
       margin: 14px 18px 0;
       padding: 16px 16px;
       border-radius: 18px;
-      border:1px solid rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.14);
       box-shadow: var(--shadowSoft);
     }
@@ -170,9 +172,9 @@
     }
     .pitch p{
       margin: 0;
-      color: rgba(236,246,255,.74);
+      color: rgba(236,246,255,.78);
       line-height: 1.45;
-      font-size: 13.5px;
+      font-size: 13.6px;
     }
 
     /* ===== CTA STACK ===== */
@@ -183,13 +185,13 @@
     }
 
     .btn{
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.14);
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.16);
       color: var(--text);
       padding: 14px 14px;
       border-radius: 16px;
       text-decoration:none;
-      font-weight: 850;
+      font-weight: 870;
       font-size: 14px;
       text-align:center;
       cursor:pointer;
@@ -199,44 +201,45 @@
     }
     .btn:active{ transform: scale(.99); }
 
-    /* PRO is the hero */
+    /* PRO hero */
     .btn.pro{
       border: none;
       color: #021018;
-      background: linear-gradient(90deg, rgba(69,242,255,.98), rgba(85,255,182,.92));
+      background: linear-gradient(90deg, rgba(89,246,255,.98), rgba(103,255,191,.92));
       box-shadow:
-        0 10px 24px rgba(69,242,255,.18),
-        0 10px 24px rgba(85,255,182,.14),
+        0 14px 30px rgba(88,240,255,.22),
+        0 12px 26px rgba(107,255,191,.18),
         0 0 0 1px rgba(255,255,255,.10) inset;
       position: relative;
     }
     .btn.pro::after{
       content:"";
-      position:absolute; inset:-2px;
+      position:absolute; inset:-3px;
       border-radius: 18px;
-      background: radial-gradient(500px 160px at 30% 20%, rgba(69,242,255,.25), transparent 55%),
-                  radial-gradient(500px 160px at 70% 80%, rgba(85,255,182,.18), transparent 55%);
-      filter: blur(10px);
+      background:
+        radial-gradient(520px 170px at 28% 18%, rgba(89,246,255,.32), transparent 55%),
+        radial-gradient(520px 170px at 72% 82%, rgba(103,255,191,.24), transparent 55%);
+      filter: blur(12px);
       z-index: -1;
-      opacity: .9;
+      opacity: 1;
     }
 
     .btn.starter{
-      background: rgba(0,0,0,.16);
+      background: rgba(0,0,0,.18);
     }
 
     .btn.ghost{
-      background: rgba(0,0,0,.10);
+      background: rgba(0,0,0,.12);
     }
 
     .fineprint{
       padding: 0 18px 14px;
-      color: rgba(236,246,255,.56);
-      font-size: 11.5px;
+      color: rgba(236,246,255,.62);
+      font-size: 11.6px;
       line-height: 1.35;
     }
 
-    /* ===== COMPARE ===== */
+    /* ===== SECTIONS ===== */
     .section{
       padding: 10px 18px 0;
     }
@@ -246,106 +249,10 @@
       font-size: 11px;
       letter-spacing: .18em;
       text-transform: uppercase;
-      color: rgba(236,246,255,.55);
+      color: rgba(236,246,255,.60);
     }
 
-    .compareCard{
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.12);
-      overflow:hidden;
-      box-shadow: var(--shadowSoft);
-    }
-
-    .compareTop{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      padding: 12px 12px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-    }
-
-    .compareTop strong{
-      font-size: 14px;
-      letter-spacing: -0.01em;
-    }
-
-    .compareHint{
-      font-size: 12px;
-      color: rgba(236,246,255,.62);
-    }
-
-    /* This prevents the “cut off” problem on small screens */
-    .compareWrap{
-      overflow-x:auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .compareGrid{
-      min-width: 520px; /* forces scroll instead of clipping */
-      display:grid;
-      grid-template-columns: 1.2fr .9fr .9fr;
-      gap: 10px;
-      padding: 12px;
-    }
-
-    .colHead{
-      font-size: 12px;
-      color: rgba(236,246,255,.72);
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      text-align:center;
-    }
-    .colHead.plan{
-      font-size: 12px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.14);
-      text-transform:none;
-      letter-spacing: 0;
-      color: rgba(236,246,255,.80);
-    }
-    .colHead.plan.pro{
-      border: none;
-      background: linear-gradient(90deg, rgba(69,242,255,.95), rgba(85,255,182,.88));
-      color: #021018;
-      font-weight: 900;
-    }
-
-    .row{
-      display: contents;
-    }
-
-    .feat{
-      padding: 12px 12px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.10);
-      color: rgba(236,246,255,.82);
-      font-size: 13px;
-      line-height: 1.25;
-      display:flex;
-      gap: 10px;
-      align-items:flex-start;
-    }
-
-    .status{
-      padding: 10px 10px;
-      border-radius: 16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.10);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap: 8px;
-      font-weight: 850;
-      font-size: 12px;
-      color: rgba(236,246,255,.78);
-    }
-
-    /* Premium check / x */
+    /* ===== ICONS ===== */
     .icon{
       width: 22px;
       height: 22px;
@@ -353,25 +260,127 @@
       display:grid;
       place-items:center;
       flex: 0 0 22px;
-      box-shadow: 0 10px 22px rgba(0,0,0,.25);
-      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 12px 24px rgba(0,0,0,.28);
+      border: 1px solid rgba(255,255,255,.16);
     }
     .icon.check{
-      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,.22), transparent 45%),
-                  linear-gradient(140deg, rgba(69,242,255,.92), rgba(85,255,182,.88));
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,.25), transparent 46%),
+        linear-gradient(140deg, rgba(89,246,255,.96), rgba(103,255,191,.92));
     }
     .icon.x{
-      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,.18), transparent 45%),
-                  linear-gradient(140deg, rgba(255,92,92,.75), rgba(255,186,92,.55));
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,.20), transparent 46%),
+        linear-gradient(140deg, rgba(255,88,88,.82), rgba(255,186,92,.62));
     }
     .icon svg{ width: 14px; height: 14px; }
 
-    .status small{
-      font-weight: 800;
-      color: rgba(236,246,255,.72);
+    /* ===== COMPARISON (NO SLIDER) ===== */
+    .compareCard{
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.14);
+      overflow:hidden;
+      box-shadow: var(--shadowSoft);
     }
 
-    /* ===== BULLET LISTS ===== */
+    .compareHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .compareHeader strong{
+      font-size: 14px;
+      letter-spacing: -0.01em;
+    }
+    .compareHeader span{
+      font-size: 12px;
+      color: rgba(236,246,255,.68);
+    }
+
+    .compareGrid{
+      display:grid;
+      grid-template-columns: 1fr 110px 110px;
+      gap: 10px;
+      padding: 12px;
+    }
+
+    .planPill{
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.16);
+      color: rgba(236,246,255,.84);
+      font-weight: 850;
+      text-align:center;
+    }
+    .planPill.pro{
+      border: none;
+      background: linear-gradient(90deg, rgba(89,246,255,.96), rgba(103,255,191,.90));
+      color: #021018;
+      box-shadow:
+        0 12px 22px rgba(88,240,255,.18),
+        0 12px 22px rgba(107,255,191,.14);
+    }
+
+    .featCell{
+      padding: 12px 12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.12);
+      color: rgba(236,246,255,.86);
+      font-size: 13px;
+      line-height: 1.25;
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      min-height: 48px;
+    }
+
+    .statusCell{
+      padding: 10px 10px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.12);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      font-weight: 860;
+      font-size: 12px;
+      color: rgba(236,246,255,.84);
+      min-height: 48px;
+      white-space: nowrap;
+    }
+
+    /* Mobile: still NOT a slider — it reflows instead */
+    @media (max-width: 520px){
+      .compareGrid{
+        grid-template-columns: 1fr;
+      }
+      .compareGrid .spacer{ display:none; }
+      .compareGrid .planRow{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .compareGrid .featRow{
+        display:grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .compareGrid .statusRow{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+    }
+
+    /* ===== LISTS ===== */
     .list{
       display:grid;
       gap: 10px;
@@ -384,19 +393,19 @@
       align-items:flex-start;
       padding: 12px 12px;
       border-radius: 16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.10);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.12);
     }
 
     .item h4{
       margin: 0 0 3px;
-      font-size: 13.5px;
+      font-size: 13.6px;
       letter-spacing: -0.01em;
     }
     .item p{
       margin: 0;
-      font-size: 12.5px;
-      color: rgba(236,246,255,.68);
+      font-size: 12.6px;
+      color: rgba(236,246,255,.72);
       line-height: 1.35;
     }
 
@@ -405,15 +414,15 @@
       margin: 16px 18px 18px;
       padding: 14px;
       border-radius: 18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.12);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.14);
       box-shadow: var(--shadowSoft);
     }
     .orderAgain .label{
       font-size: 11px;
       letter-spacing: .18em;
       text-transform: uppercase;
-      color: rgba(236,246,255,.55);
+      color: rgba(236,246,255,.60);
       margin-bottom: 10px;
       text-align:center;
     }
@@ -425,19 +434,18 @@
     footer{
       padding: 0 18px 18px;
       font-size: 11px;
-      color: rgba(236,246,255,.55);
+      color: rgba(236,246,255,.58);
       text-transform: uppercase;
       letter-spacing: .08em;
       text-align:center;
     }
 
-    /* small screen polish */
     @media (max-width: 420px){
       .wrap{ padding: 18px 12px 40px; }
-      .headline{ font-size: 32px; }
+      .logo{ width: 84px; height: 84px; }
+      .headline{ font-size: 34px; max-width: 24ch; }
       .pitch h2{ font-size: 18px; }
       .btn{ padding: 13px 12px; }
-      .logo{ width: 56px; height: 56px; } /* slightly bigger on phones */
     }
   </style>
 </head>
@@ -454,9 +462,11 @@
           <div class="brandKicker">SMART DIGITAL BUSINESS CARDS BY GREG</div>
         </div>
 
+        <!-- 3 lines exactly -->
         <h1 class="headline">
-          Smart Digital Business Cards That Get More Done
-          <span>and Actually Get Saved</span>
+          <span class="line">Smart Digital Business Cards</span>
+          <span class="line">That Get More Done</span>
+          <span class="line">and Actually Get Saved.</span>
         </h1>
 
         <div class="chips">
@@ -478,7 +488,6 @@
       </section>
 
       <section class="cta">
-        <!-- PRO hero first -->
         <a class="btn pro" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01" target="_blank" rel="noopener">
           Pro — $14.99
         </a>
@@ -498,181 +507,181 @@
         After checkout, you’ll be redirected to a quick form to upload your photo/logo and choose colors.
       </div>
 
-      <!-- MOVE COMPARE RIGHT HERE (per your request) -->
+      <!-- Comparison: NOT a slider -->
       <section class="section" aria-label="Starter vs Pro">
         <div class="sectionTitle">Starter vs Pro</div>
 
         <div class="compareCard">
-          <div class="compareTop">
+          <div class="compareHeader">
             <strong>See exactly what Pro adds</strong>
-            <span class="compareHint">Swipe if needed →</span>
+            <span>Clear comparison (no scrolling)</span>
           </div>
 
-          <div class="compareWrap">
-            <div class="compareGrid">
+          <div class="compareGrid">
+            <!-- Desktop header row -->
+            <div class="spacer"></div>
+            <div class="planPill">Starter</div>
+            <div class="planPill pro">Pro</div>
 
-              <div class="colHead"></div>
-              <div class="colHead plan">Starter</div>
-              <div class="colHead plan pro">Pro</div>
+            <!-- Feature 1 -->
+            <div class="featCell">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div>Tap-to-call, text, email, website buttons</div>
+            </div>
+            <div class="statusCell">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              Included
+            </div>
+            <div class="statusCell">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              Included
+            </div>
 
-              <!-- Row 1 -->
-              <div class="feat">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div>Tap-to-call, text, email, website buttons</div>
+            <!-- Feature 2 -->
+            <div class="featCell">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-              <div class="status">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                Included
+              <div>QR-ready shareable link</div>
+            </div>
+            <div class="statusCell">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-              <div class="status">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                Included
+              Included
+            </div>
+            <div class="statusCell">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
+              Included
+            </div>
 
-              <!-- Row 2 -->
-              <div class="feat">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div>QR-ready shareable link</div>
+            <!-- Feature 3 -->
+            <div class="featCell">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-              <div class="status">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                Included
+              <div>Save Contact button (vCard download)</div>
+            </div>
+            <div class="statusCell">
+              <div class="icon x" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/>
+                </svg>
               </div>
-              <div class="status">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                Included
+              Not included
+            </div>
+            <div class="statusCell">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
+              Included
+            </div>
 
-              <!-- Row 3 -->
-              <div class="feat">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div>Save Contact button (vCard download)</div>
+            <!-- Feature 4 -->
+            <div class="featCell">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-              <div class="status">
-                <div class="icon x" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/>
-                  </svg>
-                </div>
-                Not included
+              <div>Polished premium layout + spacing</div>
+            </div>
+            <div class="statusCell">
+              <div class="icon x" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/>
+                </svg>
               </div>
-              <div class="status">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                Included
+              Not included
+            </div>
+            <div class="statusCell">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
+              Included
+            </div>
 
-              <!-- Row 4 -->
-              <div class="feat">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div>Polished premium layout + spacing</div>
+            <!-- Feature 5 -->
+            <div class="featCell">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-              <div class="status">
-                <div class="icon x" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/>
-                  </svg>
-                </div>
-                Not included
+              <div>Custom color matching (brand-style)</div>
+            </div>
+            <div class="statusCell">
+              <div class="icon x" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/>
+                </svg>
               </div>
-              <div class="status">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                Included
+              Not included
+            </div>
+            <div class="statusCell">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
+              Included
+            </div>
 
-              <!-- Row 5 -->
-              <div class="feat">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div>Custom color matching (brand-style)</div>
+            <!-- Feature 6 -->
+            <div class="featCell">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-              <div class="status">
-                <div class="icon x" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/>
-                  </svg>
-                </div>
-                Not included
+              <div>Extra refinement pass (final polish)</div>
+            </div>
+            <div class="statusCell">
+              <div class="icon x" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/>
+                </svg>
               </div>
-              <div class="status">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                Included
+              Not included
+            </div>
+            <div class="statusCell">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-
-              <!-- Row 6 -->
-              <div class="feat">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                <div>Extra refinement pass (final polish)</div>
-              </div>
-              <div class="status">
-                <div class="icon x" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/>
-                  </svg>
-                </div>
-                Not included
-              </div>
-              <div class="status">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-                Included
-              </div>
-
+              Included
             </div>
           </div>
+
+          <!-- Mobile reflow helper blocks (same data, arranged via CSS) -->
+          <div class="compareGrid" style="display:none;"></div>
         </div>
       </section>
 
@@ -745,7 +754,7 @@
   </div>
 
   <script>
-    // If logo.png exists, show it. If not, keep it hidden (no broken image icon).
+    // If logo.png exists, show it. If not, keep it hidden (no broken icon).
     (function(){
       const img = document.getElementById('logoImg');
       if(!img) return;
@@ -755,3 +764,4 @@
   </script>
 </body>
 </html>
+```0
