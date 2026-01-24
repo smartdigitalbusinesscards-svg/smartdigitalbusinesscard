@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Smart-Digital Business Cards by Greg</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Smart Digital Business Cards by Greg</title>
 
 <style>
 :root{
@@ -11,16 +11,17 @@
   --bgB:#0a2f3f;
   --card: rgba(255,255,255,0.085);
   --card2: rgba(255,255,255,0.055);
-  --border: rgba(255,255,255,0.16);
+  --border: rgba(255,255,255,0.14);
   --text:#ecf6ff;
-  --muted: rgba(236,246,255,0.74);
+  --muted: rgba(236,246,255,0.72);
   --accent:#4fe3ff;
   --accent2:#63ffb2;
   --danger:#ff6b6b;
   --shadow: 0 18px 55px rgba(0,0,0,.48);
+  --radius:22px;
 }
 
-*{ box-sizing:border-box; }
+*{box-sizing:border-box;}
 
 body{
   margin:0;
@@ -31,145 +32,188 @@ body{
     radial-gradient(860px 520px at 88% 35%, rgba(99,255,178,.18), transparent 58%),
     linear-gradient(160deg, var(--bgA), var(--bgB));
   min-height:100vh;
-  overflow-x:hidden;
 }
 
 .water{
-  position:fixed; inset:-70px;
+  position:fixed; inset:-80px;
   background:
     radial-gradient(1200px 600px at 18% 18%, rgba(79,227,255,.12), transparent 60%),
     radial-gradient(900px 520px at 82% 62%, rgba(99,255,178,.10), transparent 60%);
   filter: blur(18px);
   animation: drift 12s ease-in-out infinite alternate;
   pointer-events:none;
-  opacity:.95;
 }
-
 @keyframes drift{
-  from{ transform: translate3d(-12px,-10px,0) scale(1.02); }
-  to{ transform: translate3d(14px,12px,0) scale(1.06); }
+  from{transform:translate(-12px,-10px) scale(1.02);}
+  to{transform:translate(14px,12px) scale(1.06);}
 }
 
 .wrap{
-  max-width:820px;
+  max-width:900px;
   margin:0 auto;
-  padding:28px 18px 60px;
+  padding:26px 16px 44px;
   position:relative;
   z-index:1;
 }
 
 .card{
-  background: linear-gradient(180deg, var(--card), var(--card2));
+  background:linear-gradient(180deg,var(--card),var(--card2));
   border:1px solid var(--border);
-  border-radius:24px;
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(14px);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(12px);
   overflow:hidden;
-  padding:26px 22px 30px;
 }
 
-h1{
-  margin:10px 0 14px;
-  font-size:28px;
-  line-height:1.25;
+.brand{
+  text-align:center;
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(236,246,255,.62);
+  padding:16px 18px 6px;
+}
+
+.hero{
+  padding:10px 18px 14px;
+}
+.hero h1{
+  margin:0 0 10px;
+  font-size:clamp(28px,4.5vw,40px);
+  line-height:1.06;
   font-weight:900;
-  text-align:left;
+}
+.hero h1 span{
+  display:block;
 }
 
-.badges{
+.pills{
   display:flex;
+  gap:10px;
   flex-wrap:wrap;
-  gap:8px;
-  margin-bottom:18px;
 }
-
-.badge{
-  font-size:12px;
-  padding:6px 10px;
+.pill{
+  padding:7px 12px;
   border-radius:999px;
-  border:1px solid rgba(255,255,255,.16);
-  background:rgba(0,0,0,.18);
+  font-size:12px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.14);
   color:var(--muted);
 }
 
-.lead{
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(0,0,0,.18);
-  border-radius:16px;
-  padding:16px;
-  margin-bottom:18px;
+.divider{
+  height:1px;
+  background:rgba(255,255,255,.1);
+  margin:0 18px;
 }
 
-.lead h2{
+.pitch{
+  margin:16px 18px;
+  padding:16px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.14);
+}
+.pitch h2{
   margin:0 0 8px;
   font-size:18px;
-  font-weight:800;
 }
-
-.lead p{
+.pitch p{
   margin:0;
-  font-size:14px;
+  font-size:13.5px;
   color:var(--muted);
+  line-height:1.45;
 }
 
 .cta{
+  padding:0 18px;
   display:grid;
-  gap:12px;
-  margin:18px 0 8px;
+  gap:10px;
 }
 
-/* BUTTONS */
 .btn{
+  display:block;
+  text-align:center;
   padding:14px;
   border-radius:16px;
   font-weight:900;
-  font-size:15px;
-  text-align:center;
+  font-size:14px;
   text-decoration:none;
   border:1px solid rgba(255,255,255,.14);
-  background:rgba(0,0,0,.18);
+  background:rgba(0,0,0,.14);
   color:var(--text);
 }
 
-/* PRO = HERO */
 .btn.pro{
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  color:#021018;
   border:none;
-  box-shadow: 0 0 0 rgba(79,227,255,0);
-  animation: pulse 2.8s ease-in-out infinite;
-}
-
-@keyframes pulse{
-  0%,100%{ box-shadow:0 0 0 rgba(79,227,255,0); }
-  50%{ box-shadow:0 0 26px rgba(79,227,255,.55); }
-}
-
-/* STARTER = SECONDARY */
-.btn.starter{
-  opacity:.9;
+  color:#021018;
+  background:linear-gradient(90deg,var(--accent2),var(--accent));
+  box-shadow:0 0 28px rgba(79,227,255,.45);
 }
 
 .btn.secondary{
-  opacity:.85;
+  background:rgba(0,0,0,.12);
 }
 
 .note{
+  padding:8px 22px 0;
   font-size:12px;
+  color:rgba(236,246,255,.6);
   text-align:center;
-  color:rgba(236,246,255,.55);
-  margin-top:6px;
+}
+
+details{
+  margin:14px 18px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.12);
+  border-radius:18px;
+  overflow:hidden;
+}
+summary{
+  list-style:none;
+  cursor:pointer;
+  padding:14px;
+  font-weight:900;
+}
+summary::-webkit-details-marker{display:none;}
+
+.compare{
+  padding:10px 14px;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+.row{
+  display:grid;
+  grid-template-columns:1fr 110px 110px;
+  gap:8px;
+  padding:10px;
+  border-radius:14px;
+  background:rgba(0,0,0,.12);
+  margin-bottom:8px;
+  align-items:center;
+}
+.badge{
+  text-align:center;
+  padding:8px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+}
+.yes{
+  background:linear-gradient(90deg,var(--accent2),var(--accent));
+  color:#021018;
+}
+.no{
+  background:rgba(255,107,107,.18);
 }
 
 .section{
-  margin-top:22px;
+  padding:14px 18px 0;
 }
-
 .section h3{
-  font-size:14px;
+  font-size:11px;
   text-transform:uppercase;
-  letter-spacing:.08em;
-  color:rgba(236,246,255,.6);
+  letter-spacing:.14em;
+  color:rgba(236,246,255,.55);
   margin-bottom:10px;
 }
 
@@ -177,37 +221,47 @@ h1{
   display:grid;
   gap:10px;
 }
-
 .item{
   display:flex;
   gap:10px;
-  align-items:flex-start;
-  background:rgba(0,0,0,.18);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:14px;
   padding:12px;
-  font-size:14px;
+  border-radius:14px;
+  background:rgba(0,0,0,.12);
 }
-
-.check{
-  width:22px;
-  height:22px;
+.icon{
+  width:26px;
+  height:26px;
   border-radius:50%;
-  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  background:linear-gradient(90deg,var(--accent2),var(--accent));
   color:#021018;
   font-weight:900;
   display:grid;
   place-items:center;
-  flex-shrink:0;
 }
 
-.footer{
-  text-align:center;
+.orderAgain{
+  margin:18px;
+  padding:16px;
+  border-radius:18px;
+  background:rgba(0,0,0,.14);
+  border:1px solid rgba(255,255,255,.12);
+}
+.orderAgain h3{
+  margin:0 0 10px;
+  font-size:14px;
+}
+.orderBtns{
+  display:grid;
+  gap:10px;
+}
+
+footer{
+  padding:14px 18px 18px;
   font-size:11px;
-  margin-top:30px;
-  color:rgba(236,246,255,.5);
-  letter-spacing:.08em;
+  color:rgba(236,246,255,.55);
   text-transform:uppercase;
+  letter-spacing:.1em;
+  text-align:center;
 }
 </style>
 </head>
@@ -218,51 +272,87 @@ h1{
 <div class="wrap">
   <main class="card">
 
-    <div class="badges">
-      <span class="badge">iPhone + Android</span>
-      <span class="badge">No Apps</span>
-      <span class="badge">No Monthly Fees</span>
-      <span class="badge">Fast Turnaround</span>
-    </div>
+    <div class="brand">SMART DIGITAL BUSINESS CARDS BY GREG</div>
 
-    <h1>
-      Smart-Digital Business Cards That Get More Done<br>
-      and Actually Get Saved
-    </h1>
+    <section class="hero">
+      <h1>
+        <span>Smart Digital Business Cards</span>
+        <span>That Get More Done and Actually Get Saved</span>
+      </h1>
 
-    <div class="lead">
+      <div class="pills">
+        <div class="pill">iPhone + Android</div>
+        <div class="pill">No Apps</div>
+        <div class="pill">No Monthly Fees</div>
+        <div class="pill">Fast Turnaround</div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="pitch">
       <h2>Stop Handing Out Paper That Gets Tossed</h2>
       <p>
-        I build clean, mobile-friendly digital business cards that open from a link or QR code —
-        so people can call, text, email, visit your site, or save your contact instantly.
+        Clean, mobile-friendly digital business cards that open from a link or QR code —
+        letting people call, text, email, visit your website, or save your contact instantly.
       </p>
-    </div>
+    </section>
 
-    <div class="cta">
-      <!-- PRO is now the hero -->
-      <a class="btn pro" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01">Pro — $14.99</a>
-      <a class="btn starter" href="https://buy.stripe.com/8x2eVe08q2QD4DWa4l8so00">Starter — $9.99</a>
+    <section class="cta">
+      <a class="btn" href="https://buy.stripe.com/8x2eVe08q2QD4DWa4l8so00" target="_blank">Starter — $9.99</a>
+      <a class="btn pro" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01" target="_blank">Pro — $14.99</a>
       <a class="btn secondary" href="demo.html">View Live Demo</a>
-      <a class="btn secondary" href="mailto:greg@yourdomain.com">Questions? Email Greg</a>
-    </div>
+      <a class="btn secondary" href="mailto:bucknergreg86@gmail.com?subject=Digital%20Business%20Card%20Question">
+        Questions? Email Greg
+      </a>
+    </section>
 
-    <div class="note">
+    <p class="note">
       After checkout, you’ll be redirected to a quick form to upload your photo/logo and choose colors.
-    </div>
+    </p>
 
-    <div class="section">
+    <details>
+      <summary>Starter vs Pro — tap to compare</summary>
+      <div class="compare">
+        <div class="row">
+          <div>Tap-to-call, text, email, website</div>
+          <div class="badge yes">Yes</div>
+          <div class="badge yes">Yes</div>
+        </div>
+        <div class="row">
+          <div>Save Contact button</div>
+          <div class="badge no">No</div>
+          <div class="badge yes">Yes</div>
+        </div>
+        <div class="row">
+          <div>Premium layout + polish</div>
+          <div class="badge no">No</div>
+          <div class="badge yes">Yes</div>
+        </div>
+      </div>
+    </details>
+
+    <section class="section">
       <h3>What You Get</h3>
       <div class="list">
-        <div class="item"><span class="check">✓</span> Tap-to-call, tap-to-text, email & website buttons</div>
-        <div class="item"><span class="check">✓</span> QR-ready link you can share anywhere</div>
-        <div class="item"><span class="check">✓</span> Premium mobile-first layout (clean + fast)</div>
-        <div class="item"><span class="check">✓</span> Built & owned by you — no subscriptions</div>
+        <div class="item"><div class="icon">✓</div>Tap-to-call, text, email & website buttons</div>
+        <div class="item"><div class="icon">✓</div>Shareable link + QR-ready</div>
+        <div class="item"><div class="icon">✓</div>Mobile-first premium layout</div>
+        <div class="item"><div class="icon">✓</div>No subscriptions — you own it</div>
       </div>
-    </div>
+    </section>
 
-    <div class="footer">
-      Digital Business Cards • Built by Smart-Digital Business Cards by Greg
-    </div>
+    <section class="orderAgain">
+      <h3>Ready to Order?</h3>
+      <div class="orderBtns">
+        <a class="btn" href="https://buy.stripe.com/8x2eVe08q2QD4DWa4l8so00" target="_blank">Starter — $9.99</a>
+        <a class="btn pro" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01" target="_blank">Pro — $14.99</a>
+      </div>
+    </section>
+
+    <footer>
+      DIGITAL BUSINESS CARDS • BUILT BY GREG BUCKNER
+    </footer>
 
   </main>
 </div>
