@@ -29,6 +29,7 @@
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
+
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -89,8 +90,34 @@
       letter-spacing:.18em;
       text-transform:uppercase;
       color: rgba(236,246,255,.62);
-      margin:2px 0 12px;
+      margin:2px 0 10px;
       padding: 2px 0;
+    }
+
+    /* circular logo */
+    .logoRow{
+      display:flex;
+      justify-content:center;
+      margin: 6px 0 12px;
+    }
+    .brandLogo{
+      width:64px;
+      height:64px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.10);
+      box-shadow:
+        0 16px 40px rgba(0,0,0,.32),
+        0 0 40px rgba(79,227,255,.18);
+      object-fit: cover;
+    }
+    .brandLogo.fallback{
+      display:grid;
+      place-items:center;
+      font-weight: 950;
+      font-size: 20px;
+      color:#021018;
+      background: linear-gradient(90deg, rgba(79,227,255,.95), rgba(99,255,178,.90));
     }
 
     /* headline area */
@@ -100,8 +127,7 @@
       justify-content:center;
     }
 
-    /* This makes the headline feel less “poster centered”
-       while still looking clean on mobile */
+    /* makes headline feel less “poster centered” */
     .heroBox{
       width: min(560px, 100%);
       text-align:left;
@@ -215,14 +241,14 @@
       line-height: 1.35;
     }
 
-    /* Comparison accordion (moved right under CTA + note) */
+    /* Comparison accordion */
     .compareWrap{
       margin: 10px 0 14px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.12);
       border-radius: 18px;
       box-shadow: var(--softShadow);
-      overflow:hidden; /* prevents any cut-off */
+      overflow:hidden;
     }
 
     details{ width:100%; }
@@ -235,6 +261,7 @@
       justify-content:space-between;
       gap: 10px;
       user-select:none;
+      transition: background .18s ease; /* for upgrade #3 */
     }
     summary::-webkit-details-marker{ display:none; }
 
@@ -446,6 +473,7 @@
       margin: 0 0 10px;
     }
 
+    /* footer */
     footer{
       padding: 12px 18px 18px;
       font-size: 11px;
@@ -461,12 +489,72 @@
       h1{ font-size: 34px; }
     }
 
-    /* Extra-small phones: prevent any comparison squeeze */
+    /* Extra-small phones */
     @media (max-width: 360px){
       h1{ font-size: 28px; }
       .colPill, .status{ min-width: 84px; }
       .status{ padding: 8px 8px; font-size: 10.5px; }
       .feat{ font-size: 12px; }
+    }
+
+    /* ===== Upgrade #1: Pro “Most Popular” badge ===== */
+    .proBadge{
+      position:relative;
+      border: 1px solid rgba(79,227,255,.22) !important;
+      box-shadow: 0 14px 34px rgba(0,0,0,.26), 0 0 34px rgba(79,227,255,.10);
+    }
+    .badge{
+      display:inline-block;
+      margin-left:10px;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:950;
+      letter-spacing:.02em;
+      color:#021018;
+      background: linear-gradient(90deg, rgba(79,227,255,.95), rgba(99,255,178,.90));
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+      vertical-align:middle;
+    }
+
+    /* ===== Upgrade #3: Smooth compare open/close (no layout changes) ===== */
+    .compareWrap details .cmpBody{
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .28s ease;
+    }
+    .compareWrap details[open] .cmpBody{
+      max-height: 1400px;
+    }
+    .compareWrap details[open] summary{
+      background: rgba(0,0,0,.08);
+    }
+
+    /* ===== Bottom “Order Now” section ===== */
+    .orderAgain{
+      margin: 18px 0 4px;
+      padding: 16px 14px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.12);
+      box-shadow: 0 12px 30px rgba(0,0,0,.22);
+      text-align:center;
+    }
+    .orderTitle{
+      font-size: 16px;
+      font-weight: 950;
+      letter-spacing: -0.01em;
+      margin: 0 0 6px;
+    }
+    .orderSub{
+      font-size: 12.5px;
+      color: rgba(236,246,255,.70);
+      margin: 0 0 12px;
+      line-height: 1.35;
+    }
+    .orderBtns{
+      display:grid;
+      gap: 10px;
     }
   </style>
 </head>
@@ -479,6 +567,13 @@
       <div class="inner">
 
         <div class="brandTop">SMART-DIGITAL BUSINESS CARDS BY GREG</div>
+
+        <!-- Circular Logo (upload your logo as logo.png) -->
+        <div class="logoRow">
+          <img class="brandLogo" src="logo.png" alt="Smart-Digital Business Cards Logo"
+               onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='grid';">
+          <div id="logoFallback" class="brandLogo fallback" style="display:none;">SD</div>
+        </div>
 
         <div class="hero">
           <div class="heroBox">
@@ -505,20 +600,18 @@
         </section>
 
         <section class="cta" aria-label="Checkout buttons">
-          <!-- Stripe payment links -->
           <a class="btn hero" href="https://buy.stripe.com/8x2eVe08q2QD4DWa4l8so00" target="_blank" rel="noopener">
             Starter — $9.99
           </a>
-          <a class="btn upgrade" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01" target="_blank" rel="noopener">
-            Pro — $14.99
+
+          <a class="btn upgrade proBadge" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01" target="_blank" rel="noopener">
+            Pro — $14.99 <span class="badge">Most Popular</span>
           </a>
 
-          <!-- Your demo page (if demo.html exists in the same folder) -->
           <a class="btn secondary" href="./demo.html">
             View Live Demo
           </a>
 
-          <!-- Update these later if you want; safe defaults -->
           <a class="btn secondary" href="sms:+12097694750">
             Questions? Text Greg
           </a>
@@ -528,7 +621,7 @@
           After checkout, you’ll be redirected to a quick form to upload your photo/logo and choose colors.
         </div>
 
-        <!-- Starter vs Pro moved RIGHT HERE (as requested) -->
+        <!-- Starter vs Pro (kept structurally safe) -->
         <section class="compareWrap" aria-label="Starter vs Pro comparison">
           <details>
             <summary>
@@ -734,6 +827,22 @@
             </div>
           </div>
         </section>
+
+        <!-- Order Now section (repeat CTAs) -->
+        <div class="orderAgain">
+          <div class="orderTitle">Ready to Order?</div>
+          <div class="orderSub">Pick Starter or Pro — checkout takes under a minute.</div>
+
+          <div class="orderBtns">
+            <a class="btn hero" href="https://buy.stripe.com/8x2eVe08q2QD4DWa4l8so00" target="_blank" rel="noopener">
+              Starter — $9.99
+            </a>
+
+            <a class="btn upgrade proBadge" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01" target="_blank" rel="noopener">
+              Pro — $14.99 <span class="badge">Most Popular</span>
+            </a>
+          </div>
+        </div>
 
       </div>
 
