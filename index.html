@@ -7,24 +7,14 @@
 
   <style>
     :root{
-      /* Brighter, more premium ocean-neon */
       --bgA:#031722;
       --bgB:#073b55;
 
-      /* Glass */
       --card: rgba(255,255,255,0.10);
       --card2: rgba(255,255,255,0.065);
       --border: rgba(255,255,255,0.18);
 
       --text:#ecf6ff;
-      --muted: rgba(236,246,255,0.78);
-
-      /* Punchy accents */
-      --accent:#58f0ff;
-      --accent2:#6bffbf;
-
-      --proA:#59f6ff;
-      --proB:#67ffbf;
 
       --shadow: 0 18px 55px rgba(0,0,0,.52);
       --shadowSoft: 0 14px 34px rgba(0,0,0,.38);
@@ -102,7 +92,7 @@
       width: 78px;
       height: 78px;
       border-radius: 50%;
-      display:none; /* show only if it loads */
+      display:none;
       box-shadow: 0 14px 36px rgba(0,0,0,.46);
       border: 1px solid rgba(255,255,255,.28);
       background: rgba(0,0,0,.18);
@@ -196,12 +186,11 @@
       text-align:center;
       cursor:pointer;
       -webkit-tap-highlight-color: transparent;
-      transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
+      transition: transform .12s ease;
       user-select:none;
     }
     .btn:active{ transform: scale(.99); }
 
-    /* PRO hero */
     .btn.pro{
       border: none;
       color: #021018;
@@ -224,13 +213,8 @@
       opacity: 1;
     }
 
-    .btn.starter{
-      background: rgba(0,0,0,.18);
-    }
-
-    .btn.ghost{
-      background: rgba(0,0,0,.12);
-    }
+    .btn.starter{ background: rgba(0,0,0,.18); }
+    .btn.ghost{ background: rgba(0,0,0,.12); }
 
     .fineprint{
       padding: 0 18px 14px;
@@ -275,7 +259,7 @@
     }
     .icon svg{ width: 14px; height: 14px; }
 
-    /* ===== COMPARISON (NO SLIDER) ===== */
+    /* ===== COMPARISON (CLEAN + RESPONSIVE) ===== */
     .compareCard{
       border-radius: 18px;
       border:1px solid rgba(255,255,255,.14);
@@ -292,47 +276,24 @@
       padding: 12px 12px;
       border-bottom: 1px solid rgba(255,255,255,.12);
     }
-    .compareHeader strong{
-      font-size: 14px;
-      letter-spacing: -0.01em;
-    }
-    .compareHeader span{
-      font-size: 12px;
-      color: rgba(236,246,255,.68);
+    .compareHeader strong{ font-size: 14px; letter-spacing: -0.01em; }
+    .compareHeader span{ font-size: 12px; color: rgba(236,246,255,.68); }
+
+    .compareTable{
+      padding: 12px;
+      display:grid;
+      gap: 10px;
     }
 
-    .compareGrid{
+    .compareHeadRow,
+    .compareRow{
       display:grid;
       grid-template-columns: 1fr 110px 110px;
       gap: 10px;
-      padding: 12px;
+      align-items: stretch;
     }
-/* Mobile: NOT a slider — reflows into clean rows */
-@media (max-width: 520px){
-  .compareGrid{
-    grid-template-columns: 1fr;
-  }
+    .compareHeadRow{ align-items:center; }
 
-  .compareGrid .spacer{ display:none; }
-
-  .compareGrid .planRow{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
-  .compareGrid .featRow{
-    display:grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .compareGrid .statusRow{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-}
     .planPill{
       font-size: 12px;
       padding: 8px 10px;
@@ -366,6 +327,8 @@
       min-height: 48px;
     }
 
+    .statusWrap{ display: contents; }
+
     .statusCell{
       padding: 10px 10px;
       border-radius: 16px;
@@ -380,6 +343,34 @@
       color: rgba(236,246,255,.84);
       min-height: 48px;
       white-space: nowrap;
+      text-align:center;
+    }
+
+    .statusLabel{
+      display:none;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(236,246,255,.60);
+      font-weight: 900;
+    }
+
+    @media (max-width: 520px){
+      .compareHeadRow{ display:none; }
+      .compareRow{ grid-template-columns: 1fr; }
+
+      .statusWrap{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .statusCell{
+        flex-direction: column;
+        gap: 6px;
+        padding: 10px 10px 12px;
+        white-space: normal;
+      }
+      .statusLabel{ display:block; }
     }
 
     /* ===== LISTS ===== */
@@ -428,10 +419,7 @@
       margin-bottom: 10px;
       text-align:center;
     }
-    .btnRow{
-      display:grid;
-      gap: 10px;
-    }
+    .btnRow{ display:grid; gap: 10px; }
 
     footer{
       padding: 0 18px 18px;
@@ -464,7 +452,6 @@
           <div class="brandKicker">SMART DIGITAL BUSINESS CARDS BY GREG</div>
         </div>
 
-        <!-- 3 lines exactly -->
         <h1 class="headline">
           <span class="line">Smart Digital Business Cards</span>
           <span class="line">That Get More Done</span>
@@ -509,185 +496,215 @@
         After checkout, you’ll be redirected to a quick form to upload your photo/logo and choose colors.
       </div>
 
-      <!-- Comparison: NOT a slider -->
       <section class="section" aria-label="Starter vs Pro">
         <div class="sectionTitle">Starter vs Pro</div>
 
         <div class="compareCard">
           <div class="compareHeader">
             <strong>See exactly what Pro adds</strong>
-            <span>Clear comparison (no scrolling)</span>
+            <span>Clean comparison</span>
           </div>
 
-          <div class="compareGrid">
-            <!-- Desktop header row -->
-            <div class="spacer"></div>
-<div class="planPill">Starter</div>
-<div class="planPill pro">Pro</div>
-
-<div class="planRow">
-  <div class="planPill">Starter</div>
-  <div class="planPill pro">Pro</div>
-</div>
-            <!-- Feature 1 -->
-            <div class="featCell">
-              <div class="icon check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <div>Tap-to-call, text, email, website buttons</div>
-            </div>
-            <div class="statusCell">
-              <div class="icon check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              Included
-            </div>
-            <div class="statusCell">
-              <div class="icon check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              Included
+          <div class="compareTable">
+            <div class="compareHeadRow">
+              <div></div>
+              <div class="planPill">Starter</div>
+              <div class="planPill pro">Pro</div>
             </div>
 
-            <!-- Feature 2 -->
-            <div class="featCell">
-              <div class="icon check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+            <!-- Row 1 -->
+            <div class="compareRow">
+              <div class="featCell">
+                <div class="icon check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div>Tap-to-call, text, email, website buttons</div>
               </div>
-              <div>QR-ready shareable link</div>
-            </div>
-            <div class="statusCell">
-              <div class="icon check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+              <div class="statusWrap">
+                <div class="statusCell">
+                  <span class="statusLabel">Starter</span>
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  Included
+                </div>
+                <div class="statusCell">
+                  <span class="statusLabel">Pro</span>
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  Included
+                </div>
               </div>
-              Included
-            </div>
-            <div class="statusCell">
-              <div class="icon check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              Included
-            </div>
-
-            <!-- Feature 3 -->
-            <div class="featCell">
-              <div class="icon check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <div>Save Contact button (vCard download)</div>
-            </div>
-            <div class="statusCell">
-              <div class="icon x" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/>
-                </svg>
-              </div>
-              Not included
-            </div>
-            <div class="statusCell">
-              <div class="icon check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              Included
             </div>
 
-            <!-- Feature 4 -->
-            <div class="featCell">
-              <div class="icon check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+            <!-- Row 2 -->
+            <div class="compareRow">
+              <div class="featCell">
+                <div class="icon check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div>QR-ready shareable link</div>
               </div>
-              <div>Polished premium layout + spacing</div>
-            </div>
-            <div class="statusCell">
-              <div class="icon x" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/>
-                </svg>
+              <div class="statusWrap">
+                <div class="statusCell">
+                  <span class="statusLabel">Starter</span>
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  Included
+                </div>
+                <div class="statusCell">
+                  <span class="statusLabel">Pro</span>
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  Included
+                </div>
               </div>
-              Not included
-            </div>
-            <div class="statusCell">
-              <div class="icon check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              Included
-            </div>
-
-            <!-- Feature 5 -->
-            <div class="featCell">
-              <div class="icon check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <div>Custom color matching (brand-style)</div>
-            </div>
-            <div class="statusCell">
-              <div class="icon x" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/>
-                </svg>
-              </div>
-              Not included
-            </div>
-            <div class="statusCell">
-              <div class="icon check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              Included
             </div>
 
-            <!-- Feature 6 -->
-            <div class="featCell">
-              <div class="icon check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+            <!-- Row 3 -->
+            <div class="compareRow">
+              <div class="featCell">
+                <div class="icon check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div>Save Contact button (vCard download)</div>
               </div>
-              <div>Extra refinement pass (final polish)</div>
-            </div>
-            <div class="statusCell">
-              <div class="icon x" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/>
-                </svg>
+              <div class="statusWrap">
+                <div class="statusCell">
+                  <span class="statusLabel">Starter</span>
+                  <div class="icon x" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  Not included
+                </div>
+                <div class="statusCell">
+                  <span class="statusLabel">Pro</span>
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  Included
+                </div>
               </div>
-              Not included
             </div>
-            <div class="statusCell">
-              <div class="icon check" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+
+            <!-- Row 4 -->
+            <div class="compareRow">
+              <div class="featCell">
+                <div class="icon check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div>Polished premium layout + spacing</div>
               </div>
-              Included
+              <div class="statusWrap">
+                <div class="statusCell">
+                  <span class="statusLabel">Starter</span>
+                  <div class="icon x" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  Not included
+                </div>
+                <div class="statusCell">
+                  <span class="statusLabel">Pro</span>
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  Included
+                </div>
+              </div>
             </div>
+
+            <!-- Row 5 -->
+            <div class="compareRow">
+              <div class="featCell">
+                <div class="icon check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div>Custom color matching (brand-style)</div>
+              </div>
+              <div class="statusWrap">
+                <div class="statusCell">
+                  <span class="statusLabel">Starter</span>
+                  <div class="icon x" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  Not included
+                </div>
+                <div class="statusCell">
+                  <span class="statusLabel">Pro</span>
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  Included
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 6 -->
+            <div class="compareRow">
+              <div class="featCell">
+                <div class="icon check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div>Extra refinement pass (final polish)</div>
+              </div>
+              <div class="statusWrap">
+                <div class="statusCell">
+                  <span class="statusLabel">Starter</span>
+                  <div class="icon x" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  Not included
+                </div>
+                <div class="statusCell">
+                  <span class="statusLabel">Pro</span>
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  Included
+                </div>
+              </div>
+            </div>
+
           </div>
-
-          <!-- Mobile reflow helper blocks (same data, arranged via CSS) -->
-          <div class="compareGrid" style="display:none;"></div>
         </div>
       </section>
 
@@ -760,7 +777,6 @@
   </div>
 
   <script>
-    // If logo.png exists, show it. If not, keep it hidden (no broken icon).
     (function(){
       const img = document.getElementById('logoImg');
       if(!img) return;
@@ -770,4 +786,3 @@
   </script>
 </body>
 </html>
-```0
