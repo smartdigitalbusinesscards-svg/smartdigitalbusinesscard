@@ -7,49 +7,53 @@
 
   <style>
     :root{
-      --bgA:#04151f;
-      --bgB:#0a2f3f;
+      --bgA:#03141d;
+      --bgB:#093244;
 
-      --glass1: rgba(255,255,255,.085);
-      --glass2: rgba(255,255,255,.055);
-      --border: rgba(255,255,255,.16);
+      /* brighter / punchier accents */
+      --accent:#3ff0ff;   /* neon cyan */
+      --accent2:#48ffb0;  /* neon mint */
+      --glow: rgba(63,240,255,.28);
+      --glow2: rgba(72,255,176,.22);
+
+      --card: rgba(255,255,255,.095);
+      --card2: rgba(255,255,255,.06);
+      --border: rgba(255,255,255,.18);
 
       --text:#ecf6ff;
-      --muted: rgba(236,246,255,.74);
-      --soft: rgba(236,246,255,.58);
+      --muted: rgba(236,246,255,.78);
+      --soft: rgba(236,246,255,.62);
 
-      --accent:#4fe3ff;      /* cyan */
-      --accent2:#63ffb2;     /* mint */
+      --shadow: 0 18px 55px rgba(0,0,0,.55);
+      --shadow2: 0 12px 30px rgba(0,0,0,.45);
       --deep:#021018;
-
-      --shadow: 0 18px 55px rgba(0,0,0,.48);
-      --shadow2: 0 10px 28px rgba(0,0,0,.40);
     }
 
     *{ box-sizing:border-box; }
-    html, body { height: 100%; }
+    html, body { height:100%; }
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
+      color: var(--text);
       background:
-        radial-gradient(900px 520px at 12% 10%, rgba(79,227,255,.18), transparent 58%),
-        radial-gradient(860px 520px at 88% 35%, rgba(99,255,178,.12), transparent 58%),
+        radial-gradient(1000px 560px at 10% 10%, rgba(63,240,255,.22), transparent 60%),
+        radial-gradient(900px 540px at 92% 36%, rgba(72,255,176,.18), transparent 60%),
+        radial-gradient(760px 520px at 50% 95%, rgba(255,255,255,.07), transparent 62%),
         linear-gradient(160deg, var(--bgA), var(--bgB));
       overflow-x:hidden;
     }
 
-    /* soft animated “water” glow */
+    /* moving glow layer */
     .water{
-      position:fixed; inset:-80px;
+      position:fixed; inset:-90px;
       background:
-        radial-gradient(1200px 600px at 18% 18%, rgba(79,227,255,.12), transparent 60%),
-        radial-gradient(900px 520px at 82% 62%, rgba(99,255,178,.10), transparent 60%),
-        radial-gradient(700px 420px at 50% 90%, rgba(255,255,255,.06), transparent 60%);
-      filter: blur(18px);
+        radial-gradient(1200px 620px at 18% 18%, rgba(63,240,255,.16), transparent 60%),
+        radial-gradient(980px 560px at 84% 64%, rgba(72,255,176,.14), transparent 60%),
+        radial-gradient(720px 440px at 52% 92%, rgba(255,255,255,.07), transparent 60%);
+      filter: blur(16px);
       animation: drift 12s ease-in-out infinite alternate;
       pointer-events:none;
-      opacity:.92;
+      opacity:.95;
       z-index:0;
     }
     @keyframes drift{
@@ -62,61 +66,19 @@
       z-index:1;
       max-width: 860px;
       margin: 0 auto;
-      padding: 26px 18px 60px;
+      padding: 26px 18px 64px;
       display:flex;
       justify-content:center;
     }
 
     .card{
       width:100%;
-      background: linear-gradient(180deg, var(--glass1), var(--glass2));
+      background: linear-gradient(180deg, var(--card), var(--card2));
       border:1px solid var(--border);
       border-radius: 26px;
       box-shadow: var(--shadow);
       backdrop-filter: blur(12px);
       overflow:hidden;
-    }
-
-    .top{
-      padding: 22px 22px 16px;
-      text-align:center;
-    }
-
-    .kicker{
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      font-size: 11px;
-      color: rgba(236,246,255,.62);
-      margin: 0 0 10px;
-    }
-
-    /* A) Headline: slightly smaller, tighter, less vertical dominance */
-    .headline{
-      margin: 0 auto 12px;
-      max-width: 22ch;
-      font-weight: 900;
-      font-size: clamp(26px, 5.1vw, 38px);
-      line-height: 1.06; /* tighter */
-      text-wrap: balance;
-    }
-
-    .pills{
-      margin: 12px auto 0;
-      display:flex;
-      gap:10px;
-      justify-content:center;
-      flex-wrap:wrap;
-    }
-
-    .pill{
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.14);
-      color: rgba(236,246,255,.75);
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      line-height: 1;
-      box-shadow: 0 8px 20px rgba(0,0,0,.18) inset;
     }
 
     .divider{
@@ -125,16 +87,65 @@
       margin: 0 22px;
     }
 
-    /* Sell panel */
+    /* ---------- HEADER (less "centered", more designed) ---------- */
+    header.top{
+      padding: 22px 22px 14px;
+    }
+
+    .kicker{
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: rgba(236,246,255,.62);
+      margin: 0 0 10px;
+      text-align:center; /* keep this centered */
+    }
+
+    /* headline block feels more intentional: slightly left-aligned inside a centered layout */
+    .headlineWrap{
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 0 2px;
+    }
+
+    .headline{
+      margin: 0 0 12px;
+      font-weight: 950;
+      font-size: clamp(26px, 5.2vw, 40px);
+      line-height: 1.07;
+      text-wrap: balance;
+      text-align: left; /* key fix: less awkward centered */
+    }
+
+    .pills{
+      margin: 10px auto 0;
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    .pill{
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.16);
+      color: rgba(236,246,255,.78);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      line-height: 1;
+      box-shadow: 0 8px 20px rgba(0,0,0,.20) inset;
+    }
+
+    /* ---------- SELL BOX + CTAs ---------- */
     .sell{
-      padding: 18px 22px 18px;
+      padding: 16px 22px 18px;
       display:grid;
       gap: 12px;
     }
 
     .sellBox{
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.14);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.16);
       border-radius: 18px;
       padding: 16px 16px 14px;
       box-shadow: var(--shadow2);
@@ -142,7 +153,7 @@
 
     .sellTitle{
       margin: 0 0 8px;
-      font-weight: 900;
+      font-weight: 950;
       font-size: 18px;
       line-height: 1.15;
       text-wrap: balance;
@@ -150,7 +161,7 @@
 
     .sellDesc{
       margin: 0;
-      color: rgba(236,246,255,.72);
+      color: rgba(236,246,255,.76);
       font-size: 13.5px;
       line-height: 1.45;
     }
@@ -163,152 +174,76 @@
 
     .btn{
       appearance:none;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.14);
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.15);
       color: var(--text);
       padding: 14px 14px;
       border-radius: 16px;
       text-decoration:none;
-      font-weight: 900;
+      font-weight: 950;
       font-size: 14px;
       text-align:center;
       cursor:pointer;
       transition: transform .12s ease, filter .12s ease, box-shadow .12s ease, border-color .12s ease;
       user-select:none;
     }
-
     .btn:active{ transform: translateY(1px); }
     .btn:hover{
-      border-color: rgba(255,255,255,.22);
-      box-shadow: 0 14px 32px rgba(0,0,0,.30);
-      filter: brightness(1.02);
+      border-color: rgba(255,255,255,.26);
+      box-shadow: 0 14px 34px rgba(0,0,0,.36);
+      filter: brightness(1.04);
     }
 
-    /* B) Starter button = clear hero */
+    /* brighter hero */
     .btn.hero{
-      border: none;
+      border:none;
       color: var(--deep);
-      background: linear-gradient(90deg, rgba(79,227,255,.98), rgba(99,255,178,.90));
+      background: linear-gradient(90deg, rgba(63,240,255,1), rgba(72,255,176,.92));
       box-shadow:
-        0 16px 34px rgba(0,0,0,.38),
-        0 0 0 1px rgba(99,255,178,.25),
-        0 0 36px rgba(79,227,255,.22);
-      position: relative;
+        0 18px 38px rgba(0,0,0,.40),
+        0 0 0 1px rgba(72,255,176,.28),
+        0 0 46px var(--glow);
+      position:relative;
       overflow:hidden;
     }
-
     .btn.hero::after{
       content:"";
       position:absolute;
-      inset:-60px;
+      inset:-70px;
       background:
-        radial-gradient(380px 220px at 25% 35%, rgba(255,255,255,.42), transparent 60%),
-        radial-gradient(300px 220px at 75% 60%, rgba(255,255,255,.18), transparent 62%);
-      opacity:.42;
+        radial-gradient(420px 260px at 25% 35%, rgba(255,255,255,.50), transparent 62%),
+        radial-gradient(320px 240px at 78% 62%, rgba(255,255,255,.22), transparent 64%);
+      opacity:.50;
       filter: blur(10px);
-      transform: translateX(-8px);
+      transform: translateX(-10px);
       pointer-events:none;
     }
-
-    .btn.hero span{
-      position:relative;
-      z-index:1;
-    }
-
-    .btn.sub{
-      font-weight: 850;
-    }
+    .btn.hero span{ position:relative; z-index:1; }
 
     .btn.pro{
-      background: rgba(0,0,0,.10);
-      border-color: rgba(255,255,255,.18);
+      background: rgba(0,0,0,.12);
+      border-color: rgba(255,255,255,.20);
     }
 
     .subnote{
       margin: 0;
       font-size: 11.5px;
-      color: rgba(236,246,255,.55);
+      color: rgba(236,246,255,.60);
       text-align:center;
       line-height: 1.35;
     }
 
-    /* C) Branded checkmarks */
-    .section{
-      padding: 10px 22px 18px;
-      display:grid;
-      gap: 14px;
-    }
-
-    .sectionTitle{
-      margin: 0;
-      font-size: 11px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: rgba(236,246,255,.62);
-    }
-
-    .list{
-      display:grid;
-      gap: 10px;
-    }
-
-    .li{
-      display:flex;
-      gap: 12px;
-      align-items:flex-start;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.12);
-      box-shadow: 0 10px 24px rgba(0,0,0,.18);
-    }
-
-    .check{
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      flex: 0 0 26px;
-      display:grid;
-      place-items:center;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,.45), rgba(79,227,255,.20) 42%, rgba(99,255,178,.18));
-      border: 1px solid rgba(99,255,178,.26);
-      box-shadow:
-        0 0 0 1px rgba(79,227,255,.20),
-        0 0 18px rgba(79,227,255,.18);
-    }
-
-    .check svg{ width: 15px; height: 15px; }
-    .li b{
-      display:block;
-      margin-bottom: 2px;
-      font-size: 13px;
-    }
-    .li span{
-      display:block;
-      color: rgba(236,246,255,.70);
-      font-size: 12.5px;
-      line-height: 1.35;
-    }
-
-    /* D) Sell → then compare (compare collapses by default) */
-    .compare{
-      margin-top: 2px;
-      border-top: 1px solid rgba(255,255,255,.10);
-      padding-top: 16px;
-    }
-
-    .compareCard{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.12);
+    /* ---------- Starter vs Pro (moved under the subnote) ---------- */
+    .compareTop{
+      margin-top: 8px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.14);
       border-radius: 18px;
       overflow:hidden;
-      box-shadow: 0 16px 36px rgba(0,0,0,.24);
+      box-shadow: 0 14px 34px rgba(0,0,0,.26);
     }
 
-    details{
-      border-radius: 18px;
-    }
+    details{ border-radius: 18px; }
     summary{
       list-style:none;
       cursor:pointer;
@@ -327,32 +262,32 @@
       gap: 10px;
       min-width: 0;
     }
+
     .caret{
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       border-radius: 999px;
       display:grid;
       place-items:center;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.12);
-      color: rgba(236,246,255,.78);
-      flex: 0 0 28px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.14);
+      color: rgba(236,246,255,.86);
+      box-shadow: 0 0 20px rgba(63,240,255,.12);
       transition: transform .18s ease;
+      flex: 0 0 30px;
     }
     details[open] .caret{ transform: rotate(90deg); }
 
-    .sumText{
-      min-width: 0;
-    }
+    .sumText{ min-width:0; }
     .sumTitle{
-      font-weight: 900;
+      font-weight: 950;
       margin: 0;
       font-size: 14px;
       line-height: 1.2;
     }
     .sumHint{
       margin: 2px 0 0;
-      color: rgba(236,246,255,.62);
+      color: rgba(236,246,255,.64);
       font-size: 12px;
       line-height: 1.25;
     }
@@ -365,18 +300,18 @@
     }
     .chip{
       font-size: 11px;
-      font-weight: 900;
+      font-weight: 950;
       padding: 7px 10px;
       border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.10);
-      color: rgba(236,246,255,.75);
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.12);
+      color: rgba(236,246,255,.78);
     }
     .chip.starter{
       border:none;
       color: var(--deep);
-      background: linear-gradient(90deg, rgba(79,227,255,.92), rgba(99,255,178,.82));
-      box-shadow: 0 0 22px rgba(79,227,255,.18);
+      background: linear-gradient(90deg, rgba(63,240,255,.96), rgba(72,255,176,.86));
+      box-shadow: 0 0 26px var(--glow);
     }
 
     .cmpBody{
@@ -391,44 +326,98 @@
       align-items:center;
       padding: 12px 12px;
       border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.10);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.12);
     }
     .feat{
-      color: rgba(236,246,255,.78);
+      color: rgba(236,246,255,.80);
       font-size: 12.5px;
       line-height: 1.25;
-      font-weight: 650;
+      font-weight: 700;
     }
     .tag{
       width: 86px;
       text-align:center;
       font-size: 11px;
-      font-weight: 900;
+      font-weight: 950;
       padding: 7px 10px;
       border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.10);
-      color: rgba(236,246,255,.70);
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.12);
+      color: rgba(236,246,255,.72);
     }
     .tag.yes{
       border:none;
       color: var(--deep);
-      background: linear-gradient(90deg, rgba(79,227,255,.88), rgba(99,255,178,.80));
-      box-shadow: 0 0 18px rgba(99,255,178,.14);
+      background: linear-gradient(90deg, rgba(63,240,255,.92), rgba(72,255,176,.84));
+      box-shadow: 0 0 22px var(--glow2);
     }
     .tag.no{
-      border-color: rgba(255,255,255,.12);
-      color: rgba(236,246,255,.55);
+      border-color: rgba(255,255,255,.14);
+      color: rgba(236,246,255,.56);
     }
 
-    /* Perfect for */
-    .grid2{
+    /* ---------- LISTS + “BRANDED” CHECKMARKS (brighter) ---------- */
+    .section{
+      padding: 10px 22px 18px;
       display:grid;
-      gap: 10px;
+      gap: 14px;
     }
 
-    /* Footer */
+    .sectionTitle{
+      margin: 0;
+      font-size: 11px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(236,246,255,.64);
+    }
+
+    .list{ display:grid; gap: 10px; }
+
+    .li{
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.14);
+      box-shadow: 0 12px 28px rgba(0,0,0,.22);
+    }
+
+    /* poppy neon badge */
+    .check{
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      flex: 0 0 28px;
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.60), rgba(63,240,255,.30) 45%, rgba(72,255,176,.26));
+      border: 1px solid rgba(72,255,176,.34);
+      box-shadow:
+        0 0 0 1px rgba(63,240,255,.22),
+        0 0 26px rgba(63,240,255,.26);
+    }
+    .check svg{ width: 16px; height: 16px; }
+    .check path{ stroke: #021018; }
+
+    .li b{
+      display:block;
+      margin-bottom: 2px;
+      font-size: 13px;
+      letter-spacing: .01em;
+    }
+    .li span{
+      display:block;
+      color: rgba(236,246,255,.74);
+      font-size: 12.5px;
+      line-height: 1.35;
+    }
+
+    .grid2{ display:grid; gap: 10px; }
+
     footer{
       padding: 0 22px 20px;
       font-size: 11px;
@@ -438,15 +427,14 @@
       text-align:center;
     }
 
-    /* Mobile tightening */
     @media (max-width: 420px){
-      .top{ padding: 20px 18px 14px; }
-      .sell{ padding: 16px 18px 16px; }
-      .section{ padding: 10px 18px 18px; }
+      header.top{ padding: 20px 18px 12px; }
       .divider{ margin: 0 18px; }
+      .sell{ padding: 14px 18px 16px; }
+      .section{ padding: 10px 18px 18px; }
       footer{ padding: 0 18px 18px; }
-      .headline{ max-width: 18ch; }
-      .chips{ display:none; } /* keep summary clean on tiny screens */
+      .headlineWrap{ max-width: 520px; }
+      .chips{ display:none; }
       .tag{ width: 80px; }
     }
   </style>
@@ -461,9 +449,11 @@
       <header class="top">
         <p class="kicker">SMART-DIGITAL BUSINESS CARDS BY GREG</p>
 
-        <h1 class="headline">
-          Smart-Digital Business Cards That Get More Done — and Actually Get Saved
-        </h1>
+        <div class="headlineWrap">
+          <h1 class="headline">
+            Smart-Digital Business Cards That Get More Done — and Actually Get Saved
+          </h1>
+        </div>
 
         <div class="pills" aria-label="Key benefits">
           <span class="pill">iPhone + Android</span>
@@ -485,84 +475,26 @@
         </div>
 
         <div class="ctaStack" aria-label="Purchase and actions">
-          <!-- Starter (hero) -->
           <a class="btn hero" href="https://buy.stripe.com/8x2eVe08q2QD4DWa4l8so00" target="_blank" rel="noopener">
             <span>Starter — $9.99</span>
           </a>
 
-          <!-- Pro (upgrade) -->
           <a class="btn pro" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01" target="_blank" rel="noopener">
             Pro — $14.99
           </a>
 
-          <a class="btn sub" href="demo.html">View Live Demo</a>
+          <a class="btn" href="demo.html">View Live Demo</a>
 
-          <a class="btn sub" href="mailto:Bucknergreg86@gmail.com?subject=Smart-Digital%20Business%20Card%20Question">
+          <a class="btn" href="mailto:Bucknergreg86@gmail.com?subject=Smart-Digital%20Business%20Card%20Question">
             Questions? Email Greg
           </a>
 
           <p class="subnote">
             After checkout, you’ll be redirected to a quick form to upload your photo/logo and choose colors.
           </p>
-        </div>
-      </section>
 
-      <section class="section" aria-label="What you get">
-        <h3 class="sectionTitle">What You Get</h3>
-
-        <div class="list">
-          <div class="li">
-            <div class="check" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke="#021018" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div>
-              <b>Tap-to-call, tap-to-text, email + website buttons</b>
-              <span>One-tap actions so people actually use your info.</span>
-            </div>
-          </div>
-
-          <div class="li">
-            <div class="check" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke="#021018" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div>
-              <b>Shareable link + QR-ready</b>
-              <span>Text it, DM it, add to your email signature, print a QR — done.</span>
-            </div>
-          </div>
-
-          <div class="li">
-            <div class="check" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke="#021018" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div>
-              <b>Premium mobile layout (clean + fast)</b>
-              <span>Looks sharp on phones — where 99% of people will view it.</span>
-            </div>
-          </div>
-
-          <div class="li">
-            <div class="check" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke="#021018" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div>
-              <b>Built & owned by you (no subscription lock-in)</b>
-              <span>You get your page link — simple, stable, and easy to share.</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- D) Compare comes AFTER selling, and is collapsible -->
-        <div class="compare" aria-label="Plan comparison">
-          <div class="compareCard">
+          <!-- moved EXACTLY where you asked -->
+          <div class="compareTop" aria-label="Starter vs Pro comparison">
             <details>
               <summary>
                 <div class="sumLeft">
@@ -572,7 +504,6 @@
                     <p class="sumHint">Tap to see exactly what Pro adds.</p>
                   </div>
                 </div>
-
                 <div class="chips" aria-hidden="true">
                   <span class="chip starter">Starter</span>
                   <span class="chip">Pro</span>
@@ -619,13 +550,67 @@
             </details>
           </div>
         </div>
+      </section>
 
-        <h3 class="sectionTitle" style="margin-top: 6px;">Perfect For</h3>
+      <section class="section" aria-label="What you get">
+        <h3 class="sectionTitle">What You Get</h3>
+
+        <div class="list">
+          <div class="li">
+            <div class="check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <b>Tap-to-call, tap-to-text, email + website buttons</b>
+              <span>One-tap actions so people actually use your info.</span>
+            </div>
+          </div>
+
+          <div class="li">
+            <div class="check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <b>Shareable link + QR-ready</b>
+              <span>Text it, DM it, add to your email signature, print a QR — done.</span>
+            </div>
+          </div>
+
+          <div class="li">
+            <div class="check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <b>Premium mobile layout (clean + fast)</b>
+              <span>Looks sharp on phones — where 99% of people will view it.</span>
+            </div>
+          </div>
+
+          <div class="li">
+            <div class="check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <b>Built & owned by you (no subscription lock-in)</b>
+              <span>You get your page link — simple, stable, and easy to share.</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="sectionTitle" style="margin-top: 14px;">Perfect For</h3>
         <div class="grid2">
           <div class="li">
             <div class="check" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke="#021018" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <div><b>Realtors & mortgage pros</b><span>Quick share at open houses, showings, and referrals.</span></div>
@@ -634,7 +619,7 @@
           <div class="li">
             <div class="check" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke="#021018" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <div><b>Contractors</b><span>HVAC, plumbing, roofing, electrical, solar, landscaping, and more.</span></div>
@@ -643,7 +628,7 @@
           <div class="li">
             <div class="check" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke="#021018" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <div><b>Sales reps & small business owners</b><span>Stop losing leads to “I’ll save it later.”</span></div>
@@ -652,13 +637,12 @@
           <div class="li">
             <div class="check" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
-                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke="#021018" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.2 12.4l3.2 3.2L17.8 7.8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <div><b>Barbers, trainers, creatives & freelancers</b><span>One link that looks premium and converts.</span></div>
           </div>
         </div>
-
       </section>
 
       <footer>
