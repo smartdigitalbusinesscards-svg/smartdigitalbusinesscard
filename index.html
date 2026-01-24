@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Smart Digital Business Cards by Greg | Tap-to-Save Contact + QR</title>
-  <meta name="description" content="Tap-to-save digital business cards with QR + vCard. Call, text, email, website, and Save Contact in one tap. No apps, no monthly fees." />
+  <title>Smart-Digital Business Cards by Greg | Tap-to-Save Contact + QR</title>
+  <meta name="description" content="Mobile-friendly digital business cards with QR + vCard. One tap to call, text, email, visit your website, and save contact. No apps. No monthly fees." />
 
   <style>
     :root{
@@ -144,11 +144,11 @@
       color:var(--muted);
       line-height:1.5;
       font-size:14px;
-      max-width: 62ch;
+      max-width: 65ch;
     }
 
     .orderNote{
-      margin:10px 0 0 0;
+      margin:12px 0 0 0;
       padding:10px 12px;
       border-radius:14px;
       border:1px solid rgba(255,255,255,.12);
@@ -164,7 +164,7 @@
       gap:12px;
       margin-top:14px;
     }
-    @media (max-width: 420px){
+    @media (max-width: 520px){
       .ctaGrid{ grid-template-columns: 1fr; }
     }
 
@@ -182,14 +182,23 @@
       text-align:center;
       -webkit-tap-highlight-color: transparent;
       user-select:none;
-      transition:transform .12s ease, border-color .12s ease;
+      transition:transform .12s ease, border-color .12s ease, opacity .12s ease;
+      cursor:pointer;
     }
     .btn:hover{ transform:translateY(-1px); border-color: rgba(255,255,255,.22); }
-
+    .btn:active{ transform:translateY(0px); }
     .btn.primary{
       background: linear-gradient(90deg, rgba(79,227,255,.95), rgba(99,255,178,.85));
       color:#021018;
       border:none;
+    }
+    .btn.small{
+      font-size:13px;
+      padding:11px 12px;
+      font-weight:850;
+    }
+    .btn.ghost{
+      background: rgba(0,0,0,.10);
     }
 
     .ripple{
@@ -400,6 +409,13 @@
       gap:10px;
       align-items:center;
     }
+
+    .ctaLabel{
+      font-size:12px;
+      color: rgba(236,246,255,.70);
+      margin-top:10px;
+      line-height:1.35;
+    }
   </style>
 </head>
 
@@ -425,25 +441,29 @@
       <section class="card hero">
         <h2>Stop Handing Out Paper That Gets Tossed — and Start Getting Saved!</h2>
         <p>
-          I Build Clean, Mobile-First Digital Business Cards That Open From A Link Or QR Code —
-          Letting People Call, Text, Email, Or Save Your Contact Instantly With One Tap.
+          I Build Clean, Mobile-Friendly Digital Business Cards That Open From A Link Or QR Code —
+          Letting People Call, Text, Email, Visit Your Website, Or Save Your Contact Instantly With One Tap.
         </p>
 
         <div class="ctaGrid">
           <a class="btn primary"
-             href="https://docs.google.com/forms/d/e/1FAIpQLScjGgKEpcVx545jTtZViM5bQJn6F1eIq7vpUp5I00Gdbmgrfg/viewform"
-             target="_blank" rel="noopener">
-             Request a Card
-          </a>
+             href="https://buy.stripe.com/8x2eVe08q2QD4DWa4l8so00"
+             target="_blank" rel="noopener">Starter — $9.99</a>
 
-          <a class="btn" href="./demo.html">View Live Demo</a>
-          <a class="btn" href="sms:12097694750">Text Greg</a>
-          <a class="btn" href="tel:12097694750">Call Greg</a>
-          <a class="btn" href="mailto:Bucknergreg86@gmail.com">Email Greg</a>
+          <a class="btn"
+             href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01"
+             target="_blank" rel="noopener">Pro — $14.99</a>
+
+          <a class="btn ghost small" href="./demo.html">View Live Demo</a>
+          <a class="btn ghost small" href="mailto:Bucknergreg86@gmail.com">Questions? Email Greg</a>
+        </div>
+
+        <div class="ctaLabel">
+          After checkout, you’ll be redirected to a quick form to upload your photo/logo and choose colors.
         </div>
 
         <div class="orderNote">
-          <strong>How to order:</strong> Tap <em>Request a Card</em>, Fill Out The Quick Form, And I’ll Follow Up To Confirm Details.
+          <strong>Simple process:</strong> Pay → Complete The Form → I Build Your Card → You Get Your Link.
         </div>
       </section>
 
@@ -477,18 +497,18 @@
         <div class="steps">
           <div class="step">
             <div class="num">Step 1</div>
-            <strong>Send your info</strong>
-            <p>Use The Request Form To Submit Your Details And Preferences.</p>
+            <strong>Choose your package</strong>
+            <p>Select Starter Or Pro And Checkout Securely Through Stripe.</p>
           </div>
           <div class="step">
             <div class="num">Step 2</div>
-            <strong>I build your card</strong>
-            <p>Mobile-First Layout With Buttons, Branding, And A Save-Contact (vCard) Feature.</p>
+            <strong>Complete the quick form</strong>
+            <p>Upload Your Photo/Logo, Choose Colors, And Submit Your Info.</p>
           </div>
           <div class="step">
             <div class="num">Step 3</div>
-            <strong>You share one link</strong>
-            <p>Text It, QR It, Add It To Your Email Signature, Socials, Or Signage — Done.</p>
+            <strong>Get your link</strong>
+            <p>I Build Your Card And Send Your Shareable Link — Ready For QR, Text, And Socials.</p>
           </div>
         </div>
       </section>
@@ -502,7 +522,7 @@
             <p>Clean Digital Card With Action Buttons.</p>
             <ul>
               <li>Call / Text / Email / Website</li>
-              <li>Mobile-First Layout</li>
+              <li>Mobile-Friendly Layout</li>
               <li>Shareable Link</li>
             </ul>
           </div>
@@ -525,7 +545,7 @@
             <ul>
               <li>Multi-Rep Cards</li>
               <li>Consistent Layout & Styles</li>
-              <li>Fast Rollout For Teams</li>
+              <li>Email For A Quote</li>
             </ul>
           </div>
         </div>
@@ -541,7 +561,7 @@
 
           <details>
             <summary>Can I use a QR code?</summary>
-            <p>Yep. Your Card Is A Normal Link — You Can Generate A QR Code For It And Use It Anywhere.</p>
+            <p>Yes. Your Card Is A Normal Link — You Can Generate A QR Code For It And Use It Anywhere.</p>
           </details>
 
           <details>
@@ -550,8 +570,8 @@
           </details>
 
           <details>
-            <summary>How do I order?</summary>
-            <p>Tap <strong>Request a Card</strong>, Fill Out The Form, And I’ll Follow Up To Confirm Details.</p>
+            <summary>What happens after I pay?</summary>
+            <p>Stripe Redirects You To A Quick Form To Submit Your Details. Once Submitted, I Build Your Card And Send Your Link.</p>
           </details>
         </div>
       </section>
@@ -559,7 +579,7 @@
 
     <footer>
       <div>© <span id="yr"></span> Smart-Digital Business Cards by Greg</div>
-      <div>Call/Text: (209) 769-4750 • Email: Bucknergreg86@gmail.com</div>
+      <div>Email: Bucknergreg86@gmail.com</div>
     </footer>
   </div>
 
@@ -593,4 +613,4 @@
     });
   </script>
 </body>
-</html>
+</html> 
