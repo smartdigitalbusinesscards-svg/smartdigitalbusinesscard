@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart Digital Business Cards by Greg</title>
+
+  <style>
+    :root {
+      /* MORE GREEN — neon premium */
+      --bgA: #050A18;
+      --bgB: #071E2E;
+
+      /* Glass */
+      --card: rgba(255,255,255,0.075);
+      --card2: rgba(255,255,255,0.045);
+      --border: rgba(57,255,182,0.22); /* green-tinted */
+
+      --text: #ecf6ff;
+      --muted: rgba(236,246,255,0.76);
+
+      /* Accents (green-forward) */
+      --accent: #39ffb6;   /* neon green */
+      --accent2: #34f7ff;  /* neon cyan */
+
+      /* Pro gradient */
+      --proA: #39ffb6;
+      --proB: #34f7ff;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.62);
+      --shadowSoft: 0 14px 36px rgba(0,0,0,.46);
+      --shadowPop: 0 22px 70px rgba(57,255,182,.28);
+
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1100px 620px at 16% 10%, rgba(57,255,182,.24), transparent 60%),
+        radial-gradient(1000px 620px at 86% 38%, rgba(52,247,255,.12), transparent 62%),
+        radial-gradient(900px 520px at 50% 92%, rgba(255,255,255,.06), transparent 65%),
+        linear-gradient(160deg, var(--bgA), var(--bgB));
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .water {
+      position: fixed; inset: -90px;
+      background:
+        radial-gradient(1200px 640px at 20% 18%, rgba(57,255,182,.16), transparent 62%),
+        radial-gradient(1000px 560px at 82% 62%, rgba(52,247,255,.10), transparent 62%),
+        radial-gradient(820px 480px at 50% 90%, rgba(255,255,255,.06), transparent 66%);
+      filter: blur(18px);
+      animation: drift 12s ease-in-out infinite alternate;
+      pointer-events: none;
+      opacity: .98;
+    }
+    @keyframes drift {
+      from { transform: translate3d(-12px,-10px,0) scale(1.03); }
+      to { transform: translate3d(14px,12px,0) scale(1.07); }
+    }
+
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 22px 16px 60px;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .card {
+      width: 100%;
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 18px 18px 10px;
+      position: relative;
+    }
+
+    .brandRow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .logo {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      display: none; /* show only if it loads */
+      box-shadow: 0 14px 36px rgba(0,0,0,.46);
+      border: 1px solid rgba(57,255,182,.34);
+      background: rgba(0,0,0,.18);
+      object-fit: cover;
+      flex: 0 0 auto;
+    }
+    .logo.show { display: block; }
+
+    .brandKicker {
+      text-transform: uppercase;
+      letter-spacing: .22em;
+      font-size: 11px;
+      color: rgba(236,246,255,.66);
+      line-height: 1.2;
+    }
+
+    .headline {
+      margin: 12px 0 10px;
+      font-weight: 930;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      font-size: clamp(30px, 4.9vw, 46px);
+      text-align: left;
+      text-wrap: balance;
+      max-width: 22ch;
+    }
+    .headline .line { display: block; }
+    .headline .line:last-child { margin-top: 2px; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-start;
+      margin: 12px 0 6px;
+    }
+    .chip {
+      border: 1px solid rgba(57,255,182,.18);
+      background: rgba(0,0,0,.16);
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: rgba(236,246,255,.82);
+      white-space: nowrap;
+      box-shadow: 0 10px 24px rgba(0,0,0,.24);
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(57,255,182,.16);
+      margin: 12px 18px 0;
+    }
+
+    /* ===== PITCH BOX ===== */
+    .pitch {
+      margin: 14px 18px 0;
+      padding: 16px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(57,255,182,.16);
+      background: rgba(0,0,0,.14);
+      box-shadow: var(--shadowSoft);
+    }
+    .pitch h2 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+    .pitch p {
+      margin: 0;
+      color: rgba(236,246,255,.78);
+      line-height: 1.45;
+      font-size: 13.6px;
+    }
+
+    /* ===== CTA STACK ===== */
+    .cta {
+      padding: 16px 18px 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .btn {
+      border: 1px solid rgba(57,255,182,.16);
+      background: rgba(0,0,0,.16);
+      color: var(--text);
+      padding: 15px 16px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 870;
+      font-size: 14.5px;
+      text-align: center;
+      cursor: pointer;
+      transition: all .15s ease;
+      user-select: none;
+      position: relative;
+    }
+    .btn:hover { filter: brightness(1.04); transform: translateY(-1px); }
+    .btn:active { transform: scale(.98); }
+
+    /* Most popular — Pro */
+    .btn.popular {
+      border: none;
+      color: #021018;
+      background: linear-gradient(90deg, rgba(57,255,182,.98), rgba(52,247,255,.92));
+      box-shadow: var(--shadowPop), 0 0 0 1px rgba(255,255,255,.12) inset;
+      transform: scale(1.04);
+      z-index: 2;
+    }
+    .btn.popular:hover { transform: scale(1.06); }
+    .btn.popular .badge {
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,.18);
+      color: #021018;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.3);
+      white-space: nowrap;
+      backdrop-filter: blur(6px);
+    }
+
+    .btn.starter, .btn.elite {
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(57,255,182,.20);
+      box-shadow: 0 10px 20px rgba(57,255,182,.08), 0 0 0 1px rgba(255,255,255,.06) inset;
+    }
+
+    .btn.ghost {
+      background: rgba(0,0,0,.12);
+      border: 1px solid rgba(57,255,182,.14);
+    }
+
+    .fineprint {
+      padding: 0 18px 14px;
+      color: rgba(236,246,255,.62);
+      font-size: 11.6px;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      padding: 10px 18px 0;
+    }
+
+    .sectionTitle {
+      margin: 20px 0 10px;
+      font-size: 11.5px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(236,246,255,.60);
+    }
+
+    /* ===== ICONS ===== */
+    .icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: inline-grid;
+      place-items: center;
+      box-shadow: 0 12px 24px rgba(0,0,0,.28);
+      border: 1px solid rgba(57,255,182,.18);
+      vertical-align: middle;
+    }
+    .icon.check {
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,.22), transparent 46%),
+        linear-gradient(140deg, rgba(57,255,182,.96), rgba(52,247,255,.86));
+    }
+    .icon.x {
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,.20), transparent 46%),
+        linear-gradient(140deg, rgba(255,88,88,.82), rgba(255,186,92,.62));
+      border: 1px solid rgba(255,120,120,.22);
+    }
+    .icon svg { width: 14px; height: 14px; }
+
+    /* ===== COMPARISON TABLE ===== */
+    .compareCard {
+      border-radius: 18px;
+      border: 1px solid rgba(57,255,182,.16);
+      background: rgba(0,0,0,.14);
+      overflow: hidden;
+      box-shadow: var(--shadowSoft);
+    }
+
+    .compareHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(57,255,182,.14);
+    }
+    .compareHeader strong { font-size: 15px; }
+    .compareHeader span { font-size: 12px; color: rgba(236,246,255,.68); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid rgba(57,255,182,.14);
+    }
+
+    th {
+      background: rgba(0,0,0,.18);
+      font-size: 13px;
+      font-weight: 850;
+      color: var(--text);
+    }
+
+    th.popular {
+      background: linear-gradient(90deg, rgba(57,255,182,.12), rgba(52,247,255,.08));
+    }
+
+    td.featCell {
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13.5px;
+      color: rgba(236,246,255,.86);
+    }
+
+    td.statusCell {
+      font-size: 12.5px;
+      font-weight: 860;
+      color: rgba(236,246,255,.84);
+    }
+
+    td.statusCell .icon {
+      display: block;
+      margin: 0 auto 4px;
+    }
+
+    tr:hover {
+      background: rgba(57,255,182,.05);
+      transition: background 0.2s;
+    }
+
+    @media (max-width: 680px) {
+      table, thead, tbody, th, td, tr { display: block; }
+      tr { border-bottom: 1px solid rgba(57,255,182,.14); }
+      th { display: none; }
+      td { position: relative; padding-left: 50%; text-align: left; }
+      td:before {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        transform: translateY(-50%);
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        color: var(--muted);
+      }
+      td.featCell:before { content: "Feature"; }
+      td:nth-of-type(2):before { content: "Starter"; }
+      td:nth-of-type(3):before { content: "Pro"; }
+      td:nth-of-type(4):before { content: "Elite"; }
+    }
+
+    /* ===== LISTS ===== */
+    .list {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(57,255,182,.14);
+      background: rgba(0,0,0,.12);
+    }
+
+    .item h4 {
+      margin: 0 0 3px;
+      font-size: 13.6px;
+      letter-spacing: -0.01em;
+    }
+    .item p {
+      margin: 0;
+      font-size: 12.6px;
+      color: rgba(236,246,255,.72);
+      line-height: 1.35;
+    }
+
+    /* ===== ORDER AGAIN ===== */
+    .orderAgain {
+      margin: 20px 18px 24px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(57,255,182,.16);
+      background: rgba(0,0,0,.14);
+      box-shadow: var(--shadowSoft);
+    }
+    .orderAgain .label {
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(236,246,255,.60);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .btnRow {
+      display: grid;
+      gap: 12px;
+    }
+
+    footer {
+      padding: 0 18px 24px;
+      font-size: 11px;
+      color: rgba(236,246,255,.58);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      text-align: center;
+    }
+
+    @media (max-width: 420px) {
+      .wrap { padding: 18px 12px 50px; }
+      .logo { width: 84px; height: 84px; }
+      .headline { font-size: 34px; max-width: 24ch; }
+      .pitch h2 { font-size: 18px; }
+      .btn { padding: 14px 14px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="water"></div>
+
+  <div class="wrap">
+    <main class="card">
+
+      <section class="hero">
+        <div class="brandRow">
+          <img id="logoImg" class="logo" src="logo.png" alt="Smart Digital Business Cards logo" />
+          <div class="brandKicker">SMART DIGITAL BUSINESS CARDS BY GREG</div>
+        </div>
+
+        <h1 class="headline">
+          <span class="line">Smart Digital Business Cards</span>
+          <span class="line">That Get More Done</span>
+          <span class="line">and Actually Get Saved.</span>
+        </h1>
+
+        <div class="chips">
+          <div class="chip">iPhone + Android</div>
+          <div class="chip">No Apps</div>
+          <div class="chip">No Monthly Fees</div>
+          <div class="chip">Fast Turnaround</div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <section class="pitch">
+        <h2>Stop Handing Out Paper That Gets Tossed</h2>
+        <p>
+          Clean, mobile-friendly digital business cards that open from a link or QR code — letting people call, text, email,
+          visit your website, or save your contact instantly.
+        </p>
+      </section>
+
+      <section class="cta">
+        <a class="btn starter" href="https://buy.stripe.com/8x2eVe08q2QD4DWa4l8so00" target="_blank" rel="noopener">
+          Starter — $9.99
+        </a>
+
+        <a class="btn popular" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01" target="_blank" rel="noopener">
+          Pro — $14.99
+          <span class="badge">Most Popular</span>
+        </a>
+
+        <a class="btn elite" href="https://buy.stripe.com/6oU28s08q76Teew4K18so02" target="_blank" rel="noopener">
+          Elite — $19.99
+        </a>
+
+        <a class="btn ghost" href="demo.html">View Live Demo</a>
+        <a class="btn ghost" href="mailto:Bucknergreg86@gmail.com?subject=Digital%20Business%20Card%20Question">
+          Questions? Email Greg
+        </a>
+      </section>
+
+      <div class="fineprint">
+        After checkout, you’ll be redirected to a quick form to upload your photo/logo, choose colors, and provide any custom requests.
+      </div>
+
+      <!-- Comparison: Clear table with corrected Social Media feature -->
+      <section class="section" aria-label="Plan comparison">
+        <div class="sectionTitle">Choose Your Plan</div>
+
+        <div class="compareCard">
+          <div class="compareHeader">
+            <strong>Compare features side-by-side</strong>
+            <span>Clear — no sliders, no scrolling horizontally</span>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th class="featCell"></th>
+                <th>Starter</th>
+                <th class="popular">Pro</th>
+                <th>Elite</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="featCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Tap-to-call, text, email, website buttons
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+              </tr>
+              <tr>
+                <td class="featCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  QR-ready shareable link
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+              </tr>
+              <tr>
+                <td class="featCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Save Contact button (vCard download)
+                </td>
+                <td class="statusCell">
+                  <div class="icon x" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                  </div>
+                  Not included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+              </tr>
+              <tr>
+                <td class="featCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Polished premium layout + spacing
+                </td>
+                <td class="statusCell">
+                  <div class="icon x" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                  </div>
+                  Not included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included + Extra
+                </td>
+              </tr>
+              <tr>
+                <td class="featCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Custom color matching (brand-style)
+                </td>
+                <td class="statusCell">
+                  <div class="icon x" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                  </div>
+                  Not included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included + Priority
+                </td>
+              </tr>
+              <tr>
+                <td class="featCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Extra refinement pass (final polish)
+                </td>
+                <td class="statusCell">
+                  <div class="icon x" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                  </div>
+                  Not included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Priority + 48h delivery
+                </td>
+              </tr>
+              <tr>
+                <td class="featCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Direct Social Media Buttons
+                </td>
+                <td class="statusCell">
+                  <div class="icon x" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                  </div>
+                  Not included
+                </td>
+                <td class="statusCell">
+                  <div class="icon x" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                  </div>
+                  Not included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included + Custom Icons
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="sectionTitle">What you get with every plan</div>
+        <div class="list">
+          <div class="item">
+            <div class="icon check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h4>Tap-to-call, tap-to-text, email + website buttons</h4>
+              <p>One-tap actions so people actually use your info.</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="icon check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h4>Shareable link + QR-ready</h4>
+              <p>Text it, DM it, add it to your email signature, print a QR — done.</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="icon check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h4>Premium mobile layout (clean + fast)</h4>
+              <p>Looks sharp on phones — where 99% of people will view it.</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="icon check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h4>Built & owned by you (no subscription lock-in)</h4>
+              <p>You get your page link — simple, stable, and easy to share.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="orderAgain">
+        <div class="label">Order now — pick your tier</div>
+        <div class="btnRow">
+          <a class="btn starter" href="https://buy.stripe.com/8x2eVe08q2QD4DWa4l8so00" target="_blank" rel="noopener">Starter — $9.99</a>
+          <a class="btn popular" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01" target="_blank" rel="noopener">Pro — $14.99<span class="badge">Most Popular</span></a>
+          <a class="btn elite" href="https://buy.stripe.com/6oU28s08q76Teew4K18so02" target="_blank" rel="noopener">Elite — $19.99</a>
+        </div>
+      </section>
+
+      <footer>
+        Digital Business Cards • Built by Smart Digital Business Cards by Greg
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    // Show logo only if it loads successfully
+    (function(){
+      const img = document.getElementById('logoImg');
+      if (!img) return;
+      img.addEventListener('load', () => img.classList.add('show'));
+      img.addEventListener('error', () => img.classList.remove('show'));
+    })();
+  </script>
+</body>
+</html>
