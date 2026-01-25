@@ -314,7 +314,6 @@
 
     th, td {
       padding: 12px;
-      text-align: center;
       border-bottom: 1px solid rgba(57,255,182,.14);
     }
 
@@ -323,6 +322,7 @@
       font-size: 13px;
       font-weight: 850;
       color: var(--text);
+      text-align: center;
     }
 
     th.popular {
@@ -331,22 +331,24 @@
 
     td.featCell {
       text-align: left;
-      display: flex;
-      align-items: center;
-      gap: 10px;
       font-size: 13.5px;
       color: rgba(236,246,255,.86);
+      padding-left: 24px;
+      font-weight: 500;
     }
 
     td.statusCell {
+      text-align: left;               /* Changed to left alignment */
       font-size: 12.5px;
       font-weight: 860;
       color: rgba(236,246,255,.84);
+      padding-left: 20px;             /* Indent for clean left start */
     }
 
     td.statusCell .icon {
-      display: block;
-      margin: 0 auto 4px;
+      display: inline-grid;
+      margin: 0 10px 0 0;             /* Space between icon and text */
+      vertical-align: middle;
     }
 
     tr:hover {
@@ -358,7 +360,7 @@
       table, thead, tbody, th, td, tr { display: block; }
       tr { border-bottom: 1px solid rgba(57,255,182,.14); }
       th { display: none; }
-      td { position: relative; padding-left: 50%; text-align: left; }
+      td { position: relative; padding-left: 50%; text-align: left; padding: 16px 12px; }
       td:before {
         position: absolute;
         top: 50%;
@@ -374,6 +376,7 @@
       td:nth-of-type(2):before { content: "Starter"; }
       td:nth-of-type(3):before { content: "Pro"; }
       td:nth-of-type(4):before { content: "Elite"; }
+      td.featCell, td.statusCell { padding-left: 16px; text-align: left; }
     }
 
     /* ===== LISTS ===== */
@@ -506,7 +509,7 @@
         After checkout, you’ll be redirected to a quick form to upload your photo/logo, choose colors, and provide any custom requests.
       </div>
 
-      <!-- Comparison: Clear table with corrected Social Media feature -->
+      <!-- Comparison: Fixed version – no icons in features, left-aligned status cells -->
       <section class="section" aria-label="Plan comparison">
         <div class="sectionTitle">Choose Your Plan</div>
 
@@ -527,12 +530,7 @@
             </thead>
             <tbody>
               <tr>
-                <td class="featCell">
-                  <div class="icon check" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </div>
-                  Tap-to-call, text, email, website buttons
-                </td>
+                <td class="featCell">Tap-to-call, text, email, website buttons</td>
                 <td class="statusCell">
                   <div class="icon check" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -553,12 +551,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="featCell">
-                  <div class="icon check" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </div>
-                  QR-ready shareable link
-                </td>
+                <td class="featCell">QR-ready shareable link</td>
                 <td class="statusCell">
                   <div class="icon check" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -579,12 +572,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="featCell">
-                  <div class="icon check" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </div>
-                  Save Contact button (vCard download)
-                </td>
+                <td class="featCell">Save Contact button (vCard download)</td>
                 <td class="statusCell">
                   <div class="icon x" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
@@ -605,12 +593,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="featCell">
-                  <div class="icon check" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </div>
-                  Polished premium layout + spacing
-                </td>
+                <td class="featCell">Polished premium layout + spacing</td>
                 <td class="statusCell">
                   <div class="icon x" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
@@ -631,12 +614,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="featCell">
-                  <div class="icon check" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </div>
-                  Custom color matching (brand-style)
-                </td>
+                <td class="featCell">Custom color matching (brand-style)</td>
                 <td class="statusCell">
                   <div class="icon x" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
@@ -657,12 +635,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="featCell">
-                  <div class="icon check" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </div>
-                  Extra refinement pass (final polish)
-                </td>
+                <td class="featCell">Extra refinement pass (final polish)</td>
                 <td class="statusCell">
                   <div class="icon x" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
@@ -683,12 +656,7 @@
                 </td>
               </tr>
               <tr>
-                <td class="featCell">
-                  <div class="icon check" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  </div>
-                  Direct Social Media Buttons
-                </td>
+                <td class="featCell">Direct Social Media Buttons</td>
                 <td class="statusCell">
                   <div class="icon x" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
