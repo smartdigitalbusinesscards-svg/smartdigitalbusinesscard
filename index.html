@@ -242,6 +242,7 @@
       box-shadow: 0 12px 24px rgba(0,0,0,.28);
       border: 1px solid rgba(57,255,182,.18);
       vertical-align: middle;
+      flex: 0 0 auto;
     }
     .icon.check {
       background:
@@ -322,59 +323,78 @@
       transition: background 0.2s;
     }
 
+    /* ============================
+       MOBILE COMPARE TABLE FIX
+       ============================ */
     @media (max-width: 680px) {
       table, thead, tbody, th, td, tr { display: block; }
+
+      /* hide desktop header row */
+      th { display: none; }
+
+      /* each <tr> becomes a card-like block */
       tr {
         border-bottom: 1px solid rgba(57,255,182,.14);
-        margin-bottom: 16px;
-        padding: 8px 0;
+        margin-bottom: 14px;
+        padding: 0;
+        background: rgba(0,0,0,.06);
       }
-      th { display: none; }
+
+      /* base td styles (used mainly by status cells) */
       td {
         position: relative;
         padding: 16px 16px 16px 52%;
         text-align: left;
-        min-height: 60px;
         border-bottom: none;
         word-break: break-word;
         overflow-wrap: break-word;
         hyphens: auto;
         line-height: 1.45;
+        min-height: 58px;
       }
-      td:before {
+
+      /* IMPORTANT FIX:
+         Only show the left-side "label" for status cells (Starter/Pro/Elite),
+         NOT for the feature/title cells (which were overlaying and looking fucked up). */
+      td.statusCell::before {
         position: absolute;
         top: 16px;
         left: 16px;
         width: 45%;
         padding-right: 12px;
         white-space: normal;
-        font-weight: bold;
+        font-weight: 900;
         color: var(--muted);
         content: attr(data-label);
         text-align: left;
         font-size: 13px;
-        line-height: 1.4;
+        line-height: 1.35;
       }
-      td:after {
-        content: "\A";
-        white-space: pre;
-        display: block;
-        height: 4px;
-      }
+
+      /* make the feature row a clean full-width header */
       td.featCell {
-        padding: 16px;
+        padding: 14px 16px !important;
+        min-height: unset;
         font-size: 14px;
-        padding-top: 12px;
-        padding-bottom: 12px;
+        font-weight: 900;
+        letter-spacing: -0.01em;
+        border-bottom: 1px solid rgba(57,255,182,.14);
       }
+
+      /* explicitly prevent any accidental label injection on feature cell */
+      td.featCell::before { content: none !important; display: none !important; }
+
+      /* align icon + text nicely */
       td.statusCell {
-        padding-left: 52%;
-        padding-top: 12px;
-        padding-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px 12px 52% !important;
+        min-height: 54px;
       }
       td.statusCell .icon {
-        margin: 0 8px 4px 0;
-        display: inline-block;
+        margin: 0;
+        display: inline-grid;
       }
     }
 
@@ -534,6 +554,7 @@
                   Included
                 </td>
               </tr>
+
               <tr>
                 <td class="featCell" data-label="Feature">QR-ready shareable link</td>
                 <td class="statusCell" data-label="Starter">
@@ -555,6 +576,7 @@
                   Included
                 </td>
               </tr>
+
               <tr>
                 <td class="featCell" data-label="Feature">Save Contact button (vCard download)</td>
                 <td class="statusCell" data-label="Starter">
@@ -576,6 +598,7 @@
                   Included
                 </td>
               </tr>
+
               <tr>
                 <td class="featCell" data-label="Feature">Polished premium layout + spacing</td>
                 <td class="statusCell" data-label="Starter">
@@ -597,6 +620,7 @@
                   Included + Extra
                 </td>
               </tr>
+
               <tr>
                 <td class="featCell" data-label="Feature">Custom color matching (brand-style)</td>
                 <td class="statusCell" data-label="Starter">
@@ -618,6 +642,7 @@
                   Included + Priority
                 </td>
               </tr>
+
               <tr>
                 <td class="featCell" data-label="Feature">Extra refinement pass (final polish)</td>
                 <td class="statusCell" data-label="Starter">
@@ -639,6 +664,7 @@
                   Priority + 48h delivery
                 </td>
               </tr>
+
               <tr>
                 <td class="featCell" data-label="Feature">Direct Social Media Buttons</td>
                 <td class="statusCell" data-label="Starter">
