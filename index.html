@@ -63,7 +63,7 @@
     }
     @keyframes drift {
       from { transform: translate3d(-12px,-10px,0) scale(1.03); }
-      to   { transform: translate3d(14px,12px,0) scale(1.07); }
+      to { transform: translate3d(14px,12px,0) scale(1.07); }
     }
 
     .wrap {
@@ -104,7 +104,7 @@
       width: 78px;
       height: 78px;
       border-radius: 50%;
-      display: none;
+      display: none; /* show only if it loads */
       box-shadow: 0 14px 36px rgba(0,0,0,.46);
       border: 1px solid rgba(57,255,182,.34);
       background: rgba(0,0,0,.18);
@@ -158,7 +158,7 @@
       margin: 12px 18px 0;
     }
 
-    /* ===== PITCH ===== */
+    /* ===== PITCH BOX ===== */
     .pitch {
       margin: 14px 18px 0;
       padding: 16px 16px;
@@ -215,20 +215,20 @@
       z-index: 2;
     }
     .btn.popular:hover { transform: scale(1.06); }
-    .btn.popular::after {
-      content: "Most Popular";
+    .btn.popular .badge {
       position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #39ffb6;
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,.18);
       color: #021018;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 900;
       padding: 4px 12px;
       border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.3);
       white-space: nowrap;
-      box-shadow: 0 4px 12px rgba(57,255,182,.4);
+      backdrop-filter: blur(6px);
     }
 
     .btn.starter, .btn.elite {
@@ -268,11 +268,11 @@
       width: 22px;
       height: 22px;
       border-radius: 999px;
-      display: grid;
+      display: inline-grid;
       place-items: center;
-      flex: 0 0 22px;
       box-shadow: 0 12px 24px rgba(0,0,0,.28);
       border: 1px solid rgba(57,255,182,.18);
+      vertical-align: middle;
     }
     .icon.check {
       background:
@@ -287,7 +287,7 @@
     }
     .icon svg { width: 14px; height: 14px; }
 
-    /* ===== COMPARISON — 3 COLUMNS FIXED ===== */
+    /* ===== COMPARISON TABLE ===== */
     .compareCard {
       border-radius: 18px;
       border: 1px solid rgba(57,255,182,.16);
@@ -307,95 +307,73 @@
     .compareHeader strong { font-size: 15px; }
     .compareHeader span { font-size: 12px; color: rgba(236,246,255,.68); }
 
-    .compareTable {
-      display: grid;
-      gap: 10px;
-      padding: 14px 16px;
+    table {
+      width: 100%;
+      border-collapse: collapse;
     }
 
-    .compareHeadRow,
-    .compareRow {
-      display: grid;
-      grid-template-columns: minmax(140px, 2fr) 1fr 1fr 1fr;
-      gap: 12px;
-      align-items: stretch;
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid rgba(57,255,182,.14);
     }
 
-    .compareHeadRow { align-items: center; }
-
-    .planPill {
+    th {
+      background: rgba(0,0,0,.18);
       font-size: 13px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(57,255,182,.16);
-      background: rgba(0,0,0,.16);
-      color: rgba(236,246,255,.84);
       font-weight: 850;
-      text-align: center;
-    }
-    .planPill.popular {
-      border: none;
-      background: linear-gradient(90deg, rgba(57,255,182,.96), rgba(52,247,255,.90));
-      color: #021018;
-      box-shadow: 0 12px 22px rgba(57,255,182,.16), 0 12px 22px rgba(52,247,255,.10);
-      transform: scale(1.06);
+      color: var(--text);
     }
 
-    .featCell {
-      padding: 12px 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(57,255,182,.14);
-      background: rgba(0,0,0,.12);
-      color: rgba(236,246,255,.86);
-      font-size: 13.5px;
-      line-height: 1.3;
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      min-height: 52px;
+    th.popular {
+      background: linear-gradient(90deg, rgba(57,255,182,.12), rgba(52,247,255,.08));
     }
 
-    .statusCell {
-      padding: 10px;
-      border-radius: 16px;
-      border: 1px solid rgba(57,255,182,.14);
-      background: rgba(0,0,0,.12);
+    td.featCell {
+      text-align: left;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-weight: 860;
+      gap: 10px;
+      font-size: 13.5px;
+      color: rgba(236,246,255,.86);
+    }
+
+    td.statusCell {
       font-size: 12.5px;
+      font-weight: 860;
       color: rgba(236,246,255,.84);
-      min-height: 52px;
-      text-align: center;
     }
 
-    .statusLabel {
-      font-size: 10px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: rgba(236,246,255,.60);
-      font-weight: 900;
+    td.statusCell .icon {
+      display: block;
+      margin: 0 auto 4px;
     }
 
-    /* Mobile: stack everything */
+    tr:hover {
+      background: rgba(57,255,182,.05);
+      transition: background 0.2s;
+    }
+
     @media (max-width: 680px) {
-      .compareHeadRow,
-      .compareRow {
-        grid-template-columns: 1fr;
-        gap: 10px;
+      table, thead, tbody, th, td, tr { display: block; }
+      tr { border-bottom: 1px solid rgba(57,255,182,.14); }
+      th { display: none; }
+      td { position: relative; padding-left: 50%; text-align: left; }
+      td:before {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        transform: translateY(-50%);
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        color: var(--muted);
       }
-
-      .statusCell {
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 10px 14px;
-      }
-
-      .planPill { transform: none; }
-      .btn.popular { transform: scale(1.02); }
+      td.featCell:before { content: "Feature"; }
+      td:nth-of-type(2):before { content: "Starter"; }
+      td:nth-of-type(3):before { content: "Pro"; }
+      td:nth-of-type(4):before { content: "Elite"; }
     }
 
     /* ===== LISTS ===== */
@@ -511,6 +489,7 @@
 
         <a class="btn popular" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01" target="_blank" rel="noopener">
           Pro — $14.99
+          <span class="badge">Most Popular</span>
         </a>
 
         <a class="btn elite" href="https://buy.stripe.com/6oU28s08q76Teew4K18so02" target="_blank" rel="noopener">
@@ -527,7 +506,7 @@
         After checkout, you’ll be redirected to a quick form to upload your photo/logo, choose colors, and provide any custom requests.
       </div>
 
-      <!-- Comparison: 3-column fixed table -->
+      <!-- Comparison: Clear table -->
       <section class="section" aria-label="Plan comparison">
         <div class="sectionTitle">Choose Your Plan</div>
 
@@ -537,90 +516,200 @@
             <span>Clear — no sliders, no scrolling horizontally</span>
           </div>
 
-          <div class="compareTable">
-
-            <div class="compareHeadRow">
-              <div></div>
-              <div class="planPill">Starter</div>
-              <div class="planPill popular">Pro</div>
-              <div class="planPill">Elite</div>
-            </div>
-
-            <div class="compareRow">
-              <div class="featCell">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
-                Tap-to-call, text, email, website buttons
-              </div>
-              <div class="statusCell"><div class="icon check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Included</div>
-              <div class="statusCell"><div class="icon check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Included</div>
-              <div class="statusCell"><div class="icon check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Included</div>
-            </div>
-
-            <div class="compareRow">
-              <div class="featCell">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
-                QR-ready shareable link
-              </div>
-              <div class="statusCell"><div class="icon check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Included</div>
-              <div class="statusCell"><div class="icon check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Included</div>
-              <div class="statusCell"><div class="icon check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Included</div>
-            </div>
-
-            <div class="compareRow">
-              <div class="featCell">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
-                Save Contact button (vCard download)
-              </div>
-              <div class="statusCell"><div class="icon x" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg></div>Not included</div>
-              <div class="statusCell"><div class="icon check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Included</div>
-              <div class="statusCell"><div class="icon check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Included</div>
-            </div>
-
-            <div class="compareRow">
-              <div class="featCell">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
-                Polished premium layout + spacing
-              </div>
-              <div class="statusCell"><div class="icon x" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg></div>Not included</div>
-              <div class="statusCell"><div class="icon check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Included</div>
-              <div class="statusCell"><div class="icon check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Included + Extra</div>
-            </div>
-
-            <div class="compareRow">
-              <div class="featCell">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
-                Custom color matching (brand-style)
-              </div>
-              <div class="statusCell"><div class="icon x" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg></div>Not included</div>
-              <div class="statusCell"><div class="icon check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Included</div>
-              <div class="statusCell"><div class="icon check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Included + Priority</div>
-            </div>
-
-            <div class="compareRow">
-              <div class="featCell">
-                <div class="icon check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
-                Extra refinement pass (final polish)
-              </div>
-              <div class="statusCell"><div class="icon x" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg></div>Not included</div>
-              <div class="statusCell"><div class="icon check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Included</div>
-              <div class="statusCell"><div class="icon check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Priority + 48h delivery</div>
-            </div>
-
-            <!-- Add more rows as needed -->
-
-          </div>
+          <table>
+            <thead>
+              <tr>
+                <th class="featCell"></th>
+                <th>Starter</th>
+                <th class="popular">Pro</th>
+                <th>Elite</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="featCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Tap-to-call, text, email, website buttons
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+              </tr>
+              <tr>
+                <td class="featCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  QR-ready shareable link
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+              </tr>
+              <tr>
+                <td class="featCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Save Contact button (vCard download)
+                </td>
+                <td class="statusCell">
+                  <div class="icon x" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                  </div>
+                  Not included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+              </tr>
+              <tr>
+                <td class="featCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Polished premium layout + spacing
+                </td>
+                <td class="statusCell">
+                  <div class="icon x" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                  </div>
+                  Not included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included + Extra
+                </td>
+              </tr>
+              <tr>
+                <td class="featCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Custom color matching (brand-style)
+                </td>
+                <td class="statusCell">
+                  <div class="icon x" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                  </div>
+                  Not included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included + Priority
+                </td>
+              </tr>
+              <tr>
+                <td class="featCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Extra refinement pass (final polish)
+                </td>
+                <td class="statusCell">
+                  <div class="icon x" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                  </div>
+                  Not included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Priority + 48h delivery
+                </td>
+              </tr>
+              <tr>
+                <td class="featCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Direct Social Media Buttons
+                </td>
+                <td class="statusCell">
+                  <div class="icon x" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                  </div>
+                  Not included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included
+                </td>
+                <td class="statusCell">
+                  <div class="icon check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </div>
+                  Included + Custom Icons
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
@@ -673,7 +762,7 @@
         <div class="label">Order now — pick your tier</div>
         <div class="btnRow">
           <a class="btn starter" href="https://buy.stripe.com/8x2eVe08q2QD4DWa4l8so00" target="_blank" rel="noopener">Starter — $9.99</a>
-          <a class="btn popular" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01" target="_blank" rel="noopener">Pro — $14.99</a>
+          <a class="btn popular" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01" target="_blank" rel="noopener">Pro — $14.99<span class="badge">Most Popular</span></a>
           <a class="btn elite" href="https://buy.stripe.com/6oU28s08q76Teew4K18so02" target="_blank" rel="noopener">Elite — $19.99</a>
         </div>
       </section>
