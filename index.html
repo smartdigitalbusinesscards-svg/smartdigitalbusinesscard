@@ -7,30 +7,20 @@
 
   <style>
     :root {
-      /* MORE GREEN — neon premium */
       --bgA: #050A18;
       --bgB: #071E2E;
-
-      /* Glass */
       --card: rgba(255,255,255,0.075);
       --card2: rgba(255,255,255,0.045);
-      --border: rgba(57,255,182,0.22); /* green-tinted */
-
+      --border: rgba(57,255,182,0.22);
       --text: #ecf6ff;
       --muted: rgba(236,246,255,0.76);
-
-      /* Accents (green-forward) */
-      --accent: #39ffb6;   /* neon green */
-      --accent2: #34f7ff;  /* neon cyan */
-
-      /* Pro gradient */
+      --accent: #39ffb6;
+      --accent2: #34f7ff;
       --proA: #39ffb6;
       --proB: #34f7ff;
-
       --shadow: 0 18px 60px rgba(0,0,0,.62);
       --shadowSoft: 0 14px 36px rgba(0,0,0,.46);
       --shadowPop: 0 22px 70px rgba(57,255,182,.28);
-
       --radius: 22px;
     }
 
@@ -86,11 +76,7 @@
       overflow: hidden;
     }
 
-    /* ===== HERO ===== */
-    .hero {
-      padding: 18px 18px 10px;
-      position: relative;
-    }
+    .hero { padding: 18px 18px 10px; position: relative; }
 
     .brandRow {
       display: flex;
@@ -104,7 +90,7 @@
       width: 78px;
       height: 78px;
       border-radius: 50%;
-      display: none; /* show only if it loads */
+      display: none;
       box-shadow: 0 14px 36px rgba(0,0,0,.46);
       border: 1px solid rgba(57,255,182,.34);
       background: rgba(0,0,0,.18);
@@ -158,7 +144,6 @@
       margin: 12px 18px 0;
     }
 
-    /* ===== PITCH BOX ===== */
     .pitch {
       margin: 14px 18px 0;
       padding: 16px 16px;
@@ -167,20 +152,9 @@
       background: rgba(0,0,0,.14);
       box-shadow: var(--shadowSoft);
     }
-    .pitch h2 {
-      margin: 0 0 8px;
-      font-size: 20px;
-      line-height: 1.15;
-      letter-spacing: -0.01em;
-    }
-    .pitch p {
-      margin: 0;
-      color: rgba(236,246,255,.78);
-      line-height: 1.45;
-      font-size: 13.6px;
-    }
+    .pitch h2 { margin: 0 0 8px; font-size: 20px; line-height: 1.15; letter-spacing: -0.01em; }
+    .pitch p { margin: 0; color: rgba(236,246,255,.78); line-height: 1.45; font-size: 13.6px; }
 
-    /* ===== CTA STACK ===== */
     .cta {
       padding: 16px 18px 14px;
       display: grid;
@@ -205,7 +179,6 @@
     .btn:hover { filter: brightness(1.04); transform: translateY(-1px); }
     .btn:active { transform: scale(.98); }
 
-    /* Most popular — Pro */
     .btn.popular {
       border: none;
       color: #021018;
@@ -250,10 +223,7 @@
       text-align: center;
     }
 
-    /* ===== SECTIONS ===== */
-    .section {
-      padding: 10px 18px 0;
-    }
+    .section { padding: 10px 18px 0; }
 
     .sectionTitle {
       margin: 20px 0 10px;
@@ -263,7 +233,6 @@
       color: rgba(236,246,255,.60);
     }
 
-    /* ===== ICONS ===== */
     .icon {
       width: 22px;
       height: 22px;
@@ -287,7 +256,6 @@
     }
     .icon svg { width: 14px; height: 14px; }
 
-    /* ===== COMPARISON TABLE ===== */
     .compareCard {
       border-radius: 18px;
       border: 1px solid rgba(57,255,182,.16);
@@ -307,10 +275,7 @@
     .compareHeader strong { font-size: 15px; }
     .compareHeader span { font-size: 12px; color: rgba(236,246,255,.68); }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+    table { width: 100%; border-collapse: collapse; }
 
     th, td {
       padding: 12px;
@@ -335,6 +300,7 @@
       color: rgba(236,246,255,.86);
       padding-left: 24px;
       font-weight: 500;
+      line-height: 1.45;
     }
 
     td.statusCell {
@@ -358,48 +324,60 @@
 
     @media (max-width: 680px) {
       table, thead, tbody, th, td, tr { display: block; }
-      tr { 
-        border-bottom: 1px solid rgba(57,255,182,.14); 
+      tr {
+        border-bottom: 1px solid rgba(57,255,182,.14);
         margin-bottom: 16px;
         padding: 8px 0;
       }
       th { display: none; }
-      td { 
-        position: relative; 
-        padding: 16px 16px 16px 50%; 
-        text-align: left; 
-        min-height: 50px;
+      td {
+        position: relative;
+        padding: 16px 16px 16px 52%;
+        text-align: left;
+        min-height: 60px;
         border-bottom: none;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        line-height: 1.45;
       }
       td:before {
         position: absolute;
         top: 16px;
         left: 16px;
-        width: 42%;
+        width: 45%;
         padding-right: 12px;
         white-space: normal;
         font-weight: bold;
         color: var(--muted);
         content: attr(data-label);
         text-align: left;
+        font-size: 13px;
+        line-height: 1.4;
       }
       td:after {
-        content: "\A"; /* forces line break after label */
+        content: "\A";
         white-space: pre;
+        display: block;
+        height: 4px;
       }
-      td.featCell, td.statusCell { 
-        padding-left: 16px; 
-        text-align: left; 
+      td.featCell {
+        padding: 16px;
+        font-size: 14px;
+        padding-top: 12px;
+        padding-bottom: 12px;
       }
       td.statusCell {
-        padding-left: 50%;
+        padding-left: 52%;
+        padding-top: 12px;
+        padding-bottom: 12px;
       }
       td.statusCell .icon {
         margin: 0 8px 4px 0;
+        display: inline-block;
       }
     }
 
-    /* ===== LISTS ===== */
     .list {
       display: grid;
       gap: 10px;
@@ -416,19 +394,9 @@
       background: rgba(0,0,0,.12);
     }
 
-    .item h4 {
-      margin: 0 0 3px;
-      font-size: 13.6px;
-      letter-spacing: -0.01em;
-    }
-    .item p {
-      margin: 0;
-      font-size: 12.6px;
-      color: rgba(236,246,255,.72);
-      line-height: 1.35;
-    }
+    .item h4 { margin: 0 0 3px; font-size: 13.6px; letter-spacing: -0.01em; }
+    .item p { margin: 0; font-size: 12.6px; color: rgba(236,246,255,.72); line-height: 1.35; }
 
-    /* ===== ORDER AGAIN ===== */
     .orderAgain {
       margin: 20px 18px 24px;
       padding: 16px;
@@ -445,10 +413,7 @@
       margin-bottom: 12px;
       text-align: center;
     }
-    .btnRow {
-      display: grid;
-      gap: 12px;
-    }
+    .btnRow { display: grid; gap: 12px; }
 
     footer {
       padding: 0 18px 24px;
@@ -529,7 +494,6 @@
         After checkout, you’ll be redirected to a quick form to upload your photo/logo, choose colors, and provide any custom requests.
       </div>
 
-      <!-- Comparison: Fixed – plain features, left-aligned plans, mobile-friendly stacking -->
       <section class="section" aria-label="Plan comparison">
         <div class="sectionTitle">Choose Your Plan</div>
 
@@ -763,7 +727,6 @@
   </div>
 
   <script>
-    // Show logo only if it loads successfully
     (function(){
       const img = document.getElementById('logoImg');
       if (!img) return;
