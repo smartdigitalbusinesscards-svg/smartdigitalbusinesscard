@@ -332,42 +332,58 @@
       background: rgba(0,0,0,.12);
       border: 1px solid rgba(57,255,182,.14);
     }
+    
 /* ============================
    BROCHURE: PRO BUTTON + BADGE FIXES
    (only affects the #brochures section)
    ============================ */
 
-/* 1) TOP pricing group: shrink ONLY the Pro bubble text + badge */
-#brochures .btn.popular{
+/* TOP pricing group: shrink Pro text slightly + give badge room */
+#brochures .cta .btn.popular{
+  font-size: 13.6px;      /* slightly smaller than others */
+  padding-right: 78px;     /* prevents "Most Popular" overlap */
+  transform: scale(1.02);  /* calmer highlight */
+}
+
+/* keep hover from jumping to the global 1.06 */
+#brochures .cta .btn.popular:hover{
+  transform: scale(1.04);
+}
+
+#brochures .cta .btn.popular .badge{
+  font-size: 10px;
+  padding: 3px 7px;
+  right: 12px;
+  background: rgba(0,0,0,.18);
+  border: 1px solid rgba(255,255,255,.18);
+  color: rgba(236,246,255,.92);
+}
+
+/* BOTTOM pricing group: make all buttons a bit bigger */
+#brochures .orderAgain .btn{
+  padding: 17px 18px;      /* bigger bubbles */
+  border-radius: 18px;
+  font-size: 15.5px;
+}
+
+/* ...but keep bottom Pro text smaller + give badge room */
+#brochures .orderAgain .btn.popular{
   font-size: 14px;
-  padding-right: 48px;
+  padding-right: 78px;
   transform: scale(1.02);
 }
 
-#brochures .btn.popular .badge{
-  font-size: 10px;          /* was 11 */
-  padding: 3px 7px;         /* slightly tighter badge */
-  right: 12px;              /* nudge right a hair */
-}
-
-
-/* 2) BOTTOM pricing group: make all buttons a bit bigger */
-#brochures .orderAgain .btn{
-  padding: 16px 18px;       /* bigger than the top set */
-  border-radius: 18px;
-  font-size: 15px;
-}
-
-/* ...but keep BOTTOM Pro text smaller so it doesn't crowd */
-#brochures .orderAgain .btn.popular{
-  font-size: 14px;
-  padding-right: 52px;      /* badge room */
+#brochures .orderAgain .btn.popular:hover{
+  transform: scale(1.04);
 }
 
 #brochures .orderAgain .btn.popular .badge{
   font-size: 10px;
   padding: 3px 7px;
   right: 12px;
+  background: rgba(0,0,0,.18);
+  border: 1px solid rgba(255,255,255,.18);
+  color: rgba(236,246,255,.92);
 }
     
     .fineprint{
@@ -934,8 +950,7 @@
       <!-- =========================
            MODE: BROCHURES
            ========================= -->
-      <div class="mode brochures" data-title="Smart Digital Brochures by Greg">
-
+      <div class="mode brochures" id="brochures" data-title="Smart Digital Brochures by Greg">
         <section class="hero">
           <div class="brandRow">
             <img class="logo" src="logo.png" alt="Smart Digital logo" />
