@@ -1,0 +1,1302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart Digital Business Cards & Brochures by Greg</title>
+
+  <style>
+    :root {
+      --bgA: #050A18;
+      --bgB: #071E2E;
+      --card: rgba(255,255,255,0.075);
+      --card2: rgba(255,255,255,0.045);
+      --border: rgba(57,255,182,0.22);
+      --text: #ecf6ff;
+      --muted: rgba(236,246,255,0.76);
+      --accent: #39ffb6;
+      --accent2: #34f7ff;
+      --proA: #39ffb6;
+      --proB: #34f7ff;
+      --shadow: 0 18px 60px rgba(0,0,0,.62);
+      --shadowSoft: 0 14px 36px rgba(0,0,0,.46);
+      --shadowPop: 0 22px 70px rgba(57,255,182,.28);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1100px 620px at 16% 10%, rgba(57,255,182,.24), transparent 60%),
+        radial-gradient(1000px 620px at 86% 38%, rgba(52,247,255,.12), transparent 62%),
+        radial-gradient(900px 520px at 50% 92%, rgba(255,255,255,.06), transparent 65%),
+        linear-gradient(160deg, var(--bgA), var(--bgB));
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .water{
+      position: fixed; inset: -90px;
+      background:
+        radial-gradient(1200px 640px at 20% 18%, rgba(57,255,182,.16), transparent 62%),
+        radial-gradient(1000px 560px at 82% 62%, rgba(52,247,255,.10), transparent 62%),
+        radial-gradient(820px 480px at 50% 90%, rgba(255,255,255,.06), transparent 66%);
+      filter: blur(18px);
+      animation: drift 12s ease-in-out infinite alternate;
+      pointer-events: none;
+      opacity: .98;
+    }
+    @keyframes drift {
+      from { transform: translate3d(-12px,-10px,0) scale(1.03); }
+      to { transform: translate3d(14px,12px,0) scale(1.07); }
+    }
+
+    .wrap{
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 22px 16px 60px;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .card{
+      width: 100%;
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+
+    /* ============================
+       TOP BAR + TOGGLE
+       ============================ */
+    .topBar{
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: linear-gradient(180deg, rgba(0,0,0,.38), rgba(0,0,0,.16));
+      border-bottom: 1px solid rgba(57,255,182,.14);
+      backdrop-filter: blur(12px);
+    }
+
+    .toggleWrap{
+      display: inline-flex;
+      border: 1px solid rgba(57,255,182,.18);
+      background: rgba(0,0,0,.18);
+      padding: 6px;
+      border-radius: 999px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.22);
+    }
+
+    .toggleBtn{
+      border: 0;
+      background: transparent;
+      color: rgba(236,246,255,.80);
+      font-weight: 880;
+      font-size: 12px;
+      letter-spacing: .02em;
+      padding: 10px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform .15s ease, filter .15s ease, background .15s ease, color .15s ease;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .toggleBtn:hover{ filter: brightness(1.08); transform: translateY(-1px); }
+    .toggleBtn:active{ transform: scale(.98); }
+    .toggleBtn:focus-visible{
+      outline: 2px solid rgba(52,247,255,.55);
+      outline-offset: 2px;
+    }
+
+    body[data-mode="ecards"] .toggleBtn[data-mode="ecards"],
+    body[data-mode="brochures"] .toggleBtn[data-mode="brochures"]{
+      color: #021018;
+      background: linear-gradient(90deg, rgba(57,255,182,.98), rgba(52,247,255,.92));
+      box-shadow: 0 0 0 1px rgba(255,255,255,.10) inset, 0 16px 40px rgba(57,255,182,.18);
+    }
+
+    .topActions{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .miniLink{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(57,255,182,.14);
+      background: rgba(0,0,0,.12);
+      color: rgba(236,246,255,.82);
+      text-decoration: none;
+      font-weight: 820;
+      font-size: 12px;
+      letter-spacing: .01em;
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .miniLink:hover{ filter: brightness(1.08); transform: translateY(-1px); }
+    .miniLink:active{ transform: scale(.98); }
+    .miniLink:focus-visible{
+      outline: 2px solid rgba(52,247,255,.55);
+      outline-offset: 2px;
+    }
+
+    /* ============================
+       HERO + CONTENT
+       ============================ */
+    .hero{ padding: 14px 18px 10px; position: relative; }
+
+    .brandRow{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .logo{
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      display: none;
+      box-shadow: 0 14px 36px rgba(0,0,0,.46);
+      border: 1px solid rgba(57,255,182,.34);
+      background: rgba(0,0,0,.18);
+      object-fit: cover;
+      flex: 0 0 auto;
+    }
+    .logo.show{ display: block; }
+
+    .brandKicker{
+      text-transform: uppercase;
+      letter-spacing: .22em;
+      font-size: 11px;
+      color: rgba(236,246,255,.66);
+      line-height: 1.2;
+    }
+
+    .headline{
+      margin: 12px 0 10px;
+      font-weight: 930;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      font-size: clamp(30px, 4.9vw, 46px);
+      text-align: left;
+      text-wrap: balance;
+      max-width: 24ch;
+    }
+    .headline .line{ display:block; }
+    .headline .line:last-child{ margin-top:2px; }
+    .headline .line:first-child{ margin-bottom: 14px; }
+
+    .chips{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-start;
+      margin: 12px 0 6px;
+    }
+    .chip{
+      border: 1px solid rgba(57,255,182,.18);
+      background: rgba(0,0,0,.16);
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: rgba(236,246,255,.82);
+      white-space: nowrap;
+      box-shadow: 0 10px 24px rgba(0,0,0,.24);
+    }
+
+    .divider{
+      height: 1px;
+      background: rgba(57,255,182,.16);
+      margin: 12px 18px 0;
+    }
+
+    .pitch{
+      margin: 14px 18px 0;
+      padding: 16px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(57,255,182,.16);
+      background: rgba(0,0,0,.14);
+      box-shadow: var(--shadowSoft);
+    }
+    .pitch h2{ margin:0 0 8px; font-size:20px; line-height:1.15; letter-spacing:-0.01em; }
+    .pitch p{ margin:0; color:rgba(236,246,255,.78); line-height:1.45; font-size:13.6px; }
+
+    .lifetimeNote{
+      margin: 10px 0 8px;
+      padding: 6px 12px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      color: #8fffe0;
+      background: rgba(79, 255, 200, 0.08);
+      border: 1px solid rgba(79, 255, 200, 0.25);
+      border-radius: 999px;
+      box-shadow: 0 0 12px rgba(79, 255, 200, 0.15);
+    }
+
+    .cta{
+      padding: 16px 18px 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .btn{
+      border: 1px solid rgba(57,255,182,.16);
+      background: rgba(0,0,0,.16);
+      color: var(--text);
+      padding: 15px 16px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 870;
+      font-size: 14.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .15s ease;
+      user-select: none;
+      position: relative;
+    }
+    .btn:hover{ filter: brightness(1.04); transform: translateY(-1px); }
+    .btn:active{ transform: scale(.98); }
+    .btn:focus-visible{
+      outline: 2px solid rgba(52,247,255,.55);
+      outline-offset: 2px;
+    }
+
+    .btn.popular{
+      border: none;
+      color: #021018;
+      background: linear-gradient(90deg, rgba(57,255,182,.98), rgba(52,247,255,.92));
+      box-shadow: var(--shadowPop), 0 0 0 1px rgba(255,255,255,.12) inset;
+      transform: scale(1.04);
+      z-index: 2;
+    }
+    .btn.popular:hover{ transform: scale(1.06); }
+
+    .btn.popular::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      border-radius: 18px;
+      background: radial-gradient(900px 220px at 50% 50%, rgba(255,255,255,.20), transparent 55%);
+      opacity:.35;
+      pointer-events:none;
+      mix-blend-mode: screen;
+    }
+
+    .btn.popular .badge{
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: .95;
+    }
+
+    .btn.starter, .btn.elite{
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(57,255,182,.20);
+      box-shadow: 0 10px 20px rgba(57,255,182,.08), 0 0 0 1px rgba(255,255,255,.06) inset;
+    }
+
+    .btn.ghost{
+      background: rgba(0,0,0,.12);
+      border: 1px solid rgba(57,255,182,.14);
+    }
+
+    .fineprint{
+      padding: 0 18px 14px;
+      color: rgba(236,246,255,.62);
+      font-size: 11.6px;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    .section{ padding: 10px 18px 0; }
+
+    .sectionTitle{
+      margin: 20px 0 10px;
+      font-size: 11.5px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(236,246,255,.60);
+    }
+
+    .icon{
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: inline-grid;
+      place-items: center;
+      box-shadow: 0 12px 24px rgba(0,0,0,.28);
+      border: 1px solid rgba(57,255,182,.18);
+      vertical-align: middle;
+      flex: 0 0 auto;
+    }
+    .icon.check{
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,.22), transparent 46%),
+        linear-gradient(140deg, rgba(57,255,182,.96), rgba(52,247,255,.86));
+    }
+    .icon.x{
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,.20), transparent 46%),
+        linear-gradient(140deg, rgba(255,88,88,.82), rgba(255,186,92,.62));
+      border: 1px solid rgba(255,120,120,.22);
+    }
+    .icon svg{ width: 14px; height: 14px; }
+
+    .compareCard{
+      border-radius: 18px;
+      border: 1px solid rgba(57,255,182,.16);
+      background: rgba(0,0,0,.14);
+      overflow: hidden;
+      box-shadow: var(--shadowSoft);
+    }
+
+    .compareHeader{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(57,255,182,.14);
+    }
+    .compareHeader strong{ font-size: 15px; }
+    .compareHeader span{ font-size: 12px; color: rgba(236,246,255,.68); }
+
+    table{ width: 100%; border-collapse: collapse; }
+    th, td{ padding: 12px; border-bottom: 1px solid rgba(57,255,182,.14); }
+
+    th{
+      background: rgba(0,0,0,.18);
+      font-size: 13px;
+      font-weight: 850;
+      color: var(--text);
+      text-align: center;
+    }
+    th.popular{
+      background: linear-gradient(90deg, rgba(57,255,182,.12), rgba(52,247,255,.08));
+    }
+
+    td.featCell{
+      text-align: left;
+      font-size: 13.5px;
+      color: rgba(236,246,255,.86);
+      padding-left: 24px;
+      font-weight: 500;
+      line-height: 1.45;
+    }
+
+    td.statusCell{
+      text-align: left;
+      font-size: 12.5px;
+      font-weight: 860;
+      color: rgba(236,246,255,.84);
+      padding-left: 20px;
+    }
+    td.statusCell .icon{
+      display: inline-grid;
+      margin: 0 10px 0 0;
+      vertical-align: middle;
+    }
+
+    tr:hover{ background: rgba(57,255,182,.05); transition: background 0.2s; }
+
+    /* ============================
+       MOBILE COMPARE TABLE (no scroll)
+       ============================ */
+    @media (max-width: 680px) {
+      table, thead, tbody, th, td, tr { display: block; }
+      th { display: none; }
+
+      tr{
+        border-bottom: 1px solid rgba(57,255,182,.14);
+        margin-bottom: 14px;
+        padding: 0;
+        background: rgba(0,0,0,.06);
+      }
+
+      td{
+        position: relative;
+        padding: 16px 16px 16px 52%;
+        text-align: left;
+        border-bottom: none;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        line-height: 1.45;
+        min-height: 58px;
+      }
+
+      td.statusCell::before{
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        width: 45%;
+        padding-right: 12px;
+        white-space: normal;
+        font-weight: 900;
+        color: var(--muted);
+        content: attr(data-label);
+        text-align: left;
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      td.featCell{
+        padding: 14px 16px !important;
+        min-height: unset;
+        font-size: 14px;
+        font-weight: 900;
+        letter-spacing: -0.01em;
+        border-bottom: 1px solid rgba(57,255,182,.14);
+      }
+      td.featCell::before { content: none !important; display: none !important; }
+
+      td.statusCell{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px 12px 52% !important;
+        min-height: 54px;
+      }
+      td.statusCell .icon{ margin: 0; display: inline-grid; }
+    }
+
+    .list{
+      display: grid;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .item{
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(57,255,182,.14);
+      background: rgba(0,0,0,.12);
+    }
+    .item h4{ margin: 0 0 3px; font-size: 13.6px; letter-spacing: -0.01em; }
+    .item p{ margin: 0; font-size: 12.6px; color: rgba(236,246,255,.72); line-height: 1.35; }
+
+    .orderAgain{
+      margin: 20px 18px 24px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(57,255,182,.16);
+      background: rgba(0,0,0,.14);
+      box-shadow: var(--shadowSoft);
+    }
+    .orderAgain .label{
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(236,246,255,.60);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .btnRow{ display: grid; gap: 12px; }
+
+    footer{
+      padding: 0 18px 24px;
+      font-size: 11px;
+      color: rgba(236,246,255,.58);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      text-align: center;
+    }
+
+    /* ============================
+       MODE SWITCHING
+       ============================ */
+    .mode { display: none; }
+    body[data-mode="ecards"] .mode.ecards { display: block; }
+    body[data-mode="brochures"] .mode.brochures { display: block; }
+
+    /* Give modes a tiny fade-in for "bells n whistles" */
+    body[data-mode="ecards"] .mode.ecards,
+    body[data-mode="brochures"] .mode.brochures{
+      animation: modeIn .22s ease-out both;
+    }
+    @keyframes modeIn{
+      from{ opacity: 0; transform: translateY(6px); }
+      to{ opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 420px) {
+      .wrap { padding: 18px 12px 50px; }
+      .logo { width: 84px; height: 84px; }
+      .headline { font-size: 34px; max-width: 26ch; }
+      .pitch h2 { font-size: 18px; }
+      .btn { padding: 14px 14px; }
+      .miniLink{ display:none; } /* keep toggle clean on tiny screens */
+    }
+
+    /* Optional: respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .water{ animation: none; }
+      .toggleBtn, .btn, .miniLink{ transition: none; }
+      body[data-mode="ecards"] .mode.ecards,
+      body[data-mode="brochures"] .mode.brochures{ animation: none; }
+    }
+  </style>
+</head>
+
+<body data-mode="ecards">
+  <div class="water"></div>
+
+  <div class="wrap">
+    <main class="card" aria-label="Smart Digital site">
+
+      <!-- TOP LEFT TOGGLE -->
+      <div class="topBar" role="navigation" aria-label="Product switcher">
+        <div class="toggleWrap" role="tablist" aria-label="Switch product view">
+          <button class="toggleBtn" type="button" data-mode="ecards" role="tab" aria-selected="true">
+            🪪 eCards
+          </button>
+          <button class="toggleBtn" type="button" data-mode="brochures" role="tab" aria-selected="false">
+            📄 Brochures
+          </button>
+        </div>
+
+        <div class="topActions">
+          <a class="miniLink" href="#pricing" title="Jump to pricing">⚡ Pricing</a>
+          <a class="miniLink" href="mailto:Bucknergreg86@gmail.com?subject=Smart%20Digital%20Question" title="Email Greg">✉️ Email</a>
+        </div>
+      </div>
+
+      <!-- =========================
+           MODE: ECARDS
+           ========================= -->
+      <div class="mode ecards" data-title="Smart Digital Business Cards by Greg">
+
+        <section class="hero">
+          <div class="brandRow">
+            <img id="logoImg" class="logo" src="logo.png" alt="Smart Digital logo" />
+            <div class="brandKicker" id="brandKicker">SMART DIGITAL BUSINESS CARDS BY GREG</div>
+          </div>
+
+          <h1 class="headline" id="headline">
+            <span class="line">Smart-Digital Business Cards.</span>
+            <span class="line">Turn Every Contact Into</span>
+            <span class="line">a Connection Instead of a Paper Graveyard.</span>
+          </h1>
+
+          <div class="chips" id="chips">
+            <div class="chip">iPhone + Android</div>
+            <div class="chip">Lifetime Link</div>
+            <div class="chip">No Monthly Fees</div>
+            <div class="chip">Fast Turnaround</div>
+          </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="pitch">
+          <h2>Stop Handing Out Paper That Gets Tossed!</h2>
+          <p>
+            Clean, Mobile-Friendly Digital Business Cards That Open From a Link or QR code, So People Can Tap-to Call, Text, Email,
+            Visit Your Website, and Save Your Contact Instantly!
+          </p>
+          <div class="lifetimeNote">
+            ✨ Each Option Below Is A One-Time Purchase For A Lifetime Link!<br>
+            Click “See Smart-Card in Action” to See How Cards Look and Function.
+          </div>
+        </section>
+
+        <section class="cta" id="pricing" aria-label="eCard pricing">
+          <a class="btn starter" href="https://buy.stripe.com/8x2eVe08q2QD4DWa4l8so00" target="_blank" rel="noopener">
+            Starter — $9.99
+          </a>
+
+          <a class="btn popular" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01" target="_blank" rel="noopener">
+            Pro — $14.99
+            <span class="badge">Most Popular</span>
+          </a>
+
+          <a class="btn elite" href="https://buy.stripe.com/6oU28s08q76Teew4K18so02" target="_blank" rel="noopener">
+            Elite — $19.99
+          </a>
+
+          <a class="btn ghost" href="demo.html">See Smart-Card in Action</a>
+          <a class="btn ghost" href="mailto:Bucknergreg86@gmail.com?subject=Digital%20Business%20Card%20Question">
+            Questions? Email Greg
+          </a>
+        </section>
+
+        <div class="fineprint">
+          After checkout, you’ll receive an email with a link to a form to upload your info, photo/logo, choose colors, and provide any custom requests.
+        </div>
+
+        <section class="section" aria-label="eCard plan comparison">
+          <div class="sectionTitle">Choose Your Plan</div>
+
+          <div class="compareCard">
+            <div class="compareHeader">
+              <strong>Compare Features Side-by-Side</strong>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <th class="featCell"></th>
+                  <th>Starter</th>
+                  <th class="popular">Pro</th>
+                  <th>Elite</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="featCell" data-label="Feature">Tap-to-Call, Text, Email, & Website Buttons</td>
+                  <td class="statusCell" data-label="Starter">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                  <td class="statusCell" data-label="Pro">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                  <td class="statusCell" data-label="Elite">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="featCell" data-label="Feature">QR-Ready Shareable Link</td>
+                  <td class="statusCell" data-label="Starter">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                  <td class="statusCell" data-label="Pro">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                  <td class="statusCell" data-label="Elite">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="featCell" data-label="Feature">Save Contact Button (vCard Download)</td>
+                  <td class="statusCell" data-label="Starter">
+                    <div class="icon x" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                    </div>
+                    Not Included
+                  </td>
+                  <td class="statusCell" data-label="Pro">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                  <td class="statusCell" data-label="Elite">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="featCell" data-label="Feature">Polished Premium Layout + Spacing</td>
+                  <td class="statusCell" data-label="Starter">
+                    <div class="icon x" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                    </div>
+                    Not Included
+                  </td>
+                  <td class="statusCell" data-label="Pro">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                  <td class="statusCell" data-label="Elite">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="featCell" data-label="Feature">Custom Color Matching (Brand/Style)</td>
+                  <td class="statusCell" data-label="Starter">
+                    <div class="icon x" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                    </div>
+                    Not Included
+                  </td>
+                  <td class="statusCell" data-label="Pro">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                  <td class="statusCell" data-label="Elite">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="featCell" data-label="Feature">Extra Refinement Pass (Final Polish)</td>
+                  <td class="statusCell" data-label="Starter">
+                    <div class="icon x" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                    </div>
+                    Not Included
+                  </td>
+                  <td class="statusCell" data-label="Pro">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                  <td class="statusCell" data-label="Elite">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Priority
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="featCell" data-label="Feature">Direct Social Media Buttons</td>
+                  <td class="statusCell" data-label="Starter">
+                    <div class="icon x" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                    </div>
+                    Not Included
+                  </td>
+                  <td class="statusCell" data-label="Pro">
+                    <div class="icon x" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                    </div>
+                    Not Included
+                  </td>
+                  <td class="statusCell" data-label="Elite">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included + Custom Icons
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section" aria-label="eCard includes">
+          <div class="sectionTitle">What You Get With Every Plan</div>
+          <div class="list">
+            <div class="item">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <h4>Tap-to-Call, Tap-to-Text, Email + Website Buttons</h4>
+                <p>One-Tap Actions so People Actually Use Your Info.</p>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <h4>Shareable Link + QR-Ready</h4>
+                <p>Text it, DM it, Add it to Your Email Signature, Print a QR — Done.</p>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <h4>Premium Mobile Layout (Clean + Fast)</h4>
+                <p>Looks Sharp on Phones — Where 99% of People Will View It.</p>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <h4>Built & Owned by You (No Subscription Lock-In)</h4>
+                <p>You Get Your Page Link — Simple, Stable, and Easy to Share.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="orderAgain" aria-label="eCard order again">
+          <div class="label">Order Now — Pick Your Tier</div>
+          <div class="btnRow">
+            <a class="btn starter" href="https://buy.stripe.com/8x2eVe08q2QD4DWa4l8so00" target="_blank" rel="noopener">Starter — $9.99</a>
+            <a class="btn popular" href="https://buy.stripe.com/6oUeVe3kC3UHgmEekB8so01" target="_blank" rel="noopener">Pro — $14.99<span class="badge">Most Popular</span></a>
+            <a class="btn elite" href="https://buy.stripe.com/6oU28s08q76Teew4K18so02" target="_blank" rel="noopener">Elite — $19.99</a>
+          </div>
+        </section>
+
+        <footer>
+          Digital Business Cards • Built by Smart Digital Business Cards by Greg
+        </footer>
+      </div>
+
+      <!-- =========================
+           MODE: BROCHURES
+           ========================= -->
+      <div class="mode brochures" data-title="Smart Digital Brochures by Greg">
+
+        <section class="hero">
+          <div class="brandRow">
+            <img class="logo" src="logo.png" alt="Smart Digital logo" />
+            <div class="brandKicker">SMART DIGITAL BROCHURES BY GREG</div>
+          </div>
+
+          <h1 class="headline">
+            <span class="line">Smart-Digital Brochures.</span>
+            <span class="line">A Clean Sales Page That</span>
+            <span class="line">Turns Clicks Into Bookings.</span>
+          </h1>
+
+          <div class="chips">
+            <div class="chip">Mobile-First</div>
+            <div class="chip">Built to Convert</div>
+            <div class="chip">Lifetime Link</div>
+            <div class="chip">QR + Shareable</div>
+          </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="pitch">
+          <h2>Brochure = Persuasion. eCard = Identity.</h2>
+          <p>
+            Digital brochures are designed to sell your offer: benefits, proof, FAQs, and strong call-to-action buttons
+            so people don’t just “check you out”… they book, call, or buy.
+          </p>
+          <div class="lifetimeNote">
+            ✨ Each Option Below Is A One-Time Purchase For A Lifetime Link!<br>
+            Built like a landing page — but made simple to share anywhere.
+          </div>
+        </section>
+
+        <section class="cta" id="pricing-brochures" aria-label="Brochure pricing">
+          <!-- Replace these Stripe links when ready -->
+          <a class="btn starter" href="#" data-placeholder="brochure-starter">
+            Starter Brochure — $49
+          </a>
+
+          <a class="btn popular" href="#" data-placeholder="brochure-pro">
+            Pro Brochure — $99
+            <span class="badge">Most Popular</span>
+          </a>
+
+          <a class="btn elite" href="#" data-placeholder="brochure-elite">
+            Elite Brochure — $149
+          </a>
+
+          <a class="btn ghost" href="brochure-demo.html">See Brochure in Action</a>
+          <a class="btn ghost" href="mailto:Bucknergreg86@gmail.com?subject=Digital%20Brochure%20Question">
+            Questions? Email Greg
+          </a>
+        </section>
+
+        <div class="fineprint">
+          After checkout, you’ll receive an email with a link to a form to upload your offer details, photos, branding, and any special requests.
+        </div>
+
+        <section class="section" aria-label="Brochure plan comparison">
+          <div class="sectionTitle">Choose Your Brochure</div>
+
+          <div class="compareCard">
+            <div class="compareHeader">
+              <strong>Compare Features Side-by-Side</strong>
+              <span>(Built for conversions)</span>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <th class="featCell"></th>
+                  <th>Starter</th>
+                  <th class="popular">Pro</th>
+                  <th>Elite</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td class="featCell" data-label="Feature">Hero + Offer Summary + CTA Buttons</td>
+                  <td class="statusCell" data-label="Starter">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                  <td class="statusCell" data-label="Pro">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                  <td class="statusCell" data-label="Elite">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="featCell" data-label="Feature">Benefits / What You Do (Persuasion Section)</td>
+                  <td class="statusCell" data-label="Starter">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Basic
+                  </td>
+                  <td class="statusCell" data-label="Pro">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Strong
+                  </td>
+                  <td class="statusCell" data-label="Elite">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Strong + Expanded
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="featCell" data-label="Feature">Photo/Gallery Section</td>
+                  <td class="statusCell" data-label="Starter">
+                    <div class="icon x" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                    </div>
+                    Not Included
+                  </td>
+                  <td class="statusCell" data-label="Pro">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                  <td class="statusCell" data-label="Elite">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included (More)
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="featCell" data-label="Feature">Testimonials / Proof Section</td>
+                  <td class="statusCell" data-label="Starter">
+                    <div class="icon x" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                    </div>
+                    Not Included
+                  </td>
+                  <td class="statusCell" data-label="Pro">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                  <td class="statusCell" data-label="Elite">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included (More)
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="featCell" data-label="Feature">FAQ / Objection Handling</td>
+                  <td class="statusCell" data-label="Starter">
+                    <div class="icon x" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                    </div>
+                    Not Included
+                  </td>
+                  <td class="statusCell" data-label="Pro">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                  <td class="statusCell" data-label="Elite">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included (Expanded)
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="featCell" data-label="Feature">Booking Link Button (Calendly/Google/Etc.)</td>
+                  <td class="statusCell" data-label="Starter">
+                    <div class="icon x" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                    </div>
+                    Not Included
+                  </td>
+                  <td class="statusCell" data-label="Pro">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                  <td class="statusCell" data-label="Elite">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included + Optimized CTA
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="featCell" data-label="Feature">Custom Color/Brand Matching</td>
+                  <td class="statusCell" data-label="Starter">
+                    <div class="icon x" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                    </div>
+                    Not Included
+                  </td>
+                  <td class="statusCell" data-label="Pro">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                  <td class="statusCell" data-label="Elite">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included (Premium)
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="featCell" data-label="Feature">Extra Refinement Pass (Final Polish)</td>
+                  <td class="statusCell" data-label="Starter">
+                    <div class="icon x" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M7 7l10 10M17 7L7 17" stroke="#210606" stroke-width="2.8" stroke-linecap="round"/></svg>
+                    </div>
+                    Not Included
+                  </td>
+                  <td class="statusCell" data-label="Pro">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Included
+                  </td>
+                  <td class="statusCell" data-label="Elite">
+                    <div class="icon check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    Priority
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section" aria-label="Brochure includes">
+          <div class="sectionTitle">What You Get With Every Brochure</div>
+          <div class="list">
+            <div class="item">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <h4>Conversion-Focused Layout</h4>
+                <p>Clear sections that guide a visitor toward a call, booking, or purchase.</p>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <h4>Shareable Link + QR-Ready</h4>
+                <p>Perfect for DMs, text messages, email signatures, and printed QR codes.</p>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <h4>Fast, Mobile-First</h4>
+                <p>Looks sharp on phones — where the majority of your traffic lives.</p>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="icon check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M20 7L10 17l-4-4" stroke="#021018" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <h4>One-Time Purchase, Lifetime Link</h4>
+                <p>No subscriptions. No “platform lock-in.” You own the page link.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="orderAgain" aria-label="Brochure order again">
+          <div class="label">Order Now — Pick Your Brochure Tier</div>
+          <div class="btnRow">
+            <a class="btn starter" href="#" data-placeholder="brochure-starter-2">Starter Brochure — $49</a>
+            <a class="btn popular" href="#" data-placeholder="brochure-pro-2">Pro Brochure — $99<span class="badge">Most Popular</span></a>
+            <a class="btn elite" href="#" data-placeholder="brochure-elite-2">Elite Brochure — $149</a>
+          </div>
+        </section>
+
+        <footer>
+          Digital Brochures • Built by Smart Digital Brochures by Greg
+        </footer>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    (function(){
+      const STORAGE_KEY = "sd_mode";
+      const body = document.body;
+      const toggleBtns = Array.from(document.querySelectorAll(".toggleBtn"));
+
+      // Logo load behavior (keeps your original "show when loaded" vibe)
+      const img = document.getElementById('logoImg');
+      if (img) {
+        img.addEventListener('load', () => img.classList.add('show'));
+        img.addEventListener('error', () => img.classList.remove('show'));
+      }
+
+      function setAria(mode){
+        toggleBtns.forEach(btn => {
+          const isActive = btn.dataset.mode === mode;
+          btn.setAttribute("aria-selected", String(isActive));
+        });
+      }
+
+      function setTitleForMode(mode){
+        const activeModeEl = document.querySelector('.mode.' + mode);
+        const t = activeModeEl?.getAttribute("data-title");
+        if (t) document.title = t;
+      }
+
+      function setMode(mode, opts = { pushHash: true, remember: true }){
+        if (mode !== "ecards" && mode !== "brochures") mode = "ecards";
+
+        body.setAttribute("data-mode", mode);
+        setAria(mode);
+        setTitleForMode(mode);
+
+        if (opts.remember) {
+          try { localStorage.setItem(STORAGE_KEY, mode); } catch(e) {}
+        }
+
+        // Optional hash for shareability
+        if (opts.pushHash) {
+          const hash = mode === "ecards" ? "#ecards" : "#brochures";
+          if (location.hash !== hash) history.replaceState(null, "", hash);
+        }
+      }
+
+      function modeFromHash(){
+        const h = (location.hash || "").toLowerCase();
+        if (h.includes("broch")) return "brochures";
+        if (h.includes("ecard")) return "ecards";
+        return null;
+      }
+
+      function init(){
+        const hashMode = modeFromHash();
+        const saved = (() => { try { return localStorage.getItem(STORAGE_KEY); } catch(e) { return null; } })();
+        const startMode = hashMode || saved || "ecards";
+        setMode(startMode, { pushHash: true, remember: true });
+      }
+
+      toggleBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const mode = btn.dataset.mode;
+          setMode(mode, { pushHash: true, remember: true });
+
+          // Small UX: jump to pricing if they were already looking at pricing section
+          // (does nothing if they’re at top)
+          // Comment out if you don’t want this behavior.
+          // document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+
+      window.addEventListener("hashchange", () => {
+        const m = modeFromHash();
+        if (m) setMode(m, { pushHash: false, remember: true });
+      });
+
+      init();
+    })();
+  </script>
+</body>
+</html>
