@@ -332,7 +332,44 @@
       background: rgba(0,0,0,.12);
       border: 1px solid rgba(57,255,182,.14);
     }
+/* ============================
+   BROCHURE: PRO BUTTON + BADGE FIXES
+   (only affects the #brochures section)
+   ============================ */
 
+/* 1) TOP pricing group: shrink ONLY the Pro bubble text + badge */
+#brochures .btn.popular{
+  font-size: 14px;
+  padding-right: 48px;
+  transform: scale(1.02);
+}
+
+#brochures .btn.popular .badge{
+  font-size: 10px;          /* was 11 */
+  padding: 3px 7px;         /* slightly tighter badge */
+  right: 12px;              /* nudge right a hair */
+}
+
+
+/* 2) BOTTOM pricing group: make all buttons a bit bigger */
+#brochures .orderAgain .btn{
+  padding: 16px 18px;       /* bigger than the top set */
+  border-radius: 18px;
+  font-size: 15px;
+}
+
+/* ...but keep BOTTOM Pro text smaller so it doesn't crowd */
+#brochures .orderAgain .btn.popular{
+  font-size: 14px;
+  padding-right: 52px;      /* badge room */
+}
+
+#brochures .orderAgain .btn.popular .badge{
+  font-size: 10px;
+  padding: 3px 7px;
+  right: 12px;
+}
+    
     .fineprint{
       padding: 0 18px 14px;
       color: rgba(236,246,255,.62);
