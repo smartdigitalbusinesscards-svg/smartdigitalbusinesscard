@@ -1350,5 +1350,43 @@
       init();
     })();
   </script>
+
+<script>
+  // === BROCHURE STRIPE LINKS ONLY (safe: does not touch eCard links) ===
+  (function(){
+    const BROCHURE_STRIPE = {
+      starter: "PASTE_BROCHURE_STARTER_STRIPE_LINK",
+      pro:     "PASTE_BROCHURE_PRO_STRIPE_LINK",
+      elite:   "PASTE_BROCHURE_ELITE_STRIPE_LINK",
+    };
+
+    // helper: set href + target safely
+    function setLink(selector, url){
+      document.querySelectorAll(selector).forEach(a => {
+        if (!a) return;
+        if (!url || url.includes("PASTE_")) {
+          // keep it visibly disabled until you paste real links
+          a.setAttribute("aria-disabled","true");
+          a.style.opacity = "0.45";
+          a.style.pointerEvents = "none";
+          a.removeAttribute("href");
+          return;
+        }
+        a.setAttribute("aria-disabled","false");
+        a.style.opacity = "";
+        a.style.pointerEvents = "";
+        a.href = url;
+        a.target = "_blank";
+        a.rel = "noopener";
+      });
+    }
+
+    // wire BOTH brochure button groups (top + bottom)
+    setLink('[data-placeholder^="brochure-starter"]', BROCHURE_STRIPE.starter);
+    setLink('[data-placeholder^="brochure-pro"]',     BROCHURE_STRIPE.pro);
+    setLink('[data-placeholder^="brochure-elite"]',   BROCHURE_STRIPE.elite);
+  })();
+</script>
+  
 </body>
 </html>
