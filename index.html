@@ -644,7 +644,7 @@
         </div>
 
         <div class="topActions">
-          <a class="miniLink" href="#pricing" title="Jump to pricing">⚡ Pricing</a>
+          <a class="miniLink" id="pricingJump" href="#pricing" title="Jump to pricing">⚡ Pricing</a>
           <a class="miniLink" href="mailto:Bucknergreg86@gmail.com?subject=Smart%20Digital%20Question" title="Email Greg">✉️ Email</a>
         </div>
       </div>
@@ -1286,18 +1286,24 @@
       }
 
       function setAria(mode){
-        toggleBtns.forEach(btn => {
-          const isActive = btn.dataset.mode === mode;
-          btn.setAttribute("aria-selected", String(isActive));
-        });
-      }
+  toggleBtns.forEach(btn => {
+    const isActive = btn.dataset.mode === mode;
+    btn.setAttribute("aria-selected", String(isActive));
+  });
+}
 
-      function setTitleForMode(mode){
-        const activeModeEl = document.querySelector('.mode.' + mode);
-        const t = activeModeEl?.getAttribute("data-title");
-        if (t) document.title = t;
-      }
+function setTitleForMode(mode){
+  const activeModeEl = document.querySelector(".mode." + mode);
+  const t = activeModeEl?.getAttribute("data-title");
+  if (t) document.title = t;
+}
 
+function updatePricingJump(mode){
+  const a = document.getElementById("pricingJump");
+  if (!a) return;
+  a.setAttribute("href", mode === "brochures" ? "#pricing-brochures" : "#pricing");
+}
+      
       function setMode(mode, opts = { pushHash: true, remember: true }){
         if (mode !== "ecards" && mode !== "brochures") mode = "ecards";
 
