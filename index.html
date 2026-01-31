@@ -1310,7 +1310,8 @@ function updatePricingJump(mode){
         body.setAttribute("data-mode", mode);
         setAria(mode);
         setTitleForMode(mode);
-
+        updatePricingJump(mode);
+        
         if (opts.remember) {
           try { localStorage.setItem(STORAGE_KEY, mode); } catch(e) {}
         }
