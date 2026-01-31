@@ -953,7 +953,7 @@
       <div class="mode brochures" id="brochures" data-title="Smart Digital Brochures by Greg">
         <section class="hero">
           <div class="brandRow">
-            <img class="logo" src="logo.png" alt="Smart Digital logo" />
+            <img id="logoImg2" class="logo" src="logo.png" alt="Smart Digital logo" />
             <div class="brandKicker">SMART DIGITAL BROCHURES BY GREG</div>
           </div>
 
@@ -1283,6 +1283,12 @@
       if (img) {
         img.addEventListener('load', () => img.classList.add('show'));
         img.addEventListener('error', () => img.classList.remove('show'));
+      }
+
+      const img2 = document.getElementById('logoImg2');
+      if (img2) {
+        img2.addEventListener('load', () => img2.classList.add('show'));
+        img2.addEventListener('error', () => img2.classList.remove('show'));
       }
 
       function setAria(mode){
