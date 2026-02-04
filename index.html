@@ -1311,7 +1311,7 @@
       function init(){
         const hashMode = modeFromHash();
         const saved = (() => { try { return localStorage.getItem(STORAGE_KEY); } catch(e) { return null; } })();
-        const startMode = hashMode || saved || "ecards";
+        const startMode = hashMode || "ecards";
         setMode(startMode, { pushHash: true, remember: true });
       }
 
